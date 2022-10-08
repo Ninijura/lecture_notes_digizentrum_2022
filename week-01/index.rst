@@ -1,17 +1,16 @@
-.. Lecture Notes for "Einführung ins Programmieren 2022
-   index for week-01
-   author: Kira Kutscher; kira@tailorsoft.de
-   version of 2022-10-08
+.. EinfÃ¼hrung ins Programmieren 2022 documentation master file, created by
+   sphinx-quickstart on Fri Oct  7 20:27:14 2022.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
 
-
-Woche-01
-========
+Einführung ins Programmieren 2022
+=================================
 
 .. toctree::
    :maxdepth: 2
-   :caption: Inhalt:
+   :caption: Contents:
 
-	  index.rst
+    week-01/index.rst
 
 
 
