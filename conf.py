@@ -28,6 +28,8 @@ version = ''
 # The full version, including alpha/beta/rc tags
 release = ''
 
+html_title = 'Einführung ins Programmieren 2022'
+
 
 # -- General configuration ---------------------------------------------------
 
@@ -51,6 +53,9 @@ templates_path = ['_templates']
 #
 # source_suffix = ['.rst', '.md']
 source_suffix = '.rst'
+
+# encoding scheme of the source files
+source_encoding = 'utf-8'
 
 # The master toctree document.
 master_doc = 'index'
