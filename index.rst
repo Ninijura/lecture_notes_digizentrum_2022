@@ -3,12 +3,14 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to EinfÃ¼hrung ins Programmieren 2022's documentation!
-=============================================================
+Einführung ins Programmieren 2022
+=================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+
+	  week01/index.rst
 
 
 
