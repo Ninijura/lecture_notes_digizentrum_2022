@@ -9,6 +9,16 @@
 Eine Wegbeschreibung der kommenden acht Wochen
 ==============================================
 
+Das Ziel dieses Kurses ist es, den Teilnehmern ein grundlegendes Verständnis der
+Zusammenhänge und Strukturen zu vermitteln, die dem Programmieren zugrunde liegen.
+Das erworbene Wissen sollte die Teilnehmer befähigen, die meisten Programmiersprachen
+in kurzer Zeit zu lernen und systematisch anzuwenden.
+
+		   | Sie können hier was lernen
+		   | und das Gelernte dürfen Sie anschließend mit nach Hause nehmen
+		   | und können es bei sich zuhause an die Wand hängen oder so.
+		   | -- `Otto Waalkes <https://www.youtube.com/watch?v=I2ncnehTgN8>`_
+
 * Woche-01: 
  
   * Wie dumm sind computer eigentlich?
