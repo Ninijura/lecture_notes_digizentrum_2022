@@ -26,3 +26,7 @@ Eine Wegbeschreibung der kommenden acht Wochen
   * Ocaml: eine Sprache mit Typen und sowas
   * Wie man den Umgang mit der Gummi-Ente vermeidet: Tests zuerst.
 
+* Woche-04:
+
+  * Noch etwas mehr über Tests
+  * Liebesbriefe und mathematische Beweise
