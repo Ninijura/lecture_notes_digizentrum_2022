@@ -10,5 +10,5 @@ Einführung ins Programmieren
    :maxdepth: 2
 
    week-01/index
-
+   resources/dramatis_personae
 

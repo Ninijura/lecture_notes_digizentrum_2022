@@ -19,6 +19,24 @@ in kurzer Zeit zu lernen und systematisch anzuwenden.
 		   | und können es bei sich zuhause an die Wand hängen oder so.
 		   | -- `Otto Waalkes <https://www.youtube.com/watch?v=I2ncnehTgN8>`_
 
+Neben den Unterrichtsstunden im Digitalzentrum Süderbrarup werden hier jede Woche
+alle wichtigen Infos zu den jeweiligen Themen zusammengefasst. Je nach
+Ambitionsniveau können die Teilnehmer also:
+
+ * ausschließlich am Unterricht im Digitalzentrum teilnehmen;
+ * zusätzlich zum Unterricht dieses Lehrmaterial durcharbeiten; oder
+ * ausschließlich mit dem vorliegenden Lehrmaterial arbeiten.
+
+Die Empfehlung der Dozentin ist selbstverständlich beide Ressourcen voll
+auszunutzen und im Unterricht so viele Fragen zu stellen wie möglich.
+
+
+Zwischenspiel über den Sinn des Lehrmaterials
+---------------------------------------------
+Sigrid
+
+
+
 * Woche-01: 
  
   * Wie dumm sind computer eigentlich?
@@ -40,3 +58,24 @@ in kurzer Zeit zu lernen und systematisch anzuwenden.
 
   * Noch etwas mehr über Tests
   * Liebesbriefe und mathematische Beweise
+
+
+Eine kleine Geschichte der Dankbarkeit
+--------------------------------------
+
+Der Kurs "Einführung ins Programmieren" basiert auf den Lecture Notes des Kurses
+"`Intro to CS
+<https://delimited-continuation.github.io/YSC1212/2022-2023_Sem1/index.html>`_", den
+der wundervolle `Professor Olivier Danvy
+<https://en.wikipedia.org/wiki/Olivier_Danvy>`_ in Singapur unterrichtet. Inhalt
+sowie Form des Lehrmaterials sind mit seiner Erlaubnis und Unterstützung für den
+gegenwärtigen Kurs angepasst und abgewandelt.
+
+Hiermit also noch ein großes Dankeschön an Olivier, der jetzt schon der am häufigsten
+in Danksagungen erwähnte Informatiker ist. 
+
+
+Version
+-------
+
+Erstellt [2022-10-08]
