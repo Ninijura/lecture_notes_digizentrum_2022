@@ -18,15 +18,13 @@ Die Hauptpersonen
 
 Wirkliche Informatiker
 ----------------------
-`Olivier Danvy <https://en.wikipedia.org/wiki/Olivier_Danvy>` (`Danke! <Eine kleine
-Geschichte der Dankbarkeit>`_)
+`Olivier Danvy <https://en.wikipedia.org/wiki/Olivier_Danvy>`_ (`Danke <../week-01/willkommen.html#eine-kleine-geschichte-der-dankbarkeit>`_!)
 
 
   
 Wirkliche Personen außerhalb der Informatik
 -------------------------------------------
-`Otto Waalkes <https://www.youtube.com/watch?v=I2ncnehTgN8>` (`Wegbeschreibung <Eine
-Wegbeschreibung der kommenden acht Wochen>`_)
+`Otto Waalkes <https://www.youtube.com/watch?v=I2ncnehTgN8>`_ (`Wegbeschreibung <../week-01/willkommen.html>`_)
 
 
 
