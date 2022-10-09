@@ -33,26 +33,58 @@ auszunutzen und im Unterricht so viele Fragen zu stellen wie möglich.
 
 Zwischenspiel über den Sinn des Lehrmaterials
 ---------------------------------------------
-Sigrid
+Sigrid [forsch]: Warum sollen wir denn diesen ganzen Text hier lesen, wenn wir
+im Digitalzentrum doch schon alles lernen sollten?
 
+Alfrothul: Gute Frage. Irgendjemand wird sich wohl dabei schon etwas geacht haben. Es
+kann doch nicth sein, dass jemand soviel Text produziert ohne im eine
+Daseinsberechtigung zu geben.
+
+Brynja [systematisch]: Ich habe schon einmal etwas vor geblättert. Es sieht ganz so
+aus, als wäre das Lehrmaterial hier so gedacht, dass es alles Schritt für Schritt
+erklärt, dass man nochmal nachlesen kann, wenn man etwas nicht verstanden (oder schon
+wieder vergessen) hat. Außerdem gibt es hier immer wieder Übungen zwischendurch. Das
+könnte vielleicht auch hilfreich sein.
+
+| Alfrothul:
+| Das klingt doch sinnvoll. 
+| Lasst uns Übungen lösen
+| und noch mehr lernen.
+
+Sigrid: Sag mal, war das gerade ein `Haiku <https://de.wikipedia.org/wiki/Haiku>`_?
+
+Brynja: "Das-klingt-doch-sinn-voll", 5 Silben. "Lasst-uns-Ü-bun-gen-lö-sen", 7
+Silben. "und-noch-mehr-ler-nen", 5 Silben. Stimmt, ein Haiku.
+
+Sigrid: Na dann auf in den Kampf! `Learning by doing
+<https://en.wikipedia.org/wiki/Scout_method#Learning_by_doing>`_ und so!
+
+
+Eine unverbindliche Übersicht über den Inhalt
+---------------------------------------------
+
+Da dies die erste Inkarnation des Workshops "Einführung ins Programmieren" ist, hat
+sich der Wochenplan noch nicht vollends verfestigt. Das Tempo wird sich am Tempo der
+Teilnehmer orientieren, in dem Versuch niemanden auf der Strecke zu lassen oder zu
+unterfordern. Der vorläufige Plan für die kommenden Wochen gestaltet sich wie folgt: 
 
 
 * Woche-01: 
  
   * Wie dumm sind computer eigentlich?
-  * Von binär/bytecode mit Compiler und Interpreter bis OCaml.
-  * Warum Programmieren ist wie Kochen oder Stricken.
+  * Von binär/Bytecode mit Compiler und Interpreter bis OCaml
+  * Warum Programmieren ist wie Kochen oder Stricken
   * Emacs
 
 * Woche-02:
 
-  * Ketten zerschneiden mit Kleene und seinem S-n-m-Theorem.
-  * Grammatiken mit den Herren Backus und Naur.
+  * Ketten zerschneiden mit Kleene und seinem S-n-m-Theorem
+  * Grammatiken mit den Herren Backus und Naur
 
 * Woche-03:
  
   * Ocaml: eine Sprache mit Typen und sowas
-  * Wie man den Umgang mit der Gummi-Ente vermeidet: Tests zuerst.
+  * Wie man den Umgang mit der Gummi-Ente vermeidet: Tests zuerst
 
 * Woche-04:
 
