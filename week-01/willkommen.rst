@@ -36,8 +36,8 @@ Zwischenspiel über den Sinn des Lehrmaterials
 Sigrid [forsch]: Warum sollen wir denn diesen ganzen Text hier lesen, wenn wir
 im Digitalzentrum doch schon alles lernen sollten?
 
-Alfrothul: Gute Frage. Irgendjemand wird sich wohl dabei schon etwas geacht haben. Es
-kann doch nicth sein, dass jemand soviel Text produziert ohne im eine
+Alfrothul: Gute Frage. Irgendjemand wird sich wohl dabei schon etwas geacht haben. Es 
+kann doch nicht sein, dass jemand soviel Text produziert ohne im eine
 Daseinsberechtigung zu geben.
 
 Brynja [systematisch]: Ich habe schon einmal etwas vor geblättert. Es sieht ganz so
