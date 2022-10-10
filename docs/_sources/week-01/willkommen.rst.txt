@@ -14,10 +14,12 @@ Zusammenhänge und Strukturen zu vermitteln, die dem Programmieren zugrunde lieg
 Das erworbene Wissen sollte die Teilnehmer befähigen, die meisten Programmiersprachen
 in kurzer Zeit zu lernen und systematisch anzuwenden.
 
-		   | Sie können hier was lernen
-		   | und das Gelernte dürfen Sie anschließend mit nach Hause nehmen
-		   | und können es bei sich zuhause an die Wand hängen oder so.
-		   | -- `Otto Waalkes <https://www.youtube.com/watch?v=I2ncnehTgN8>`_
+.. epigraph::
+  | *Sie können hier was lernen*
+  | *und das Gelernte dürfen Sie anschließend mit nach Hause nehmen*
+  | *und können es bei sich zuhause an die Wand hängen oder so.*
+
+  -- `Otto Waalkes <https://www.youtube.com/watch?v=I2ncnehTgN8>`_
 
 Neben den Unterrichtsstunden im Digitalzentrum Süderbrarup werden hier jede Woche
 alle wichtigen Infos zu den jeweiligen Themen zusammengefasst. Je nach
@@ -36,8 +38,8 @@ Zwischenspiel über den Sinn des Lehrmaterials
 Sigrid [forsch]: Warum sollen wir denn diesen ganzen Text hier lesen, wenn wir
 im Digitalzentrum doch schon alles lernen sollten?
 
-Alfrothul: Gute Frage. Irgendjemand wird sich wohl dabei schon etwas geacht haben. Es
-kann doch nicth sein, dass jemand soviel Text produziert ohne im eine
+Alfrothul: Gute Frage. Irgendjemand wird sich wohl dabei schon etwas geacht haben. Es 
+kann doch nicht sein, dass jemand soviel Text produziert ohne ihm eine
 Daseinsberechtigung zu geben.
 
 Brynja [systematisch]: Ich habe schon einmal etwas vor geblättert. Es sieht ganz so
