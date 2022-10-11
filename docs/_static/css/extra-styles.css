@@ -1,0 +1,7 @@
+/* Extra file to add some minor tweaks to my Sphinx project */
+
+/* Styling the epigraph-class to make qoutes right-aligned. */
+
+blockquote.epigraph div, blockquote.epigraph p {
+	text-align : right;
+}
