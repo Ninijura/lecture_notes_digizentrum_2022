@@ -9,5 +9,6 @@ Lehrmaterial Woche-01
 .. toctree::
    :maxdepth: 2
 
-   willkommen
+   02-willkommen
+   03-dumme-computer
 

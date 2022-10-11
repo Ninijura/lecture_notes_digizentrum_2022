@@ -43,7 +43,12 @@ html_title = 'Einführung ins Programmieren 2022'
 extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.githubpages',
+    'sphinxcontrib.ditaa',
 ]
+
+ditaa = "java"
+ditaa_args = ["-jar", "/usr/local/bin/ditaa.d/ditaa0_9.jar",]
+ditaa_log_enable = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
