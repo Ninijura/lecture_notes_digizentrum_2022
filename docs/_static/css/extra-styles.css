@@ -5,3 +5,11 @@
 blockquote.epigraph div, blockquote.epigraph p {
 	text-align : right;
 }
+
+blockquote.epigraph div {
+	font-style: italic; 
+}
+
+blockquote.epigraph p {
+	font-style: normal; 
+}
