@@ -73,7 +73,7 @@ unterfordern. Der vorläufige Plan für die kommenden Wochen gestaltet sich wie 
 
 * Woche-01: 
  
-  * Wie dumm sind computer eigentlich?
+  * Wie dumm sind Computer eigentlich?
   * Von binär/Bytecode mit Compiler und Interpreter bis OCaml
   * Warum Programmieren ist wie Kochen oder Stricken
   * Emacs

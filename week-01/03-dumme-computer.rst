@@ -90,6 +90,9 @@ Informationen repräsentieren:
          v
     Information 
 
+(`NB <https://de.wiktionary.org/wiki/notabene>`_: Das Wort "Daten" (englisch "data")
+kommt aus dem Lateinischen und ist eigentlich Plural. Der korrekte Singular ist
+"Datum".)
 
 Im Computer werden Daten von einem *Daten-Konstruktor* erstellt. Die Repräsentation
 der Information kann zwei Eigenschaften haben.
@@ -110,9 +113,6 @@ Ganzzahlen darstellen. Diese Repräsentation ist nicht komplett, da Zahlen, die 
 als -4611686018427387904 oder größer als 4611686018427387903 sind nicht dargestellt
 werden können.
 
-`NB <https://de.wiktionary.org/wiki/notabene>`_: Das Wort "Daten" (englisch "data")
-kommt aus dem Lateinischen und ist eigentlich Plural. Der korrekte Singular ist
-"Datum".
 
 
 Übung 01
@@ -120,7 +120,116 @@ kommt aus dem Lateinischen und ist eigentlich Plural. Der korrekte Singular ist
 Computer benutzen eine binäre Repräsentation von Zahlen (das mit den Nullen und
 Einsen). Benutze Emacs und den :download:`OCaml-Code
 <../exercises/week-01/exercises_for_week-01.ml>` für das gegenwärtige Lehrmaterial um
-herauszufinden, welchen Exponenten von 2 OCaml höchsten repräsentieren kann. 
+die folgenden Aufgaben zu lösen:
+
+a. Welche Potenz von 2 ist die größte, die OCaml korrekt darstellen kann?
+   In anderen Worten: Was ist die größte Zahl, ``x``, so dass OCaml :math:`2^x` korrekt repräsentiert?
+   (Tipp: 4611686018427387904 ist eine Potenz von 2.) 
+
+b. Und was, wenn wir nach dem kleinsten :math:`-(2^x)` suchen? (Achtung! Ihr könnt
+   nicht einfach ``exp -2 n;;`` ausprobieren, da ihr bei geraden exponenten ``n``
+   immer ein positives Ergebnis bekommt. Minus-mal-minus und so...)
+
+
+Ein kurzer Abstecher zu binären Zahlen
+--------------------------------------
+
+Wenn wir im Alltag Zahlen benutzen, dann benutzen wir das Dezimalsystem. Wer ein
+Bisschen Latein kann, der weiß, dass "dezi" 10 bedeutet. Guckt man sich dann unser
+Zahlensystem an, bemerkt man, dass wir 10 unterschiedliche ziffern haben: ``0, 1, 2,
+3, 4, 5, 6, 7, 8, 9``.
+
+Im Binärsystem ist das ähnlich (nur mit Griechisch statt Latein). Das Präfix "bi-"
+bedeutet was mit 2; und ganz richtig das Binärsystem hat zwei unterschiedliche
+Zahlen: ``0, 1``. (Das ist praktisch für Computerchips, deren einzige zwei Zeichen
+``Strom an`` und ``Strom aus`` sind. Deshalb benutzen Computer das Binärsystem.)
+
+.. epigraph::
+
+   | **Brynja:** Fällt euch was auf Leute?
+   | **Sigrid:** Du meinst, dass das Binärsystem gar keine 2 benutzt,
+   | obwohl es das Zweiersystem ist?
+   | **Alfrothul:** Ich glaube, Brynja meint,
+   | dass wir schon wieder von Repräsentationen reden.
+   | **Brynja:** Genau. Wenn wir also 3 meinen, können wir ``3`` schreiben,
+   | oder ``11`` im Binärsystem.
+   | **Sigrid:** Stimmt. Oder ``III`` in römischen Zahlen.
+   | **Alfrothul:** Ja, aber bitte nichts mehr über tote Sprachen heute.
+
+* Wenn wir im Dezimalsystem zählen wollen, fangen wir mit einer Stelle an und zählen
+  von der kleinsten Ziffer zur größten. So kommen wir bis 9.
+
+* Wenn wir weiter zählen wollen, setzen wir eine 1 voran und zählen wieder die
+  hinterste Stelle hoch. Wenn diese bei der größten Zahl, also 9, angekommen ist,
+  zählen wir die Stelle davor eine hoch. So kommen wir bis 99.
+
+* Wenn wir weiter zählen wollen, setzen wir eine 1 voran und... bemerken, dass wir
+  uns irgendwie immer wiederholen. Wir vergrößern die Ziffern von rechts nach links,
+  bis alle Ziffern 9 sind. Dann setzen wir alle Ziffern wieder auf 0 und schreiben
+  eine 1 davor.
+
+Mit diesem Verständnis ist das Zählen im Binärsystem auch nicht mehr kompliziert:
+
+* Wenn wir im Binärsystem zählen wollen, fangen wir mit einer Stelle an und zählen
+  von der kleinsten Ziffer zur größten. So kommen wir bis 1.
+
+* Wenn wir weiter zählen wollen, setzen wir eine 1 voran und zählen wieder die
+  hinterste Stelle hoch. Wenn diese bei der größten Zahl, also 1, angekommen ist,
+  zählen wir die Stelle davor eine hoch. So kommen wir bis 11.
+
+* Wenn wir weiter zählen wollen, setzen wir eine 1 voran und... bemerken, dass wir
+  uns irgendwie immer wiederholen. Wir vergrößern die Ziffern von rechts nach links,
+  bis alle Ziffern 1 sind. Dann setzen wir alle Ziffern wieder auf 0 und schreiben
+  eine 1 davor.
+
+Soviel zum zählen. Aber wie rechnen wir jetzt um?
+
+Dafür brauchen wir Potenzen. (Am Computer schreiben wir :math:`n^x` als ``n^x``.)
+
+* Im Dezimalsystem ist die kleinste positive Zahl eine 1. Das lässt sich auch
+  schreiben als ``10^0``. 
+
+* Die kleinste zweistellige Zahl ist 10, oder auch ``10^1``.
+
+* Die kleinste dreistellige Zahl ist 100, oder auch ``10^2``.
+
+* Die kleinste vierstellige Zahl ist 1000, oder auch ``10^3``.
+
+* usw.
+
+Wenn wir also 1234 schreiben, bedeutet das: ``4*10^0 + 3*10^1 + 2*10^2 +
+1*10^3``, oder leserlicher: ``4*1 + 3*10 + 2*100 + 1*1000``.
+  
+Im Binärsystem geht das genauso, aber mit Potenzen von 2.
+
+* Die kleinste positive Zahl ist eine 1, oder auch ``2^0``.
+
+* Die kleinste zweistellige Zahl ist `10``, oder auch ``2^1`` (dezimal: 2).
+
+* Die kleinste dreistellige Zahl ist ``100``, oder auch ``2^2`` (dezimal: 4).
+ 
+* Die kleinste vierstellige Zahl ist ``1000``, oder auch ``2^3`` (dezimal: 8).
+
+* usw.
+
+Wenn wir also 1010 schreiben, bedeutet das: ``0*2^0 + 1*2^1 + 0*2^2 + 1*2^3``,
+oder leserlicher: ``0*1 + 1*2 + 0*4 + 1*8 = 10``.
+
+
+Übung 1, Fortsetzung
+--------------------
+
+c. Wer aufgepasst hat, hat folgendes bemerkt:
+
+   Die größtmögliche Zahl, ``max_int```, ist ``(2^x)-1``.
+
+   Die kleinstmögliche Zahl, ``min_int``, ist ``-(2^x)``.
+
+   Beide für die gleiche Zahl x. 
+
+   Was bedeutet das in Angesicht des Binärsystems? Hast du eine Idee, warum es genau
+   eine negative Zahl mehr gibt als positive? (Tipp: Gibt es eine Zahl, die immer
+   gleich bleibt, egal welches Vorzeichen sie hat?)
 
 
 

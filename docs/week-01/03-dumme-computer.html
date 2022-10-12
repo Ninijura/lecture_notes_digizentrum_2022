@@ -17,6 +17,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="../_static/language_data.js"></script>
     <script type="text/javascript" src="../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <link rel="index" title="Stichwortverzeichnis" href="../genindex.html" />
     <link rel="search" title="Suche" href="../search.html" />
@@ -99,6 +100,9 @@ sind auch anders aufgebaut.</p>
 <p>Ungefähr so funktioniert das auch mit Computern. Statt der Worte haben wir Daten, die
 Informationen repräsentieren:</p>
 <img alt="../_images/ditaa-33d5157c6aa5924f943d512489079786f4adc6c9.png" src="../_images/ditaa-33d5157c6aa5924f943d512489079786f4adc6c9.png" />
+<p>(<a class="reference external" href="https://de.wiktionary.org/wiki/notabene">NB</a>: Das Wort „Daten“ (englisch „data“)
+kommt aus dem Lateinischen und ist eigentlich Plural. Der korrekte Singular ist
+„Datum“.)</p>
 <p>Im Computer werden Daten von einem <em>Daten-Konstruktor</em> erstellt. Die Repräsentation
 der Information kann zwei Eigenschaften haben.</p>
 <ul class="simple">
@@ -117,14 +121,101 @@ zwischen -4611686018427387904 und 4611686018427387903 wirklich mathematische
 Ganzzahlen darstellen. Diese Repräsentation ist nicht komplett, da Zahlen, die kleine
 als -4611686018427387904 oder größer als 4611686018427387903 sind nicht dargestellt
 werden können.</p>
-<p><a class="reference external" href="https://de.wiktionary.org/wiki/notabene">NB</a>: Das Wort „Daten“ (englisch „data“)
-kommt aus dem Lateinischen und ist eigentlich Plural. Der korrekte Singular ist
-„Datum“.</p>
 <div class="section" id="ubung-01">
 <h3>Übung 01<a class="headerlink" href="#ubung-01" title="Link zu dieser Überschrift">¶</a></h3>
 <p>Computer benutzen eine binäre Repräsentation von Zahlen (das mit den Nullen und
-Einsen). Benutze Emacs und den <a class="reference download internal" download="" href="../_downloads/221fe2d44ef83c4bd81082348c3a1172/exercises_for_week-01.ml"><code class="xref download docutils literal notranslate"><span class="pre">OCaml-Code</span></code></a> für die gegenwärtige Woche um
-herauszufinden, welchen Exponenten von 2 OCaml höchsten repräsentieren kann.</p>
+Einsen). Benutze Emacs und den <a class="reference download internal" download="" href="../_downloads/221fe2d44ef83c4bd81082348c3a1172/exercises_for_week-01.ml"><code class="xref download docutils literal notranslate"><span class="pre">OCaml-Code</span></code></a> für das gegenwärtige Lehrmaterial um
+die folgenden Aufgaben zu lösen:</p>
+<ol class="loweralpha simple">
+<li>Welche Potenz von 2 ist die größte, die OCaml korrekt darstellen kann?
+In anderen Worten: Was ist die größte Zahl, <code class="docutils literal notranslate"><span class="pre">x</span></code>, so dass OCaml <span class="math notranslate nohighlight">\(2^x\)</span> korrekt repräsentiert?
+(Tipp: 4611686018427387904 ist eine Potenz von 2.)</li>
+<li>Und was, wenn wir nach dem kleinsten <span class="math notranslate nohighlight">\(-(2^x)\)</span> suchen? (Achtung! Ihr könnt
+nicht einfach <code class="docutils literal notranslate"><span class="pre">exp</span> <span class="pre">-2</span> <span class="pre">n;;</span></code> ausprobieren, da ihr bei geraden exponenten <code class="docutils literal notranslate"><span class="pre">n</span></code>
+immer ein positives Ergebnis bekommt. Minus-mal-minus und so…)</li>
+</ol>
+</div>
+<div class="section" id="ein-kurzer-abstecher-zu-binaren-zahlen">
+<h3>Ein kurzer Abstecher zu binären Zahlen<a class="headerlink" href="#ein-kurzer-abstecher-zu-binaren-zahlen" title="Link zu dieser Überschrift">¶</a></h3>
+<p>Wenn wir im Alltag Zahlen benutzen, dann benutzen wir das Dezimalsystem. Wer ein
+Bisschen Latein kann, der weiß, dass „dezi“ 10 bedeutet. Guckt man sich dann unser
+Zahlensystem an, bemerkt man, dass wir 10 unterschiedliche ziffern haben: <code class="docutils literal notranslate"><span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">2,</span>
+<span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">5,</span> <span class="pre">6,</span> <span class="pre">7,</span> <span class="pre">8,</span> <span class="pre">9</span></code>.</p>
+<p>Im Binärsystem ist das ähnlich (nur mit Griechisch statt Latein). Das Präfix „bi-“
+bedeutet was mit 2; und ganz richtig das Binärsystem hat zwei unterschiedliche
+Zahlen: <code class="docutils literal notranslate"><span class="pre">0,</span> <span class="pre">1</span></code>. (Das ist praktisch für Computerchips, deren einzige zwei Zeichen
+<code class="docutils literal notranslate"><span class="pre">Strom</span> <span class="pre">an</span></code> und <code class="docutils literal notranslate"><span class="pre">Strom</span> <span class="pre">aus</span></code> sind. Deshalb benutzen Computer das Binärsystem.)</p>
+<blockquote class="epigraph">
+<div><div class="line-block">
+<div class="line"><strong>Brynja:</strong> Fällt euch was auf Leute?</div>
+<div class="line"><strong>Sigrid:</strong> Du meinst, dass das Binärsystem gar keine 2 benutzt,</div>
+<div class="line">obwohl es das Zweiersystem ist?</div>
+<div class="line"><strong>Alfrothul:</strong> Ich glaube, Brynja meint,</div>
+<div class="line">dass wir schon wieder von Repräsentationen reden.</div>
+<div class="line"><strong>Brynja:</strong> Genau. Wenn wir also 3 meinen, können wir <code class="docutils literal notranslate"><span class="pre">3</span></code> schreiben,</div>
+<div class="line">oder <code class="docutils literal notranslate"><span class="pre">11</span></code> im Binärsystem.</div>
+<div class="line"><strong>Sigrid:</strong> Stimmt. Oder <code class="docutils literal notranslate"><span class="pre">III</span></code> in römischen Zahlen.</div>
+<div class="line"><strong>Alfrothul:</strong> Ja, aber bitte nichts mehr über tote Sprachen heute.</div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Wenn wir im Dezimalsystem zählen wollen, fangen wir mit einer Stelle an und zählen
+von der kleinsten Ziffer zur größten. So kommen wir bis 9.</li>
+<li>Wenn wir weiter zählen wollen, setzen wir eine 1 voran und zählen wieder die
+hinterste Stelle hoch. Wenn diese bei der größten Zahl, also 9, angekommen ist,
+zählen wir die Stelle davor eine hoch. So kommen wir bis 99.</li>
+<li>Wenn wir weiter zählen wollen, setzen wir eine 1 voran und… bemerken, dass wir
+uns irgendwie immer wiederholen. Wir vergrößern die Ziffern von rechts nach links,
+bis alle Ziffern 9 sind. Dann setzen wir alle Ziffern wieder auf 0 und schreiben
+eine 1 davor.</li>
+</ul>
+<p>Mit diesem Verständnis ist das Zählen im Binärsystem auch nicht mehr kompliziert:</p>
+<ul class="simple">
+<li>Wenn wir im Binärsystem zählen wollen, fangen wir mit einer Stelle an und zählen
+von der kleinsten Ziffer zur größten. So kommen wir bis 1.</li>
+<li>Wenn wir weiter zählen wollen, setzen wir eine 1 voran und zählen wieder die
+hinterste Stelle hoch. Wenn diese bei der größten Zahl, also 1, angekommen ist,
+zählen wir die Stelle davor eine hoch. So kommen wir bis 11.</li>
+<li>Wenn wir weiter zählen wollen, setzen wir eine 1 voran und… bemerken, dass wir
+uns irgendwie immer wiederholen. Wir vergrößern die Ziffern von rechts nach links,
+bis alle Ziffern 1 sind. Dann setzen wir alle Ziffern wieder auf 0 und schreiben
+eine 1 davor.</li>
+</ul>
+<p>Soviel zum zählen. Aber wie rechnen wir jetzt um?</p>
+<p>Dafür brauchen wir Potenzen. (Am Computer schreiben wir <span class="math notranslate nohighlight">\(n^x\)</span> als <code class="docutils literal notranslate"><span class="pre">n^x</span></code>.)</p>
+<ul class="simple">
+<li>Im Dezimalsystem ist die kleinste positive Zahl eine 1. Das lässt sich auch
+schreiben als <code class="docutils literal notranslate"><span class="pre">10^0</span></code>.</li>
+<li>Die kleinste zweistellige Zahl ist 10, oder auch <code class="docutils literal notranslate"><span class="pre">10^1</span></code>.</li>
+<li>Die kleinste dreistellige Zahl ist 100, oder auch <code class="docutils literal notranslate"><span class="pre">10^2</span></code>.</li>
+<li>Die kleinste vierstellige Zahl ist 1000, oder auch <code class="docutils literal notranslate"><span class="pre">10^3</span></code>.</li>
+<li>usw.</li>
+</ul>
+<p>Wenn wir also 1234 schreiben, bedeutet das: <code class="docutils literal notranslate"><span class="pre">4*10^0</span> <span class="pre">+</span> <span class="pre">3*10^1</span> <span class="pre">+</span> <span class="pre">2*10^2</span> <span class="pre">+</span>
+<span class="pre">1*10^3</span></code>, oder leserlicher: <code class="docutils literal notranslate"><span class="pre">4*1</span> <span class="pre">+</span> <span class="pre">3*10</span> <span class="pre">+</span> <span class="pre">2*100</span> <span class="pre">+</span> <span class="pre">1*1000</span></code>.</p>
+<p>Im Binärsystem geht das genauso, aber mit Potenzen von 2.</p>
+<ul class="simple">
+<li>Die kleinste positive Zahl ist eine 1, oder auch <code class="docutils literal notranslate"><span class="pre">2^0</span></code>.</li>
+<li>Die kleinste zweistellige Zahl ist <cite>10`</cite>, oder auch <code class="docutils literal notranslate"><span class="pre">2^1</span></code> (dezimal: 2).</li>
+<li>Die kleinste dreistellige Zahl ist <code class="docutils literal notranslate"><span class="pre">100</span></code>, oder auch <code class="docutils literal notranslate"><span class="pre">2^2</span></code> (dezimal: 4).</li>
+<li>Die kleinste vierstellige Zahl ist <code class="docutils literal notranslate"><span class="pre">1000</span></code>, oder auch <code class="docutils literal notranslate"><span class="pre">2^3</span></code> (dezimal: 8).</li>
+<li>usw.</li>
+</ul>
+<p>Wenn wir also 1010 schreiben, bedeutet das: <code class="docutils literal notranslate"><span class="pre">0*2^0</span> <span class="pre">+</span> <span class="pre">1*2^1</span> <span class="pre">+</span> <span class="pre">0*2^2</span> <span class="pre">+</span> <span class="pre">1*2^3</span></code>,
+oder leserlicher: <code class="docutils literal notranslate"><span class="pre">0*1</span> <span class="pre">+</span> <span class="pre">1*2</span> <span class="pre">+</span> <span class="pre">0*4</span> <span class="pre">+</span> <span class="pre">1*8</span> <span class="pre">=</span> <span class="pre">10</span></code>.</p>
+</div>
+<div class="section" id="ubung-1-fortsetzung">
+<h3>Übung 1, Fortsetzung<a class="headerlink" href="#ubung-1-fortsetzung" title="Link zu dieser Überschrift">¶</a></h3>
+<ol class="loweralpha" start="3">
+<li><p class="first">Wer aufgepasst hat, hat folgendes bemerkt:</p>
+<p>Die größtmögliche Zahl, <code class="docutils literal notranslate"><span class="pre">max_int`</span></code>, ist <code class="docutils literal notranslate"><span class="pre">(2^x)-1</span></code>.</p>
+<p>Die kleinstmögliche Zahl, <code class="docutils literal notranslate"><span class="pre">min_int</span></code>, ist <code class="docutils literal notranslate"><span class="pre">-(2^x)</span></code>.</p>
+<p>Beide für die gleiche Zahl x.</p>
+<p>Was bedeutet das in Angesicht des Binärsystems? Hast du eine Idee, warum es genau
+eine negative Zahl mehr gibt als positive? (Tipp: Gibt es eine Zahl, die immer
+gleich bleibt, egal welches Vorzeichen sie hat?)</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="section" id="version">
@@ -144,6 +235,8 @@ herauszufinden, welchen Exponenten von 2 OCaml höchsten repräsentieren kann.</
 <li><a class="reference internal" href="#">Welche Sprache spricht eigentlich ein Computer; oder: warum versteht Siri mich immer falsch?</a><ul>
 <li><a class="reference internal" href="#informationen-und-daten">Informationen und Daten</a><ul>
 <li><a class="reference internal" href="#ubung-01">Übung 01</a></li>
+<li><a class="reference internal" href="#ein-kurzer-abstecher-zu-binaren-zahlen">Ein kurzer Abstecher zu binären Zahlen</a></li>
+<li><a class="reference internal" href="#ubung-1-fortsetzung">Übung 1, Fortsetzung</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#version">Version</a></li>
