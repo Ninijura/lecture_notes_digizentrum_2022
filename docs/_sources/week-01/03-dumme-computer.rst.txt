@@ -197,14 +197,14 @@ Dafür brauchen wir Potenzen. (Am Computer schreiben wir :math:`n^x` als ``n^x``
 
 * usw.
 
-Wenn wir also 1234 schreiben, bedeutet das: ``4*10^0 + 3*10^1 + 2*10^2 +
+Wenn wir also ``1234`` schreiben, bedeutet das: ``4*10^0 + 3*10^1 + 2*10^2 +
 1*10^3``, oder leserlicher: ``4*1 + 3*10 + 2*100 + 1*1000``.
   
 Im Binärsystem geht das genauso, aber mit Potenzen von 2.
 
 * Die kleinste positive Zahl ist eine 1, oder auch ``2^0``.
 
-* Die kleinste zweistellige Zahl ist `10``, oder auch ``2^1`` (dezimal: 2).
+* Die kleinste zweistellige Zahl ist ``10``, oder auch ``2^1`` (dezimal: 2).
 
 * Die kleinste dreistellige Zahl ist ``100``, oder auch ``2^2`` (dezimal: 4).
  
@@ -212,7 +212,7 @@ Im Binärsystem geht das genauso, aber mit Potenzen von 2.
 
 * usw.
 
-Wenn wir also 1010 schreiben, bedeutet das: ``0*2^0 + 1*2^1 + 0*2^2 + 1*2^3``,
+Wenn wir also ``1010`` schreiben, bedeutet das: ``0*2^0 + 1*2^1 + 0*2^2 + 1*2^3``,
 oder leserlicher: ``0*1 + 1*2 + 0*4 + 1*8 = 10``.
 
 
@@ -221,7 +221,7 @@ oder leserlicher: ``0*1 + 1*2 + 0*4 + 1*8 = 10``.
 
 c. Wer aufgepasst hat, hat folgendes bemerkt:
 
-   Die größtmögliche Zahl, ``max_int```, ist ``(2^x)-1``.
+   Die größtmögliche Zahl, ``max_int``, ist ``(2^x)-1``.
 
    Die kleinstmögliche Zahl, ``min_int``, ist ``-(2^x)``.
 
