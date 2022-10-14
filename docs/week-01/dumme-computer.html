@@ -21,8 +21,8 @@
     
     <link rel="index" title="Stichwortverzeichnis" href="../genindex.html" />
     <link rel="search" title="Suche" href="../search.html" />
-    <link rel="next" title="Dramatis Personae" href="../resources/dramatis_personae.html" />
-    <link rel="prev" title="Eine Wegbeschreibung der kommenden acht Wochen" href="02-willkommen.html" /> 
+    <link rel="next" title="Emacs benutzen um mit dem OCaml-Prozessor zu interagieren" href="emacs-und-ocaml.html" />
+    <link rel="prev" title="Eine Wegbeschreibung der kommenden acht Wochen" href="willkommen.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
@@ -31,13 +31,13 @@
           <a href="../genindex.html" title="Stichwortverzeichnis"
              accesskey="I">Index</a></li>
         <li class="right" >
-          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+          <a href="emacs-und-ocaml.html" title="Emacs benutzen um mit dem OCaml-Prozessor zu interagieren"
              accesskey="N">weiter</a> |</li>
         <li class="right" >
-          <a href="02-willkommen.html" title="Eine Wegbeschreibung der kommenden acht Wochen"
+          <a href="willkommen.html" title="Eine Wegbeschreibung der kommenden acht Wochen"
              accesskey="P">zurück</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Einführung ins Programmieren 2022</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="01-index.html" accesskey="U">Lehrmaterial Woche-01</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Lehrmaterial Woche-01</a> &#187;</li> 
       </ul>
     </div>  
 
@@ -116,16 +116,52 @@ repräsentieren können. (Sonst ist die Repräsentation <em>inkomplett</em> (<em
 <p>In OCaml (der Programmiersprache, mit der wir in diesem Kurs arbeiten), hat die
 Standard-Repräsentation von Integern (Ganzzahlen) eine feste Größe. Das heißt, dass
 (in diesem Fall) nur Zahlen zwischen -4611686018427387904 und 4611686018427387903
-repräsentiert werden können. Diese Repräsentation ist korrekt, da alle Zahlen
-zwischen -4611686018427387904 und 4611686018427387903 wirklich mathematische
+repräsentiert werden können. Diese Repräsentation ist korrekt, für alle Zahlen
+zwischen -4611686018427387904 und 4611686018427387903, da diese wirklich mathematische
 Ganzzahlen darstellen. Diese Repräsentation ist nicht komplett, da Zahlen, die kleine
 als -4611686018427387904 oder größer als 4611686018427387903 sind nicht dargestellt
 werden können.</p>
+<div class="section" id="erkenntnis-uber-reprasentationen">
+<h3>Erkenntnis über Repräsentationen<a class="headerlink" href="#erkenntnis-uber-reprasentationen" title="Link zu dieser Überschrift">¶</a></h3>
+<p>Kurz gesagt: eine Repräsentation und das, was sie repräsentiert, sind zwei
+unterschiedliche Dinge.</p>
+<ul class="simple">
+<li>Ein Name ist nicht das, was er benennt (z.B., wir sind nicht unsere Namen).</li>
+<li>Eine Adressse ist kein Haus.</li>
+<li>Eine <a class="reference external" href="https://de.wikipedia.org/wiki/Note_(Musik)">Note</a> ist nicht ihr Name (C, D,
+E, F, G, A, H) und auch nicht der Ton, den sie beschreibt.</li>
+<li>usw.</li>
+</ul>
+<blockquote class="epigraph">
+<div><div class="line-block">
+<div class="line"><strong>Mimer:</strong> Das erinniert mich an das Bild von <a class="reference external" href="https://en.wikipedia.org/wiki/Ren%C3%A9_Magritte">René Magritte</a>?</div>
+<div class="line"><strong>Alfrothul:</strong> Du meinst die Pfeife?</div>
+<div class="line"><strong>Brynja:</strong> Eben nicht, das ist ja genau der Punkt.</div>
+<div class="line"><strong>Mimer:</strong> Genau. <a class="reference external" href="https://de.wikipedia.org/wiki/La_trahison_des_images">„Der Verrat der Bilder“</a> beschäftigt sich genau   damit.</div>
+<div class="line">Magritte hat eine Pfeife gemalt und darunter geschrieben: „Dies ist keine Pfeife“.</div>
+<div class="line"><strong>Alfrothul:</strong> Weil es nur ein Bild von einer Pfeife ist.</div>
+<div class="line"><strong>Brynja:</strong> Wenn man es genau nimmt, Mimer, hat er auch nicht geschrieben:</div>
+<div class="line">„Dies ist keine Pfeife“, sondern „Ceci n’est pas une pipe.“</div>
+<div class="line">Deine Übersetzung war auch nur eine Repräsentation.</div>
+<div class="line"><strong>Loki:</strong> Ist das hier dann auch kein Lehrmaterial?</div>
+<div class="line"><strong>Alfrothul:</strong> Das, was mein Schirm mir anzeigt, kann ich lesen und davon lernen.</div>
+<div class="line">Ich glaube, das ist doch Lehrmaterial.</div>
+<div class="line"><strong>Brynja:</strong> Ich glaube auch. Die Dateien sind die Repräsentation, die der Computer lesen kann,</div>
+<div class="line">aber sobald es auf dem Schirm ist, ist es Lehrmaterial.</div>
+<div class="line"><strong>„Mad-Eye“ Moody:</strong> <a class="reference external" href="https://harrypotter.fandom.com/de/wiki/Alastor_Moody">Ständige Wachsamkeit!</a></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="ubung-0">
+<h3>Übung 0<a class="headerlink" href="#ubung-0" title="Link zu dieser Überschrift">¶</a></h3>
+<p>TODO</p>
+<p>Grundlegender Umgang mit der OCaml REPL.g</p>
+</div>
 <div class="section" id="ubung-01">
 <h3>Übung 01<a class="headerlink" href="#ubung-01" title="Link zu dieser Überschrift">¶</a></h3>
 <p>Computer benutzen eine binäre Repräsentation von Zahlen (das mit den Nullen und
 Einsen). Benutze Emacs und den <a class="reference download internal" download="" href="../_downloads/221fe2d44ef83c4bd81082348c3a1172/exercises_for_week-01.ml"><code class="xref download docutils literal notranslate"><span class="pre">OCaml-Code</span></code></a> für das gegenwärtige Lehrmaterial um
-die folgenden Aufgaben zu lösen:</p>
+die folgenden Aufgaben zu lösen <a class="reference external" href="emacs-und-ocaml.html">(eine Anleitung dazu gibt es hier)</a>:</p>
 <ol class="loweralpha simple">
 <li>Welche Potenz von 2 ist die größte, die OCaml korrekt darstellen kann?
 In anderen Worten: Was ist die größte Zahl, <code class="docutils literal notranslate"><span class="pre">x</span></code>, so dass OCaml <span class="math notranslate nohighlight">\(2^x\)</span> korrekt repräsentiert?
@@ -211,11 +247,69 @@ oder leserlicher: <code class="docutils literal notranslate"><span class="pre">0
 <p>Die größtmögliche Zahl, <code class="docutils literal notranslate"><span class="pre">max_int</span></code>, ist <code class="docutils literal notranslate"><span class="pre">(2^x)-1</span></code>.</p>
 <p>Die kleinstmögliche Zahl, <code class="docutils literal notranslate"><span class="pre">min_int</span></code>, ist <code class="docutils literal notranslate"><span class="pre">-(2^x)</span></code>.</p>
 <p>Beide für die gleiche Zahl x.</p>
-<p>Was bedeutet das in Angesicht des Binärsystems? Hast du eine Idee, warum es genau
+<p>Was bedeutet das im Zusammenhang mit dem Binärsystem? Hast du eine Idee, warum es genau
 eine negative Zahl mehr gibt als positive? (Tipp: Gibt es eine Zahl, die immer
 gleich bleibt, egal welches Vorzeichen sie hat?)</p>
 </li>
 </ol>
+</div>
+<div class="section" id="berechnungen-als-datenverarbeitung">
+<h3>Berechnungen als Datenverarbeitung<a class="headerlink" href="#berechnungen-als-datenverarbeitung" title="Link zu dieser Überschrift">¶</a></h3>
+<p>Ein Computer verarbeitet Daten. Wenn ein Computer mit Daten gefüttert wird, die eine
+Input-Information darstellen, kann er:</p>
+<ul class="simple">
+<li>Output-Daten produzieren, die eine Output-Information darstellen,</li>
+<li>einen Fehlercode anzeigen (was auch Output-Information ist), oder</li>
+<li>unendlich im Kreis laufen, also keine Daten herausgeben.</li>
+</ul>
+<p>Eine Stapelverarbeitung ist ein Prozess der Input-Daten nimmt, die eine
+Input-Information repräsentieren, eine Berechnung mit diesen Daten ausführt, und
+Output-Daten ausspuckt, die eine Output-Information repräsentieren:</p>
+<img alt="../_images/ditaa-dab840b2eb004c56a15116babff79496d9228ef4.png" src="../_images/ditaa-dab840b2eb004c56a15116babff79496d9228ef4.png" />
+<p>Außer Stapelverarbeitungen gibt es auch noch andere Verarbeitungen; z.B. die
+reaktiven, die zufällige Buchstaben auf dem Bildschirm anzeigen, wenn die Katze mal
+wieder über die Tastatur läuft. Aber Stapelverarbeitungen sind ein guter Startpunkt.</p>
+<ul class="simple">
+<li>Wenn die Output-Daten einer Stapelverarbeitung immer die richtige
+Output-Information darstellen, ist die Berechnung <em>korrekt</em>.</li>
+<li>Eine Stapelverarbeitung ist <em>komplett</em>, wenn die erwartete Output-Information immer
+von den Output-Daten repräsentiert wird.</li>
+</ul>
+</div>
+<div class="section" id="ubung-2">
+<h3>Übung 2<a class="headerlink" href="#ubung-2" title="Link zu dieser Überschrift">¶</a></h3>
+<ol class="loweralpha">
+<li><p class="first">Probier ein Bisschen mit Großen Zahlen und <code class="docutils literal notranslate"><span class="pre">+</span></code> herum.</p>
+<p>Ist der Operator <code class="docutils literal notranslate"><span class="pre">(+)</span></code> eine korrekte Repräsentation der mathematischen Operation
++? (Das heißt:</p>
+<p>Ist der Operator <code class="docutils literal notranslate"><span class="pre">(+)</span></code> eine komplette Repräsentation der mathematischen Operation
++?</p>
+</li>
+</ol>
+</div>
+<div class="section" id="losung-zu-ubung-2">
+<h3>Lösung zu Übung 2<a class="headerlink" href="#losung-zu-ubung-2" title="Link zu dieser Überschrift">¶</a></h3>
+<p>TODO</p>
+</div>
+<div class="section" id="programme">
+<h3>Programme<a class="headerlink" href="#programme" title="Link zu dieser Überschrift">¶</a></h3>
+<p>Ein Programm ist das Rezept, dem ein Computer folgt um Daten zu verarbeiten. Ein
+Programm berechnet eine Funktion von Input-Daten zu Output-Daten. Ein Programm wird
+von einem Programmierer geschrieben.</p>
+<p>Ein guter Vergleich: Ein Kochrezept ist eine Notation, die vermittelt wie man etwas
+kocht. Es beschreibt Daten (die Zutaten), Ressourcen und Werkzeuge (z.B. ein Topf und
+ein Herd), und einen Algorithmus (die Methode die Daten zu verarbeiten, z.B. Eier
+schlagen um ein Omlett zu machen (die Armen Eier…)). Um ein Gericht zuzubereiten
+benutzt ein Koch die Küchenutensilien um die Zutaten entsprechend dem Algorithmus zu
+verarbeiten.</p>
+</div>
+<div class="section" id="programmiersprachen">
+<h3>Programmiersprachen<a class="headerlink" href="#programmiersprachen" title="Link zu dieser Überschrift">¶</a></h3>
+<p>Eine Programmiersprache ist eine Sprache in der man Programme schreibt: eine Notation
+um Berechnungen zu beschreiben.
+Es gibt viele Konzepte für Berechnungen (das heißt viele unterschiedliche Arten,
+informationen darzustellen und Daten zu verarbeiten), und für jedes dieser Konzepte
+gibt es viele Notationen (das heißt viele Programmiersprachen).</p>
 </div>
 </div>
 <div class="section" id="version">
@@ -234,9 +328,16 @@ gleich bleibt, egal welches Vorzeichen sie hat?)</p>
   <ul>
 <li><a class="reference internal" href="#">Welche Sprache spricht eigentlich ein Computer; oder: warum versteht Siri mich immer falsch?</a><ul>
 <li><a class="reference internal" href="#informationen-und-daten">Informationen und Daten</a><ul>
+<li><a class="reference internal" href="#erkenntnis-uber-reprasentationen">Erkenntnis über Repräsentationen</a></li>
+<li><a class="reference internal" href="#ubung-0">Übung 0</a></li>
 <li><a class="reference internal" href="#ubung-01">Übung 01</a></li>
 <li><a class="reference internal" href="#ein-kurzer-abstecher-zu-binaren-zahlen">Ein kurzer Abstecher zu binären Zahlen</a></li>
 <li><a class="reference internal" href="#ubung-1-fortsetzung">Übung 1, Fortsetzung</a></li>
+<li><a class="reference internal" href="#berechnungen-als-datenverarbeitung">Berechnungen als Datenverarbeitung</a></li>
+<li><a class="reference internal" href="#ubung-2">Übung 2</a></li>
+<li><a class="reference internal" href="#losung-zu-ubung-2">Lösung zu Übung 2</a></li>
+<li><a class="reference internal" href="#programme">Programme</a></li>
+<li><a class="reference internal" href="#programmiersprachen">Programmiersprachen</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#version">Version</a></li>
@@ -245,15 +346,15 @@ gleich bleibt, egal welches Vorzeichen sie hat?)</p>
 </ul>
 
   <h4>Vorheriges Thema</h4>
-  <p class="topless"><a href="02-willkommen.html"
+  <p class="topless"><a href="willkommen.html"
                         title="vorheriges Kapitel">Eine Wegbeschreibung der kommenden acht Wochen</a></p>
   <h4>Nächstes Thema</h4>
-  <p class="topless"><a href="../resources/dramatis_personae.html"
-                        title="nächstes Kapitel">Dramatis Personae</a></p>
+  <p class="topless"><a href="emacs-und-ocaml.html"
+                        title="nächstes Kapitel">Emacs benutzen um mit dem OCaml-Prozessor zu interagieren</a></p>
   <div role="note" aria-label="source link">
     <h3>Diese Seite</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/week-01/03-dumme-computer.rst.txt"
+      <li><a href="../_sources/week-01/dumme-computer.rst.txt"
             rel="nofollow">Quellcode anzeigen</a></li>
     </ul>
    </div>
@@ -280,13 +381,13 @@ gleich bleibt, egal welches Vorzeichen sie hat?)</p>
           <a href="../genindex.html" title="Stichwortverzeichnis"
              >Index</a></li>
         <li class="right" >
-          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+          <a href="emacs-und-ocaml.html" title="Emacs benutzen um mit dem OCaml-Prozessor zu interagieren"
              >weiter</a> |</li>
         <li class="right" >
-          <a href="02-willkommen.html" title="Eine Wegbeschreibung der kommenden acht Wochen"
+          <a href="willkommen.html" title="Eine Wegbeschreibung der kommenden acht Wochen"
              >zurück</a> |</li>
         <li class="nav-item nav-item-0"><a href="../index.html">Einführung ins Programmieren 2022</a> &#187;</li>
-          <li class="nav-item nav-item-1"><a href="01-index.html" >Lehrmaterial Woche-01</a> &#187;</li> 
+          <li class="nav-item nav-item-1"><a href="index.html" >Lehrmaterial Woche-01</a> &#187;</li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">

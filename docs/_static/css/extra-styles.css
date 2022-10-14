@@ -13,3 +13,7 @@ blockquote.epigraph div {
 blockquote.epigraph p {
 	font-style: normal; 
 }
+
+div.body {
+    max-width: 100% !important;
+}

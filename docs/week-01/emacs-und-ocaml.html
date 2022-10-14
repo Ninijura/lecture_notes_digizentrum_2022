@@ -1,0 +1,185 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Emacs benutzen um mit dem OCaml-Prozessor zu interagieren &#8212; Einführung ins Programmieren 2022</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/extra-styles.css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Stichwortverzeichnis" href="../genindex.html" />
+    <link rel="search" title="Suche" href="../search.html" />
+    <link rel="next" title="Dramatis Personae" href="../resources/dramatis_personae.html" />
+    <link rel="prev" title="Welche Sprache spricht eigentlich ein Computer; oder: warum versteht Siri mich immer falsch?" href="dumme-computer.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Stichwortverzeichnis"
+             accesskey="I">Index</a></li>
+        <li class="right" >
+          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+             accesskey="N">weiter</a> |</li>
+        <li class="right" >
+          <a href="dumme-computer.html" title="Welche Sprache spricht eigentlich ein Computer; oder: warum versteht Siri mich immer falsch?"
+             accesskey="P">zurück</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Einführung ins Programmieren 2022</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Lehrmaterial Woche-01</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="emacs-benutzen-um-mit-dem-ocaml-prozessor-zu-interagieren">
+<h1>Emacs benutzen um mit dem OCaml-Prozessor zu interagieren<a class="headerlink" href="#emacs-benutzen-um-mit-dem-ocaml-prozessor-zu-interagieren" title="Link zu dieser Überschrift">¶</a></h1>
+<ol class="arabic" start="0">
+<li><p class="first">Lade die .ml-Datei in einen entsprechenden Ordner herunter.</p>
+</li>
+<li><p class="first">Öffne diese Datei (<code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">C-f</span></code>), bearbeite sie so viel oder wenig wie du möchtest
+und speicher sie (<code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">C-s</span></code>).</p>
+</li>
+<li><p class="first">Start OCaml (<code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">run-ocaml</span></code>). Dies teilt dein Emacs-Fenster in zwei Hälften
+(<code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">o</span></code> um zwischen den Emacs-Fenstern zu wechseln).</p>
+</li>
+<li><p class="first">Im OCaml-Fenster schreib <code class="docutils literal notranslate"><span class="pre">#use</span> <span class="pre">&quot;die-entsprechende-datei.ml;;&quot;</span></code>, wo
+<code class="docutils literal notranslate"><span class="pre">die-entpsrechende-datei.ml</span></code> der Name der Datei sein sollte, die du benutzen
+willst; drücke Enter.</p>
+<p>OCaml verarbeitet nun den Inhalt der Datei genau so, als wenn du alles Zeichen für
+Zeichen in den Prozess eingetippt hättest.</p>
+<p>Wenn in der Datei, die du lädst, Fehler sind, wird der OCaml-Prozessor beim ersten
+Fehler anhalten und eine Fehlermeldung samt Zeilennummer drucken. Gehe dann zurück
+in das andere Emacs Fenster (<code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">o</span></code>) und zur entsprechenden Zeile (<code class="docutils literal notranslate"><span class="pre">M-x</span>
+<span class="pre">goto-line</span></code> enter, gefolgt von der Zeilennummer (und nochmal enter)). Korrigiere
+was zu korrigieren ist, speicher die Datei (<code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">C-s</span></code>), geh zurück zum
+OCaml-Fenster (<code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">o</span></code>), und lade die datei erneut (<code class="docutils literal notranslate"><span class="pre">M-p</span></code> enter).</p>
+</li>
+</ol>
+<div class="section" id="voraussetzungen">
+<h2>Voraussetzungen<a class="headerlink" href="#voraussetzungen" title="Link zu dieser Überschrift">¶</a></h2>
+<ul class="simple">
+<li>Du musst wissen, wie man den Ordner für diese Woche öffnet.</li>
+<li>Du musst wissen, wie man eine .ml-Datei in diesen Ordner lädt.</li>
+<li>Du musst wissen, wie man eine Datei öffnet.</li>
+<li>Du musst wissen, wie man eine Datei bearbeitet.</li>
+<li>Du musst wissen, wie man eine Datei speichert.</li>
+<li>Du musst wissen, wie man OCaml startet.</li>
+<li>Du musst wissen, wie man zwischen zwei Emacs Fenstern hin und her wechselt.</li>
+</ul>
+</div>
+<div class="section" id="was-schiefgehen-kann">
+<h2>Was schiefgehen kann<a class="headerlink" href="#was-schiefgehen-kann" title="Link zu dieser Überschrift">¶</a></h2>
+<ul>
+<li><p class="first">Problem: Die .ml-Datei ist in den falschen Ordner heruntergeladen.</p>
+<p>Lösung: entweder die Datei in den richtigen Ordner verschieben, oder herausfinden,
+wie man den Browser dazu bekommt, dass er einen den Download-Ordner selbst wählen
+lässt.</p>
+</li>
+<li><p class="first">Problem: der OCaml-Prozessor startet in einem anderen Ordner.</p>
+<p>Lösung #1: gib nach dem <code class="docutils literal notranslate"><span class="pre">#use</span></code> Kommando einen absoluten Pfad ein.</p>
+<p>Lösung #2: ändere den Ordner des OCaml-Prozessors mit  <code class="docutils literal notranslate"><span class="pre">#cd</span> <span class="pre">&quot;absoluter-pfad-zum-richtigen-ordner</span></code>;;.</p>
+</li>
+<li><p class="first">Problem: du hast einen Fehler behoben, aber OCaml zeigt ihn beim nächsten Laden
+wieder an.</p>
+<p>Erklärung: du hast vergessen nach der Korrektur zu speichern.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="perspektiven">
+<h2>Perspektiven<a class="headerlink" href="#perspektiven" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Dieser Modus Operandi ist minimal, aber einfach zu lernen und ausreichend um dich
+durch diesen Kurs zu steuern.</p>
+<p>Er ist begrenzt, da er annimmt, dass dein gesamtes Programm in einer einzigen Datei
+ist. Wenn du ein Programm auf mehrere Dateien aufteilen willst, musst du diese
+Dateien in der richtigen Reihenfolge laden, oder das <code class="docutils literal notranslate"><span class="pre">#use</span></code> Kommando in den Dateien
+verwenden.</p>
+</div>
+<div class="section" id="version">
+<h2>Version<a class="headerlink" href="#version" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Erstellt [2022-10-14]</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Emacs benutzen um mit dem OCaml-Prozessor zu interagieren</a><ul>
+<li><a class="reference internal" href="#voraussetzungen">Voraussetzungen</a></li>
+<li><a class="reference internal" href="#was-schiefgehen-kann">Was schiefgehen kann</a></li>
+<li><a class="reference internal" href="#perspektiven">Perspektiven</a></li>
+<li><a class="reference internal" href="#version">Version</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Vorheriges Thema</h4>
+  <p class="topless"><a href="dumme-computer.html"
+                        title="vorheriges Kapitel">Welche Sprache spricht eigentlich ein Computer; oder: warum versteht Siri mich immer falsch?</a></p>
+  <h4>Nächstes Thema</h4>
+  <p class="topless"><a href="../resources/dramatis_personae.html"
+                        title="nächstes Kapitel">Dramatis Personae</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Diese Seite</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/week-01/emacs-und-ocaml.rst.txt"
+            rel="nofollow">Quellcode anzeigen</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Schnellsuche</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Los" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Stichwortverzeichnis"
+             >Index</a></li>
+        <li class="right" >
+          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+             >weiter</a> |</li>
+        <li class="right" >
+          <a href="dumme-computer.html" title="Welche Sprache spricht eigentlich ein Computer; oder: warum versteht Siri mich immer falsch?"
+             >zurück</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Einführung ins Programmieren 2022</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Lehrmaterial Woche-01</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Kira Kutscher.
+      Mit <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5 erstellt.
+    </div>
+  </body>
+</html>

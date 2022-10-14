@@ -107,12 +107,44 @@ der Information kann zwei Eigenschaften haben.
 In OCaml (der Programmiersprache, mit der wir in diesem Kurs arbeiten), hat die
 Standard-Repräsentation von Integern (Ganzzahlen) eine feste Größe. Das heißt, dass
 (in diesem Fall) nur Zahlen zwischen -4611686018427387904 und 4611686018427387903
-repräsentiert werden können. Diese Repräsentation ist korrekt, da alle Zahlen
-zwischen -4611686018427387904 und 4611686018427387903 wirklich mathematische
+repräsentiert werden können. Diese Repräsentation ist korrekt, für alle Zahlen
+zwischen -4611686018427387904 und 4611686018427387903, da diese wirklich mathematische
 Ganzzahlen darstellen. Diese Repräsentation ist nicht komplett, da Zahlen, die kleine
 als -4611686018427387904 oder größer als 4611686018427387903 sind nicht dargestellt
 werden können.
 
+
+
+Erkenntnis über Repräsentationen
+--------------------------------
+
+Kurz gesagt: eine Repräsentation und das, was sie repräsentiert, sind zwei
+unterschiedliche Dinge.
+
+* Ein Name ist nicht das, was er benennt (z.B., wir sind nicht unsere Namen).
+* Eine Adressse ist kein Haus.
+* Eine `Note <https://de.wikipedia.org/wiki/Note_(Musik)>`_ ist nicht ihr Name (C, D,
+  E, F, G, A, H) und auch nicht der Ton, den sie beschreibt.
+* usw.
+
+.. epigraph::
+
+   | **Mimer:** Das erinniert mich an das Bild von `René Magritte <https://en.wikipedia.org/wiki/Ren%C3%A9_Magritte>`_?
+   | **Alfrothul:** Du meinst die Pfeife?
+   | **Brynja:** Eben nicht, das ist ja genau der Punkt.
+   | **Mimer:** Genau. `"Der Verrat der Bilder" <https://de.wikipedia.org/wiki/La_trahison_des_images>`_ beschäftigt sich genau   damit.
+   | Magritte hat eine Pfeife gemalt und darunter geschrieben: "Dies ist keine Pfeife".
+   | **Alfrothul:** Weil es nur ein Bild von einer Pfeife ist.
+   | **Brynja:** Wenn man es genau nimmt, Mimer, hat er auch nicht geschrieben:
+   | "Dies ist keine Pfeife", sondern "Ceci n'est pas une pipe."
+   | Deine Übersetzung war auch nur eine Repräsentation. 
+   | **Loki:** Ist das hier dann auch kein Lehrmaterial?
+   | **Alfrothul:** Das, was mein Schirm mir anzeigt, kann ich lesen und davon lernen.
+   | Ich glaube, das ist doch Lehrmaterial.
+   | **Brynja:** Ich glaube auch. Die Dateien sind die Repräsentation, die der Computer lesen kann,
+   | aber sobald es auf dem Schirm ist, ist es Lehrmaterial.
+   | **"Mad-Eye" Moody:** `Ständige Wachsamkeit! <https://harrypotter.fandom.com/de/wiki/Alastor_Moody>`_
+   
 
 
 Übung 01
@@ -227,10 +259,52 @@ c. Wer aufgepasst hat, hat folgendes bemerkt:
 
    Beide für die gleiche Zahl x. 
 
-   Was bedeutet das in Angesicht des Binärsystems? Hast du eine Idee, warum es genau
+   Was bedeutet das im Zusammenhang mit dem Binärsystem? Hast du eine Idee, warum es genau
    eine negative Zahl mehr gibt als positive? (Tipp: Gibt es eine Zahl, die immer
    gleich bleibt, egal welches Vorzeichen sie hat?)
 
+
+Berechnungen als Datenverarbeitung
+----------------------------------
+
+Ein Computer verarbeitet Daten. Wenn ein Computer mit Daten gefüttert wird, die eine
+Input-Information darstellen, kann er:
+
+* Output-Daten produzieren, die eine Output-Information darstellen,
+* einen Fehlercode anzeigen (was auch Output-Information ist), oder
+* unendlich im Kreis laufen, also keine Daten herausgeben.
+
+Eine Stapelverarbeitung ist ein Prozess der Input-Daten nimmt, die eine
+Input-Information repräsentieren, eine Berechnung mit diesen Daten ausführt, und
+Output-Daten ausspuckt, die eine Output-Information repräsentieren:
+
+
+.. ditaa::
+
+                Input-   Verarbeiten      Output-
+                Daten  ---------------->  Daten
+                  |                         |
+                  |                         |
+   repräsentiert  |                         | repräsentiert
+                  |                         |
+                  v                         v
+                Input-   -------=------> Output-
+             Information                 Information
+
+
+
+Übung 2
+-------
+
+a. Probier ein Bisschen mit Großen Zahlen und ``+`` herum.
+
+   Ist der Operator ``(+)`` eine korrekte Repräsentation der mathematischen Operation
+   +? (Das heißt: 
+   
+   Ist der Operator ``(+)`` eine komplette Repräsentation der mathematischen Operation
+   +?
+
+   
 
 
 
