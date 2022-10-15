@@ -1,3 +1,4 @@
+
 let test_exp candidate =
    (candidate 0 1 = 0)
    && (candidate 1 0 = 1)
@@ -5,13 +6,15 @@ let test_exp candidate =
    && (candidate (-2) 5 = (-32))
 ;;
 
+exception Exponent_unter_null of int;;
 
+let (^) x y = 
+  let rec visit y' acc =
+	if y' = 0 
+	   then acc
+	else visit (y'-1) (acc*x)
+  in if y < 0 
+	 then raise (Exponent_unter_null y)
+	 else visit y 1;;
 
-let exp n e =
-  let rec visit e acc =
-    if e = 0
-    then acc
-    else visit (e-1) (acc*n)
-  in visit e 1;;
-
-let execute_test_exp = test_exp exp;;
+let execute_test_exp = test_exp (^);;

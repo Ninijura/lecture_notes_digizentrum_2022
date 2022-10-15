@@ -148,9 +148,70 @@ unterschiedliche Dinge.
 
 Übung 0
 -------
-TODO
+Für einige der folgenden Übungen müsst ihr den OCaml-Prozessor in Emacs benutzen. Ihr
+werdet vorerst nur mit Zahlen und einfacher Arithmetik arbeiten. Kein Grund also für
+Berührungsangst.
 
-Grundlegender Umgang mit der OCaml REPL.g
+Öffne Emacs und gib ein ``M-x run-ocaml <RET>`` (das heißt: halte die ``Meta`` (<Alt>)
+Taste gedrückt und drücke dann x; dann schreib ``run-ocaml`` und drücke
+<Enter>) und drücke noch einmal <Enter>. 
+
+Dein Emacs hat sich nun in zwei Fenster aufgeteilt. Der Cursor ist aber noch im
+falschen Fenster. Drücke ``C-x o`` um zwischen den Fenstern zu wechseln (das heißt:
+halte die <Strg>-Taste gedrückt und drücke ``x``; dann lass die <Strg>-Taste los und
+drücke ``o``). Wenn du das Fenster, in dem sich dein Cursor befindet, schließen
+möchtest, drück ``C-x 0`` (das heißt: halte die <Strg>-Taste gedrückt und drücke
+``x``; dann lass die <Strg>-Taste los und drücke ``0``). Wenn du alle Fenster
+schließen willst **bis auf** das, in dem sich dein Cursor befindet, drücke ``C-x 1``
+(das heißt: halte die <Strg>-Taste gedrückt und drücke ``x``; dann lass die
+<Strg>-Taste los und drücke ``1``).
+
+::
+
+   OCaml version 4.14.0
+   Enter #help;; for help.
+
+   #
+
+
+Wenn wir einen "Ausdruck" (eng: expression) gefolgt von ``;;`` eingeben und dann
+<RET> (also die <Enter>-Taste) drücken, dann berechnet OCaml diesen Ausdruck und
+
+* druckt ein Resultat gefolgt von einer neuen Zeile mit ``#``, welche auf weitere
+  Eingaben wartet;
+* druckt eine Fehlermeldung (auch ein Resultat) gefolgt von einer neuen Zeile mit
+  ``#``, welche auf weitere Eingaben wartet; oder
+* druckt eine neue Zeile, die sich aber um keine Eingaben kümmert, weil der Prozess
+  divergiert (das bedeutet länger läuft als wir warten wollen, womöglich
+  unendlich). In diesem Fall drücke ``C-c C-c`` um den Berechnung abzubrechen (das
+  heißt: Halte die <Strg>-Taste gedrückt und drücke ``c``, dann halte die <Strg>-Taste
+  gedrückt und drücke ``c``).
+
+Ein simpler Ausdruck ist zum Beispiel ``1;;``.
+
+::
+   
+   # 1;;
+   - : int = 1
+   #
+
+   
+Wir können OCaml auch um kompliziertere Berechnungen bitten:
+
+::
+   
+   # 2+2;;
+   - : int = 4
+   #
+
+   
+Nun hat OCaml das ``+`` als Operation verstanden und gibt uns das Resultat. 
+
+Probiere selbst noch ein paar andere Ausdrücke und Operationen aus. Wie wäre es zum
+Beispiel mit Subtraktion ``(-)`` oder Multiplikation ``( * )``?
+
+Diese einfachen Rechenstücke geben immer ein Resultat. Wenn du nach einer Eingabe
+trotzdem eine neue Zeile ohne ``#`` bekommst, dann hast du das ``;;`` vergessen. 
 
    
 Übung 01
@@ -158,15 +219,156 @@ Grundlegender Umgang mit der OCaml REPL.g
 Computer benutzen eine binäre Repräsentation von Zahlen (das mit den Nullen und
 Einsen). Benutze Emacs und den :download:`OCaml-Code
 <../exercises/week-01/exercises_for_week-01.ml>` für das gegenwärtige Lehrmaterial um
-die folgenden Aufgaben zu lösen `(eine Anleitung dazu gibt es hier) <emacs-und-ocaml.html>`_:
+die folgenden Aufgaben zu lösen `(eine Anleitung dazu gibt es hier)
+<emacs-und-ocaml.html>`_. Oder lest einfach die teilweise Lösung im nächsten Abschnitt.
 
 a. Welche Potenz von 2 ist die größte, die OCaml korrekt darstellen kann?
    In anderen Worten: Was ist die größte Zahl, ``x``, so dass OCaml :math:`2^x` korrekt repräsentiert?
-   (Tipp: 4611686018427387904 ist eine Potenz von 2.) 
+   (Tipp: 4611686018427387904 ist eine Potenz von 2.)
+
+   **Hinweis:** Der OCaml-Code für das gegenwärtige Lehrmaterial lässt euch
+   exponenten normal schreiben (das heißt ihr schreibt ``2^3``, wenn du :math: `2^3`
+   meint). Normalerweise bedeutet der Operator ``(^)`` etwas anderes in OCaml, das
+   heißt, wenn ihr die Datei nicht ladet, bekommt ihr eine Fehlermeldung, die ihr
+   noch nicht versteht. 
 
 b. Und was, wenn wir nach dem kleinsten :math:`-(2^x)` suchen? (Achtung! Ihr könnt
-   nicht einfach ``exp -2 n;;`` ausprobieren, da ihr bei geraden exponenten ``n``
+   nicht einfach ``-2^n;;`` ausprobieren, da ihr bei geraden exponenten ``n``
    immer ein positives Ergebnis bekommt. Minus-mal-minus und so...)
+
+
+Teilweise Lösung zu Übung 1a
+----------------------------
+
+**Sigrid:** Das ist einfach, dafür müssen wir die Zahlen einfach alle ausprobieren.
+
+::
+   
+   # 2^2;;
+   Line 1, characters 0-1:
+   1 | 2^2
+       ^
+   Error: This expression as type int but an expression was expected of type string
+
+   
+
+**Alfrothul:** Ich glaube, wir müssen OCaml erst erzählen, dass es den OCaml-Coder
+für diese Woche benutzen soll.
+
+**Sigrid:** Achja, stimmt.
+
+::
+   
+   # #use "exercises_for_week-01.ml";;
+   val test_exp : (int -> int -> int) -> bool = <fun>
+   exception Exponent_unter_null of int
+   val ( ^ ) : int -> int -> int = <fun>
+   val execute_test_exp : bool = true
+   #
+
+   
+**Sigrid:** Was hat das denn alles zu bedeuten?
+
+**Brynja:** Ich schätze mal, dass das die Resultate der .ml-Datei sind, die wir OCaml
+gerade haben berechnen lassen.
+
+**Alfrothul:** Das sieht kompliziert aus. Aber da sollten wir uns wahrscheinlich
+jetzt noch nicht drum kümmern. Zurück zur Übung.
+
+**Sigrid:** Okay, ich weiß schonmal, dass :math: `2^8` = 256 ist. Kleinere Zahlen
+muss ich also gar nicht ausprobieren. Also von da aus weiter:
+
+::
+   
+   # 2^9;;
+   - : int 512
+   # 2^10;;
+   - : int 1024
+   # 2^11;;
+   - : int 2048
+
+     
+**Alfrothul:** Das könnte eine ganze Weile dauern... *gähn!*
+
+**Brynja:** Leute, ich habe eine Idee. Was, wenn wir erstmal eine Zahl ausprobieren,
+die bestimmt zu groß ist?
+
+::
+   
+   # 2^100;;
+   - : int = 0
+
+     
+**Sigrid:** Die war wirklich zu groß. Aber wir wissen ja jetzt gar nicht mehr, wie
+weit wir von 4.611.686.018.427.387.903 weg sind. Was nun?
+
+**Brynja:** Jetzt nehmen wir einfach die in der Mitte zwischen der größten zu kleinen
+und der kleinsten zu großen Zahl. Die Mitte zwischen 11 und 100 ist... warte, das
+kann ich nicht im Kopf.
+
+::
+   
+   # 100 - 11;;
+   - : int 89
+   # 11 + (89 / 2);;
+   - : int 55;;
+
+     
+**Alfrothul:** Okay, 55, weiter im Text:
+
+::
+   
+   # 2^55;;
+   - : int = 36028797018963968
+
+     
+**Sigrid:** Wow! Damit sind wir ja schon viel näher dran.
+
+**Brynja:** Okay, wieder die Hälfte. Diesmal ist das einfacher: 77.
+
+::
+   
+   # 2^77;;
+   - : int = 0
+
+     
+**Alfrothul:** Mist, wieder zu groß. Aber ich glaube, ich habe das Prinzip jetzt
+begriffen. Jetzt nehmen wir die Mitte zwischen 77 und 55, richtig?
+
+**Brynja:** Genau.
+
+**Mimer:** Wisst ihr, dass euer System ein gängiger Algorithmus ist?
+
+**Sigrid:** Nein?
+
+**Mimer:** Doch! ...
+
+**Alfrotul:** *[Mimer unterbrechend]*  `Oh! <https://www.youtube.com/watch?v=w4aLThuU008>`_
+
+**Mimer:** [lächelnd] Der Algorithmus heißt `binäre Suche <https://de.wikipedia.org/wiki/Bin%C3%A4re_Suche>`_ und funktioniert in jeder
+sortierten Liste. Also zum Beispiel in einem Telefonbuch, oder wie ihr es hier mach,
+in der Reihe der Natürlichen Zahlen.
+
+**Brynja:** In einem Telefonbuch würde man also erst in der Mitte aufschlagen...
+
+**Alfrothul:** [mit einer Glühbirne über dem Kopf] Ah! Und dann schauen ob man weiter
+nach vorne oder weiter nach hinten blättern muss. Wenn man weiter nach vorne muss,
+behält man einen Finger in der Mitte und geht ungefähr zur Hälfte zurück nach vorne.
+
+**Brynja:** Genau. Und dann wieder die Mitte. Entweder zwischen dem Anfang und der
+neuen Position oder der Mitte und der neuen Position.
+
+**Sigrid:** Ich glaube, ich verstehe!
+
+[Sie zieht ein Wörterbuch aus dem Regal.]
+
+**Sigrid:** Das hier ist doch auch sortiert. Da müsste das auch gehen. Gebt mir mal
+ein zufälliges Wort!
+
+**Alfrothul:** Hier ist ein `Zufallswort-Generator <https://capitalizemytitle.com/zufallswort-generator/>`_.
+
+**Mimer:** Sehr gut! Ihr lernt auch noch mehr über Algorithmen in ein paar
+Wochen. Jetzt zurück zu Übung 1. 
 
 
 Ein kurzer Abstecher zu binären Zahlen
@@ -224,14 +426,14 @@ Soviel zum zählen. Aber wie rechnen wir jetzt um?
 
 Dafür brauchen wir Potenzen. (Am Computer schreiben wir :math:`n^x` als ``n^x``.)
 
-* Im Dezimalsystem ist die kleinste positive Zahl eine 1. Das lässt sich auch
+* Im Dezimalsystem ist die kleinste positive Zahl eine ``1``. Das lässt sich auch
   schreiben als ``10^0``. 
 
-* Die kleinste zweistellige Zahl ist 10, oder auch ``10^1``.
+* Die kleinste zweistellige Zahl ist ``10``, oder auch ``10^1``.
 
-* Die kleinste dreistellige Zahl ist 100, oder auch ``10^2``.
+* Die kleinste dreistellige Zahl ist ``100``, oder auch ``10^2``.
 
-* Die kleinste vierstellige Zahl ist 1000, oder auch ``10^3``.
+* Die kleinste vierstellige Zahl ist ``1000``, oder auch ``10^3``.
 
 * usw.
 
@@ -240,7 +442,7 @@ Wenn wir also ``1234`` schreiben, bedeutet das: ``4*10^0 + 3*10^1 + 2*10^2 +
   
 Im Binärsystem geht das genauso, aber mit Potenzen von 2.
 
-* Die kleinste positive Zahl ist eine 1, oder auch ``2^0``.
+* Die kleinste positive Zahl ist eine ``1``, oder auch ``2^0``.
 
 * Die kleinste zweistellige Zahl ist ``10``, oder auch ``2^1`` (dezimal: 2).
 

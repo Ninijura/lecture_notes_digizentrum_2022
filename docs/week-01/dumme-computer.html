@@ -154,22 +154,167 @@ E, F, G, A, H) und auch nicht der Ton, den sie beschreibt.</li>
 </div>
 <div class="section" id="ubung-0">
 <h3>Übung 0<a class="headerlink" href="#ubung-0" title="Link zu dieser Überschrift">¶</a></h3>
-<p>TODO</p>
-<p>Grundlegender Umgang mit der OCaml REPL.g</p>
+<p>Für einige der folgenden Übungen müsst ihr den OCaml-Prozessor in Emacs benutzen. Ihr
+werdet vorerst nur mit Zahlen und einfacher Arithmetik arbeiten. Kein Grund also für
+Berührungsangst.</p>
+<p>Öffne Emacs und gib ein <code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">run-ocaml</span> <span class="pre">&lt;RET&gt;</span></code> (das heißt: halte die <code class="docutils literal notranslate"><span class="pre">Meta</span></code> (&lt;Alt&gt;)
+Taste gedrückt und drücke dann x; dann schreib <code class="docutils literal notranslate"><span class="pre">run-ocaml</span></code> und drücke
+&lt;Enter&gt;) und drücke noch einmal &lt;Enter&gt;.</p>
+<p>Dein Emacs hat sich nun in zwei Fenster aufgeteilt. Der Cursor ist aber noch im
+falschen Fenster. Drücke <code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">o</span></code> um zwischen den Fenstern zu wechseln (das heißt:
+halte die &lt;Strg&gt;-Taste gedrückt und drücke <code class="docutils literal notranslate"><span class="pre">x</span></code>; dann lass die &lt;Strg&gt;-Taste los und
+drücke <code class="docutils literal notranslate"><span class="pre">o</span></code>). Wenn du das Fenster, in dem sich dein Cursor befindet, schließen
+möchtest, drück <code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">0</span></code> (das heißt: halte die &lt;Strg&gt;-Taste gedrückt und drücke
+<code class="docutils literal notranslate"><span class="pre">x</span></code>; dann lass die &lt;Strg&gt;-Taste los und drücke <code class="docutils literal notranslate"><span class="pre">0</span></code>). Wenn du alle Fenster
+schließen willst <strong>bis auf</strong> das, in dem sich dein Cursor befindet, drücke <code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">1</span></code>
+(das heißt: halte die &lt;Strg&gt;-Taste gedrückt und drücke <code class="docutils literal notranslate"><span class="pre">x</span></code>; dann lass die
+&lt;Strg&gt;-Taste los und drücke <code class="docutils literal notranslate"><span class="pre">1</span></code>).</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>OCaml version 4.14.0
+Enter #help;; for help.
+
+#
+</pre></div>
+</div>
+<p>Wenn wir einen „Ausdruck“ (eng: expression) gefolgt von <code class="docutils literal notranslate"><span class="pre">;;</span></code> eingeben und dann
+&lt;RET&gt; (also die &lt;Enter&gt;-Taste) drücken, dann berechnet OCaml diesen Ausdruck und</p>
+<ul class="simple">
+<li>druckt ein Resultat gefolgt von einer neuen Zeile mit <code class="docutils literal notranslate"><span class="pre">#</span></code>, welche auf weitere
+Eingaben wartet;</li>
+<li>druckt eine Fehlermeldung (auch ein Resultat) gefolgt von einer neuen Zeile mit
+<code class="docutils literal notranslate"><span class="pre">#</span></code>, welche auf weitere Eingaben wartet; oder</li>
+<li>druckt eine neue Zeile, die sich aber um keine Eingaben kümmert, weil der Prozess
+divergiert (das bedeutet länger läuft als wir warten wollen, womöglich
+unendlich). In diesem Fall drücke <code class="docutils literal notranslate"><span class="pre">C-c</span> <span class="pre">C-c</span></code> um den Berechnung abzubrechen (das
+heißt: Halte die &lt;Strg&gt;-Taste gedrückt und drücke <code class="docutils literal notranslate"><span class="pre">c</span></code>, dann halte die &lt;Strg&gt;-Taste
+gedrückt und drücke <code class="docutils literal notranslate"><span class="pre">c</span></code>).</li>
+</ul>
+<p>Ein simpler Ausdruck ist zum Beispiel <code class="docutils literal notranslate"><span class="pre">1;;</span></code>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># 1;;
+- : int = 1
+#
+</pre></div>
+</div>
+<p>Wir können OCaml auch um kompliziertere Berechnungen bitten:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># 2+2;;
+- : int = 4
+#
+</pre></div>
+</div>
+<p>Nun hat OCaml das <code class="docutils literal notranslate"><span class="pre">+</span></code> als Operation verstanden und gibt uns das Resultat.</p>
+<p>Probiere selbst noch ein paar andere Ausdrücke und Operationen aus. Wie wäre es zum
+Beispiel mit Subtraktion <code class="docutils literal notranslate"><span class="pre">(-)</span></code> oder Multiplikation <code class="docutils literal notranslate"><span class="pre">(</span> <span class="pre">*</span> <span class="pre">)</span></code>?</p>
+<p>Diese einfachen Rechenstücke geben immer ein Resultat. Wenn du nach einer Eingabe
+trotzdem eine neue Zeile ohne <code class="docutils literal notranslate"><span class="pre">#</span></code> bekommst, dann hast du das <code class="docutils literal notranslate"><span class="pre">;;</span></code> vergessen.</p>
 </div>
 <div class="section" id="ubung-01">
 <h3>Übung 01<a class="headerlink" href="#ubung-01" title="Link zu dieser Überschrift">¶</a></h3>
 <p>Computer benutzen eine binäre Repräsentation von Zahlen (das mit den Nullen und
 Einsen). Benutze Emacs und den <a class="reference download internal" download="" href="../_downloads/221fe2d44ef83c4bd81082348c3a1172/exercises_for_week-01.ml"><code class="xref download docutils literal notranslate"><span class="pre">OCaml-Code</span></code></a> für das gegenwärtige Lehrmaterial um
-die folgenden Aufgaben zu lösen <a class="reference external" href="emacs-und-ocaml.html">(eine Anleitung dazu gibt es hier)</a>:</p>
-<ol class="loweralpha simple">
-<li>Welche Potenz von 2 ist die größte, die OCaml korrekt darstellen kann?
+die folgenden Aufgaben zu lösen <a class="reference external" href="emacs-und-ocaml.html">(eine Anleitung dazu gibt es hier)</a>. Oder lest einfach die teilweise Lösung im nächsten Abschnitt.</p>
+<ol class="loweralpha">
+<li><p class="first">Welche Potenz von 2 ist die größte, die OCaml korrekt darstellen kann?
 In anderen Worten: Was ist die größte Zahl, <code class="docutils literal notranslate"><span class="pre">x</span></code>, so dass OCaml <span class="math notranslate nohighlight">\(2^x\)</span> korrekt repräsentiert?
-(Tipp: 4611686018427387904 ist eine Potenz von 2.)</li>
-<li>Und was, wenn wir nach dem kleinsten <span class="math notranslate nohighlight">\(-(2^x)\)</span> suchen? (Achtung! Ihr könnt
-nicht einfach <code class="docutils literal notranslate"><span class="pre">exp</span> <span class="pre">-2</span> <span class="pre">n;;</span></code> ausprobieren, da ihr bei geraden exponenten <code class="docutils literal notranslate"><span class="pre">n</span></code>
-immer ein positives Ergebnis bekommt. Minus-mal-minus und so…)</li>
+(Tipp: 4611686018427387904 ist eine Potenz von 2.)</p>
+<p><strong>Hinweis:</strong> Der OCaml-Code für das gegenwärtige Lehrmaterial lässt euch
+exponenten normal schreiben (das heißt ihr schreibt <code class="docutils literal notranslate"><span class="pre">2^3</span></code>, wenn du :math: <cite>2^3</cite>
+meint). Normalerweise bedeutet der Operator <code class="docutils literal notranslate"><span class="pre">(^)</span></code> etwas anderes in OCaml, das
+heißt, wenn ihr die Datei nicht ladet, bekommt ihr eine Fehlermeldung, die ihr
+noch nicht versteht.</p>
+</li>
+<li><p class="first">Und was, wenn wir nach dem kleinsten <span class="math notranslate nohighlight">\(-(2^x)\)</span> suchen? (Achtung! Ihr könnt
+nicht einfach <code class="docutils literal notranslate"><span class="pre">-2^n;;</span></code> ausprobieren, da ihr bei geraden exponenten <code class="docutils literal notranslate"><span class="pre">n</span></code>
+immer ein positives Ergebnis bekommt. Minus-mal-minus und so…)</p>
+</li>
 </ol>
+</div>
+<div class="section" id="teilweise-losung-zu-ubung-1a">
+<h3>Teilweise Lösung zu Übung 1a<a class="headerlink" href="#teilweise-losung-zu-ubung-1a" title="Link zu dieser Überschrift">¶</a></h3>
+<p><strong>Sigrid:</strong> Das ist einfach, dafür müssen wir die Zahlen einfach alle ausprobieren.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># 2^2;;
+Line 1, characters 0-1:
+1 | 2^2
+    ^
+Error: This expression as type int but an expression was expected of type string
+</pre></div>
+</div>
+<p><strong>Alfrothul:</strong> Ich glaube, wir müssen OCaml erst erzählen, dass es den OCaml-Coder
+für diese Woche benutzen soll.</p>
+<p><strong>Sigrid:</strong> Achja, stimmt.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># #use &quot;exercises_for_week-01.ml&quot;;;
+val test_exp : (int -&gt; int -&gt; int) -&gt; bool = &lt;fun&gt;
+exception Exponent_unter_null of int
+val ( ^ ) : int -&gt; int -&gt; int = &lt;fun&gt;
+val execute_test_exp : bool = true
+#
+</pre></div>
+</div>
+<p><strong>Sigrid:</strong> Was hat das denn alles zu bedeuten?</p>
+<p><strong>Brynja:</strong> Ich schätze mal, dass das die Resultate der .ml-Datei sind, die wir OCaml
+gerade haben berechnen lassen.</p>
+<p><strong>Alfrothul:</strong> Das sieht kompliziert aus. Aber da sollten wir uns wahrscheinlich
+jetzt noch nicht drum kümmern. Zurück zur Übung.</p>
+<p><strong>Sigrid:</strong> Okay, ich weiß schonmal, dass :math: <cite>2^8</cite> = 256 ist. Kleinere Zahlen
+muss ich also gar nicht ausprobieren. Also von da aus weiter:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># 2^9;;
+- : int 512
+# 2^10;;
+- : int 1024
+# 2^11;;
+- : int 2048
+</pre></div>
+</div>
+<p><strong>Alfrothul:</strong> Das könnte eine ganze Weile dauern… <em>gähn!</em></p>
+<p><strong>Brynja:</strong> Leute, ich habe eine Idee. Was, wenn wir erstmal eine Zahl ausprobieren,
+die bestimmt zu groß ist?</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># 2^100;;
+- : int = 0
+</pre></div>
+</div>
+<p><strong>Sigrid:</strong> Die war wirklich zu groß. Aber wir wissen ja jetzt gar nicht mehr, wie
+weit wir von 4.611.686.018.427.387.903 weg sind. Was nun?</p>
+<p><strong>Brynja:</strong> Jetzt nehmen wir einfach die in der Mitte zwischen der größten zu kleinen
+und der kleinsten zu großen Zahl. Die Mitte zwischen 11 und 100 ist… warte, das
+kann ich nicht im Kopf.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># 100 - 11;;
+- : int 89
+# 11 + (89 / 2);;
+- : int 55;;
+</pre></div>
+</div>
+<p><strong>Alfrothul:</strong> Okay, 55, weiter im Text:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># 2^55;;
+- : int = 36028797018963968
+</pre></div>
+</div>
+<p><strong>Sigrid:</strong> Wow! Damit sind wir ja schon viel näher dran.</p>
+<p><strong>Brynja:</strong> Okay, wieder die Hälfte. Diesmal ist das einfacher: 77.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># 2^77;;
+- : int = 0
+</pre></div>
+</div>
+<p><strong>Alfrothul:</strong> Mist, wieder zu groß. Aber ich glaube, ich habe das Prinzip jetzt
+begriffen. Jetzt nehmen wir die Mitte zwischen 77 und 55, richtig?</p>
+<p><strong>Brynja:</strong> Genau.</p>
+<p><strong>Mimer:</strong> Wisst ihr, dass euer System ein gängiger Algorithmus ist?</p>
+<p><strong>Sigrid:</strong> Nein?</p>
+<p><strong>Mimer:</strong> Doch! …</p>
+<p><strong>Alfrotul:</strong> <em>[Mimer unterbrechend]</em>  <a class="reference external" href="https://www.youtube.com/watch?v=w4aLThuU008">Oh!</a></p>
+<p><strong>Mimer:</strong> [lächelnd] Der Algorithmus heißt <a class="reference external" href="https://de.wikipedia.org/wiki/Bin%C3%A4re_Suche">binäre Suche</a> und funktioniert in jeder
+sortierten Liste. Also zum Beispiel in einem Telefonbuch, oder wie ihr es hier mach,
+in der Reihe der Natürlichen Zahlen.</p>
+<p><strong>Brynja:</strong> In einem Telefonbuch würde man also erst in der Mitte aufschlagen…</p>
+<p><strong>Alfrothul:</strong> [mit einer Glühbirne über dem Kopf] Ah! Und dann schauen ob man weiter
+nach vorne oder weiter nach hinten blättern muss. Wenn man weiter nach vorne muss,
+behält man einen Finger in der Mitte und geht ungefähr zur Hälfte zurück nach vorne.</p>
+<p><strong>Brynja:</strong> Genau. Und dann wieder die Mitte. Entweder zwischen dem Anfang und der
+neuen Position oder der Mitte und der neuen Position.</p>
+<p><strong>Sigrid:</strong> Ich glaube, ich verstehe!</p>
+<p>[Sie zieht ein Wörterbuch aus dem Regal.]</p>
+<p><strong>Sigrid:</strong> Das hier ist doch auch sortiert. Da müsste das auch gehen. Gebt mir mal
+ein zufälliges Wort!</p>
+<p><strong>Alfrothul:</strong> Hier ist ein <a class="reference external" href="https://capitalizemytitle.com/zufallswort-generator/">Zufallswort-Generator</a>.</p>
+<p><strong>Mimer:</strong> Sehr gut! Ihr lernt auch noch mehr über Algorithmen in ein paar
+Wochen. Jetzt zurück zu Übung 1.</p>
 </div>
 <div class="section" id="ein-kurzer-abstecher-zu-binaren-zahlen">
 <h3>Ein kurzer Abstecher zu binären Zahlen<a class="headerlink" href="#ein-kurzer-abstecher-zu-binaren-zahlen" title="Link zu dieser Überschrift">¶</a></h3>
@@ -220,18 +365,18 @@ eine 1 davor.</li>
 <p>Soviel zum zählen. Aber wie rechnen wir jetzt um?</p>
 <p>Dafür brauchen wir Potenzen. (Am Computer schreiben wir <span class="math notranslate nohighlight">\(n^x\)</span> als <code class="docutils literal notranslate"><span class="pre">n^x</span></code>.)</p>
 <ul class="simple">
-<li>Im Dezimalsystem ist die kleinste positive Zahl eine 1. Das lässt sich auch
+<li>Im Dezimalsystem ist die kleinste positive Zahl eine <code class="docutils literal notranslate"><span class="pre">1</span></code>. Das lässt sich auch
 schreiben als <code class="docutils literal notranslate"><span class="pre">10^0</span></code>.</li>
-<li>Die kleinste zweistellige Zahl ist 10, oder auch <code class="docutils literal notranslate"><span class="pre">10^1</span></code>.</li>
-<li>Die kleinste dreistellige Zahl ist 100, oder auch <code class="docutils literal notranslate"><span class="pre">10^2</span></code>.</li>
-<li>Die kleinste vierstellige Zahl ist 1000, oder auch <code class="docutils literal notranslate"><span class="pre">10^3</span></code>.</li>
+<li>Die kleinste zweistellige Zahl ist <code class="docutils literal notranslate"><span class="pre">10</span></code>, oder auch <code class="docutils literal notranslate"><span class="pre">10^1</span></code>.</li>
+<li>Die kleinste dreistellige Zahl ist <code class="docutils literal notranslate"><span class="pre">100</span></code>, oder auch <code class="docutils literal notranslate"><span class="pre">10^2</span></code>.</li>
+<li>Die kleinste vierstellige Zahl ist <code class="docutils literal notranslate"><span class="pre">1000</span></code>, oder auch <code class="docutils literal notranslate"><span class="pre">10^3</span></code>.</li>
 <li>usw.</li>
 </ul>
 <p>Wenn wir also <code class="docutils literal notranslate"><span class="pre">1234</span></code> schreiben, bedeutet das: <code class="docutils literal notranslate"><span class="pre">4*10^0</span> <span class="pre">+</span> <span class="pre">3*10^1</span> <span class="pre">+</span> <span class="pre">2*10^2</span> <span class="pre">+</span>
 <span class="pre">1*10^3</span></code>, oder leserlicher: <code class="docutils literal notranslate"><span class="pre">4*1</span> <span class="pre">+</span> <span class="pre">3*10</span> <span class="pre">+</span> <span class="pre">2*100</span> <span class="pre">+</span> <span class="pre">1*1000</span></code>.</p>
 <p>Im Binärsystem geht das genauso, aber mit Potenzen von 2.</p>
 <ul class="simple">
-<li>Die kleinste positive Zahl ist eine 1, oder auch <code class="docutils literal notranslate"><span class="pre">2^0</span></code>.</li>
+<li>Die kleinste positive Zahl ist eine <code class="docutils literal notranslate"><span class="pre">1</span></code>, oder auch <code class="docutils literal notranslate"><span class="pre">2^0</span></code>.</li>
 <li>Die kleinste zweistellige Zahl ist <code class="docutils literal notranslate"><span class="pre">10</span></code>, oder auch <code class="docutils literal notranslate"><span class="pre">2^1</span></code> (dezimal: 2).</li>
 <li>Die kleinste dreistellige Zahl ist <code class="docutils literal notranslate"><span class="pre">100</span></code>, oder auch <code class="docutils literal notranslate"><span class="pre">2^2</span></code> (dezimal: 4).</li>
 <li>Die kleinste vierstellige Zahl ist <code class="docutils literal notranslate"><span class="pre">1000</span></code>, oder auch <code class="docutils literal notranslate"><span class="pre">2^3</span></code> (dezimal: 8).</li>
@@ -331,6 +476,7 @@ gibt es viele Notationen (das heißt viele Programmiersprachen).</p>
 <li><a class="reference internal" href="#erkenntnis-uber-reprasentationen">Erkenntnis über Repräsentationen</a></li>
 <li><a class="reference internal" href="#ubung-0">Übung 0</a></li>
 <li><a class="reference internal" href="#ubung-01">Übung 01</a></li>
+<li><a class="reference internal" href="#teilweise-losung-zu-ubung-1a">Teilweise Lösung zu Übung 1a</a></li>
 <li><a class="reference internal" href="#ein-kurzer-abstecher-zu-binaren-zahlen">Ein kurzer Abstecher zu binären Zahlen</a></li>
 <li><a class="reference internal" href="#ubung-1-fortsetzung">Übung 1, Fortsetzung</a></li>
 <li><a class="reference internal" href="#berechnungen-als-datenverarbeitung">Berechnungen als Datenverarbeitung</a></li>
