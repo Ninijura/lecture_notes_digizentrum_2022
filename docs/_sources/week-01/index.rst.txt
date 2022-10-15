@@ -10,5 +10,6 @@ Lehrmaterial Woche-01
    :maxdepth: 2
 
    willkommen
-   dumme-computer
-   emacs-und-ocaml
+   einleitung_simulation_und_wirklichkeit 
+   sprachen_meta_sprachen_und_programm_verarbeiter
+   emacs_und_ocaml

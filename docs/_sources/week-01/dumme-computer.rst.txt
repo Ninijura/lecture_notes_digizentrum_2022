@@ -523,11 +523,6 @@ a. Probier ein Bisschen mit Großen Zahlen und ``+`` herum.
    +?
 
    
-Lösung zu Übung 2
------------------
-
-TODO
-
 
 Programme
 ---------
