@@ -9,6 +9,7 @@ Einführung ins Programmieren
 .. toctree::
    :maxdepth: 2
 
-   week-01/index
+   week-01/week-01-index
+   week-02/week-02-index
    resources/dramatis_personae
 

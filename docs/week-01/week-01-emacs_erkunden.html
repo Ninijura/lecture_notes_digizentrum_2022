@@ -1,0 +1,252 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Den Computer mit Emacs erkunden &#8212; Einführung ins Programmieren 2022</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/extra-styles.css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Stichwortverzeichnis" href="../genindex.html" />
+    <link rel="search" title="Suche" href="../search.html" />
+    <link rel="next" title="Emacs benutzen um mit dem OCaml-Prozessor zu interagieren" href="week-01-emacs_und_ocaml.html" />
+    <link rel="prev" title="Einleitung: Über den Unteschied zwischen Simulation und Wirklichkeit" href="week-01-einleitung_simulation_und_wirklichkeit.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Stichwortverzeichnis"
+             accesskey="I">Index</a></li>
+        <li class="right" >
+          <a href="week-01-emacs_und_ocaml.html" title="Emacs benutzen um mit dem OCaml-Prozessor zu interagieren"
+             accesskey="N">weiter</a> |</li>
+        <li class="right" >
+          <a href="week-01-einleitung_simulation_und_wirklichkeit.html" title="Einleitung: Über den Unteschied zwischen Simulation und Wirklichkeit"
+             accesskey="P">zurück</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Einführung ins Programmieren 2022</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="week-01-index.html" accesskey="U">Lehrmaterial Woche-01</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="den-computer-mit-emacs-erkunden">
+<h1>Den Computer mit Emacs erkunden<a class="headerlink" href="#den-computer-mit-emacs-erkunden" title="Link zu dieser Überschrift">¶</a></h1>
+<p>In diesem Kapitel geht es darum, den Editor Emacs benutzen zu lernen.</p>
+<div class="section" id="wer-ist-denn-dieser-emcas">
+<h2>Wer ist denn dieser Emcas?<a class="headerlink" href="#wer-ist-denn-dieser-emcas" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Emacs ist ein Textverarbeitungsprogramm und sehr hilfreich, wenn man viel schreiben
+und geschriebenes korrigieren muss. Emacs ist außerdem erweiterbar und
+programmierbar; wer die ersten Übungen gelöst hat, hat schon ein paar Erfahrungen
+damit gesammelt, dass Emacs einen OCaml-Prozessor ausführen und Dateien lesen kann.</p>
+</div>
+<div class="section" id="zwischenspiel">
+<h2>Zwischenspiel<a class="headerlink" href="#zwischenspiel" title="Link zu dieser Überschrift">¶</a></h2>
+<p><strong>Vigfus:</strong> Warum sollen wir denn eigentlich Emacs lernen? Können wir nicht einfach
+Word benutzen?</p>
+<p><strong>Sigrid:</strong> Jammer nicht rum, mach einfach.</p>
+<p><strong>Alfrothul:</strong> Nein, Sigrid, er hat schon Recht. Warum eigentlich?</p>
+<p><strong>Sigrid:</strong> Ihr habt doch schon gelesen, dass Emacs einen OCaml-Prozessor ausführen
+kann. Reicht das nicht?</p>
+<p><strong>Vigfus:</strong> Nein, warum bearbeiten wir nicht die Dateien in Word und benutzen Emacs
+nur zum ausführen?</p>
+<p><strong>Sigrid:</strong> Hm… achso. Stimmt, eigentlich eine gute Frage.</p>
+<p><strong>Bryja:</strong> Ich habe schonmal ein Bisschen mit Emacs rumprobiert und das Ergebnis:
+mein Mausarm ist viel besser geworden.</p>
+<p><strong>Vigfus:</strong> Was hat das mit Emacs zu tun?</p>
+<p><strong>Brynja:</strong> In Emacs sind die Shortcuts so gelegt, dass man die Finger im Prinzip die
+ganz Zeit auf der Tastatur liegen lassen kann. Man braucht nur die &lt;Strg&gt;-Taste
+ziemlich viel. Das geht etwas auf den kleinen Finger.</p>
+<p><strong>Alfrothul:</strong> Ich habe mal was gehört, dass man &lt;Strg&gt; auf die Feststelltaste legen
+kann. Dann ist es viel natürlicher.</p>
+<p><strong>Brynja:</strong> Gute Idee!</p>
+<p><strong>Vigfus:</strong> Ich bin zwar noch nicht überzeugt, aber ich werde es doch auf jeden Fall
+mal ausprobieren. Klingt interessant.</p>
+</div>
+<div class="section" id="ubung-7">
+<h2>Übung 7<a class="headerlink" href="#ubung-7" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Verwende etwas Zeit (gerne eine Stunde) um durch das Emacs-Tutorial zu gehen (<code class="docutils literal notranslate"><span class="pre">C-h</span>
+<span class="pre">t</span></code>).</p>
+</div>
+<div class="section" id="ein-kleiner-spaziergang-durch-das-dateisystem">
+<h2>Ein kleiner Spaziergang durch das Dateisystem<a class="headerlink" href="#ein-kleiner-spaziergang-durch-das-dateisystem" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Du hast also Emacs gestartet. Emacs ist ein Programm und wird immer in einem Ordner
+im Dateisystem des Computers ausgeführt. In welchem? Um das herauszufinden, gib ein:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>C-x C-f
+</pre></div>
+</div>
+<p>Die Antwort steht jetzt im sogenannten „minibuffer“ an der unteren Kante des
+Fensters. Und wahrscheinlich ist es nicht der Ordner, in dem du sein möchtest. Um das
+zu ändern und in dein Benutzerverzeichnis zu gehen, gib ein:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>~/. RET
+</pre></div>
+</div>
+<p>Das heißt eine <code class="docutils literal notranslate"><span class="pre">~</span></code> (Tilde), gefolgt von einem <code class="docutils literal notranslate"><span class="pre">/</span></code> (Slash), gefolgt von einem
+<code class="docutils literal notranslate"><span class="pre">.</span></code> (Punkt), gefolgt von der &lt;Enter&gt;-Taste. Das Resultat davon ist die ganze
+Herrlichkeit deines Heimatordners, alphabetisch sortiert noch dazu. Wenn du den
+Buffer (das Emacs-Unterfenster) nach datum sortieren willst, drück <code class="docutils literal notranslate"><span class="pre">s</span></code>; und noch
+einmal <code class="docutils literal notranslate"><span class="pre">s</span></code>, wenn du es wieder nach Namen sortiert haben möchtest (<code class="docutils literal notranslate"><span class="pre">s</span></code> für
+<code class="docutils literal notranslate"><span class="pre">s</span></code> -ortieren, natürlich).</p>
+<p>Der Modus, in dem der Buffer ist, heißt Dired; das ist kurz für „directory edit“,
+also Verzeichnis-Berarbeitung.</p>
+<p>In diesem Buffer kannst du dich mit <code class="docutils literal notranslate"><span class="pre">C-n</span></code> nach unten und mit <code class="docutils literal notranslate"><span class="pre">C-p</span></code> Zeile um Zeile
+nach unten bewegen. (Oder alternativ mit den Pfeiltasten, aber dann müsstest du deine
+Finger von ihrer natürlichen Tastaturposition weg bewegen.)</p>
+<p>Um einen neuen Ordner anzulegen, tippe <code class="docutils literal notranslate"><span class="pre">+</span></code>, dann den Namen des neuen Ordners, dann
+<code class="docutils literal notranslate"><span class="pre">RET</span></code> (also die &lt;Enter&gt;-Taste). (Um mehr über die Tastenkombinationen für diesen
+Modus herauszufinden, gib <code class="docutils literal notranslate"><span class="pre">C-h</span> <span class="pre">B</span></code> (achtung, großes B!)).</p>
+<p>Lege nun im Ordner <code class="docutils literal notranslate"><span class="pre">Kurse</span></code> einen Ordner mit Namen <code class="docutils literal notranslate"><span class="pre">Einführung-ins-Programmieren</span></code>
+an:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>C-x C-f ~/Kurse/Einführung-ins-Programmieren/ RET
+</pre></div>
+</div>
+<p>(Tipp: die Tabulator-Taste komplettiert automatisch Namen von vorhandenen Ordnern.)</p>
+<p>Es ist eine Gute Idee, außerdem Unterordner für <code class="docutils literal notranslate"><span class="pre">Woche-01</span></code>, <code class="docutils literal notranslate"><span class="pre">Woche-02</span></code>,
+etc. anzulegen.</p>
+<p>Der Rest dieses Kapitels nimmt an, dass du im Ordner
+<code class="docutils literal notranslate"><span class="pre">~/Kurse/Einführung-ins-Programmieren/Woche-01/</span></code> bist.</p>
+</div>
+<div class="section" id="denkanstosz">
+<h2>Denkanstoß<a class="headerlink" href="#denkanstosz" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Wenn du im Hinterkopf behältst, dass <code class="docutils literal notranslate"><span class="pre">..</span></code> im Namen eines Ordners für den Ordner
+direkt über dem aktuellen steht, welches sind die folgenden Ordner?</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">~/Kurse/Einführung-ins-Programmieren/Woche-01</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">~/Kurse/Einführung-ins-Programmieren/Woche-01/</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">~/Kurse/Einführung-ins-Programmieren/Woche-01/.</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">~/Kurse/Einführung-ins-Programmieren/Woche-01/..</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">~/Kurse/Einführung-ins-Programmieren/Woche-01/../.</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">~/Kurse/Einführung-ins-Programmieren/Woche-01/../Woche-02</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">~/Kurse/Einführung-ins-Programmieren/Woche-01/../Woche-02/</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">~/Kurse/Einführung-ins-Programmieren/Woche-01/../Woche-02/.</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">~/Kurse/Einführung-ins-Programmieren/Woche-01/../Woche-02/..</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">~/Kurse/Einführung-ins-Programmieren/Woche-01/../Woche-01</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">~/Kurse/Einführung-ins-Programmieren/Woche-01/../Woche-02/../Woche-01</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">~/Kurse/Einführung-ins-Programmieren/Woche-01/../Woche-02/../Woche-01</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">~/Kurse/Einführung-ins-Programmieren/Woche-01/../..</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">~/Kurse/Einführung-ins-Programmieren/Woche-01/../../</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">~/Kurse/Einführung-ins-Programmieren/Woche-01/../../.</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">~/Kurse/Einführung-ins-Programmieren/Woche-01/../../..</span></code></li>
+</ul>
+<p>Tipp: benutze Emacs und gib für jeden dieser Namen <code class="docutils literal notranslate"><span class="pre">C-x</span></code>, gefolgt von <code class="docutils literal notranslate"><span class="pre">C-f</span></code>,
+gefolg von dem jeweiligen Namen, gefolgt von <code class="docutils literal notranslate"><span class="pre">RET</span></code> ein.</p>
+<blockquote class="epigraph">
+<div><strong>Vigfus:</strong> Hey! Ich frage mich, was passiert, wenn ich einfach nur <code class="docutils literal notranslate"><span class="pre">C-x</span>
+<span class="pre">C-f</span> <span class="pre">..</span> <span class="pre">RET</span></code> eingebe.
+<strong>Brynja:</strong> Na probier’s aus!</div></blockquote>
+</div>
+<div class="section" id="uber-das-bearbeiten-von-mehreren-fenster">
+<h2>Über das bearbeiten von mehreren Fenster<a class="headerlink" href="#uber-das-bearbeiten-von-mehreren-fenster" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Erinnerung:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">3</span></code> teilt das aktive Fenster in zwei Fenster nebeneinander</li>
+<li><code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">2</span></code> teilt das aktive Fenster in zwei Fenster untereinander</li>
+<li><code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">1</span></code> schließt alle Fenster bis auf das aktive</li>
+<li><code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">0</span></code> schließt das aktive Fenster (aber nicht die geöffnete Datei. Du kannst
+sie wiederfinden mit <code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">C-b</span></code>)</li>
+</ul>
+</div>
+<div class="section" id="konklusion">
+<h2>Konklusion<a class="headerlink" href="#konklusion" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Du hast nun volle Kontrolle darüber, wo deine Dateien sind und in welchem Ordner dein
+Emacs gerade läuft.</p>
+<blockquote class="epigraph">
+<div><strong>Sigrid:</strong> Mann! Emacs hat ja echt alles.
+<strong>Alfrothul:</strong> Hast du schon <code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">hanoi</span></code> probiert?
+<strong>Brynja:</strong> Und <code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">life</span></code>?
+<strong>Loki:</strong> Und <code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">doctor</span></code>?</div></blockquote>
+</div>
+<div class="section" id="version">
+<h2>Version<a class="headerlink" href="#version" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Erstellt [2022-10-15]</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Den Computer mit Emacs erkunden</a><ul>
+<li><a class="reference internal" href="#wer-ist-denn-dieser-emcas">Wer ist denn dieser Emcas?</a></li>
+<li><a class="reference internal" href="#zwischenspiel">Zwischenspiel</a></li>
+<li><a class="reference internal" href="#ubung-7">Übung 7</a></li>
+<li><a class="reference internal" href="#ein-kleiner-spaziergang-durch-das-dateisystem">Ein kleiner Spaziergang durch das Dateisystem</a></li>
+<li><a class="reference internal" href="#denkanstosz">Denkanstoß</a></li>
+<li><a class="reference internal" href="#uber-das-bearbeiten-von-mehreren-fenster">Über das bearbeiten von mehreren Fenster</a></li>
+<li><a class="reference internal" href="#konklusion">Konklusion</a></li>
+<li><a class="reference internal" href="#version">Version</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Vorheriges Thema</h4>
+  <p class="topless"><a href="week-01-einleitung_simulation_und_wirklichkeit.html"
+                        title="vorheriges Kapitel">Einleitung: Über den Unteschied zwischen Simulation und Wirklichkeit</a></p>
+  <h4>Nächstes Thema</h4>
+  <p class="topless"><a href="week-01-emacs_und_ocaml.html"
+                        title="nächstes Kapitel">Emacs benutzen um mit dem OCaml-Prozessor zu interagieren</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Diese Seite</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/week-01/week-01-emacs_erkunden.rst.txt"
+            rel="nofollow">Quellcode anzeigen</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Schnellsuche</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Los" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Stichwortverzeichnis"
+             >Index</a></li>
+        <li class="right" >
+          <a href="week-01-emacs_und_ocaml.html" title="Emacs benutzen um mit dem OCaml-Prozessor zu interagieren"
+             >weiter</a> |</li>
+        <li class="right" >
+          <a href="week-01-einleitung_simulation_und_wirklichkeit.html" title="Einleitung: Über den Unteschied zwischen Simulation und Wirklichkeit"
+             >zurück</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Einführung ins Programmieren 2022</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="week-01-index.html" >Lehrmaterial Woche-01</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Kira Kutscher.
+      Mit <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5 erstellt.
+    </div>
+  </body>
+</html>

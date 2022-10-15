@@ -1,0 +1,582 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Einleitung: Über den Unteschied zwischen Simulation und Wirklichkeit &#8212; Einführung ins Programmieren 2022</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/extra-styles.css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Stichwortverzeichnis" href="../genindex.html" />
+    <link rel="search" title="Suche" href="../search.html" />
+    <link rel="next" title="Den Computer mit Emacs erkunden" href="week-01-emacs_erkunden.html" />
+    <link rel="prev" title="Eine Wegbeschreibung der kommenden acht Wochen" href="week-01-willkommen.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Stichwortverzeichnis"
+             accesskey="I">Index</a></li>
+        <li class="right" >
+          <a href="week-01-emacs_erkunden.html" title="Den Computer mit Emacs erkunden"
+             accesskey="N">weiter</a> |</li>
+        <li class="right" >
+          <a href="week-01-willkommen.html" title="Eine Wegbeschreibung der kommenden acht Wochen"
+             accesskey="P">zurück</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Einführung ins Programmieren 2022</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="week-01-index.html" accesskey="U">Lehrmaterial Woche-01</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="einleitung-uber-den-unteschied-zwischen-simulation-und-wirklichkeit">
+<h1>Einleitung: Über den Unteschied zwischen Simulation und Wirklichkeit<a class="headerlink" href="#einleitung-uber-den-unteschied-zwischen-simulation-und-wirklichkeit" title="Link zu dieser Überschrift">¶</a></h1>
+<p>Wer programmieren lernen will, der muss erst einmal verstehen, wie man sich seinem
+Computer gegenüber verständlich macht.</p>
+<p>Das Klischee, dass Computer eine Sprache sprechen, die nur aus 0’en und 1’en besteht
+ist zwar nicht hundertprozentig treffend (die meisten Computerchips können auch eine
+Handvoll anderer Wörter, genannt Instruktionen), aber eigentlich gar keine schlechte
+Approximation.</p>
+<p>Also, wir wissen nun, dass der Computer in <a class="reference external" href="https://de.wikipedia.org/wiki/Bin%C3%A4rcode">Binärcode</a> spricht und wir selbst aber eher
+deutsch, englisch, oder eine andere <a class="reference external" href="https://de.wikipedia.org/wiki/Nat%C3%BCrliche_Sprache">natürliche Sprache</a>.
+Das ganze lässt sich also wie folgt zusammenfassen:</p>
+<img alt="../_images/ditaa-3c02734fcf0d8191f72d5638ee29155d56a45949.png" src="../_images/ditaa-3c02734fcf0d8191f72d5638ee29155d56a45949.png" />
+<blockquote class="epigraph">
+<div><div class="line-block">
+<div class="line">Ich denke,</div>
+<div class="line">Sie sollten doch etwas spezifischer sein,</div>
+<div class="line">hier in Schritt zwei.</div>
+</div>
+<p class="attribution">&mdash;<a class="reference external" href="https://www.researchgate.net/figure/Then-a-Miracle-Occurs-Copyrighted-artwork-by-Sydney-Harris-Inc-All-materials-used-with_fig2_302632920">Sydney Harris</a></p>
+</div></blockquote>
+<div class="section" id="informationen-und-daten">
+<h2>Informationen und Daten<a class="headerlink" href="#informationen-und-daten" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Egal ob Computer oder Mensch, unsere Sprachen haben einige Dinge gemeinsam. Erstmal,
+ganz grundlegend, benutzen wir unsere Sprache um Informationen auszutauschen. Wir
+haben Wörter, über deren Bedeutung wir uns weitestgehend einig sind und setzen diese
+zusammen in Sätzen, die dann hoffentlich die Information übermitteln, die wir im Sinn
+hatten.</p>
+<p>Wenn sich zwei Personen treffen, die beide deutsch sprechen, dann ist das relativ
+unkompliziert. Beide Personen wissen, was die Wörter bedeuten und wie die Sätze
+aufgebaut sein müssen, damit die andere Person sie versteht.</p>
+<img alt="../_images/ditaa-f8af7c57090e1254ed18e24efa3cb1f79016d13b.png" src="../_images/ditaa-f8af7c57090e1254ed18e24efa3cb1f79016d13b.png" />
+<p>Wenn ein Satz nicht klar formuliert war, dann kann es sein, dass Information A und
+Information B nicht gleich sind. Zwischen Menschen kann so ein Missverständnis zu
+gegenseitiger Frustration führen. Im Umgang mit Computern ist diese Frustration zwar
+einseitig, dafür aber oftmals umso größer.</p>
+<blockquote class="epigraph">
+<div><div class="line-block">
+<div class="line"><strong>Loki [verschmitzt]:</strong> Habt ihr das gesehen?</div>
+<div class="line">Der Mann hat die Frau auf dem Fahrrad verfolgt!</div>
+<div class="line"><strong>Alfrothul:</strong> Oh nein! Wie gemein!</div>
+<div class="line">Ich hoffe, sie ist eine gute Läuferin!</div>
+<div class="line"><strong>Brynja:</strong> Gar nicht gemein.</div>
+<div class="line">Sie hat nicht bemerkt, dass ihr etwas</div>
+<div class="line">aus dem Fahrradkorb gefallen war.</div>
+</div>
+</div></blockquote>
+<p>Wenn sich aber zum Beispiel ein Deutscher und ein Franzose treffen, ist deren <a class="reference external" href="https://de.wikipedia.org/wiki/Verkehrssprache">Lingua
+franca</a> (ironischerweise; siehe
+Link) wahrscheinlich Englisch. Beide denken immernoch die gleichen Gedanken wie
+zuvor, aber nun müssen sie andere Worte für die gleichen Konzepte benutzen. Die Sätze
+sind auch anders aufgebaut.</p>
+<p>Ungefähr so funktioniert das auch mit Computern. Statt der Worte haben wir Daten, die
+Informationen repräsentieren:</p>
+<img alt="../_images/ditaa-33d5157c6aa5924f943d512489079786f4adc6c9.png" src="../_images/ditaa-33d5157c6aa5924f943d512489079786f4adc6c9.png" />
+<p>(<a class="reference external" href="https://de.wiktionary.org/wiki/notabene">NB</a>: Das Wort „Daten“ (englisch „data“)
+kommt aus dem Lateinischen und ist eigentlich Plural. Der korrekte Singular ist
+„Datum“.)</p>
+<p>Im Computer werden Daten von einem <em>Daten-Konstruktor</em> erstellt. Die Repräsentation
+der Information kann zwei Eigenschaften haben.</p>
+<ul class="simple">
+<li>Eine Repräsentation ist <em>korrekt</em> (englisch: <em>sound</em>), wenn der richtige Gebrauch
+der Daten-Konstruktoren immer Daten erstellt, die wirklich das repräsentieren, was
+sie repräsentieren sollen. (Sonst ist die Repräsentation <em>inkorrekt</em> (<em>unsound</em>).)</li>
+<li>Eine Repräsentation ist <em>komplett</em> (englisch: <em>complete</em>), wenn wir alle
+Information, die wir repräsentieren möchten mit Gebrauch der Daten-Konstruktoren
+repräsentieren können. (Sonst ist die Repräsentation <em>inkomplett</em> (<em>incomplete</em>).)</li>
+</ul>
+<p>In OCaml (der Programmiersprache, mit der wir in diesem Kurs arbeiten), hat die
+Standard-Repräsentation von Integern (Ganzzahlen) eine feste Größe. Das heißt, dass
+(in diesem Fall) nur Zahlen zwischen -4611686018427387904 und 4611686018427387903
+repräsentiert werden können. Diese Repräsentation ist korrekt, für alle Zahlen
+zwischen -4611686018427387904 und 4611686018427387903, da diese wirklich mathematische
+Ganzzahlen darstellen. Diese Repräsentation ist nicht komplett, da Zahlen, die kleine
+als -4611686018427387904 oder größer als 4611686018427387903 sind nicht dargestellt
+werden können.</p>
+</div>
+<div class="section" id="erkenntnis-uber-reprasentationen">
+<h2>Erkenntnis über Repräsentationen<a class="headerlink" href="#erkenntnis-uber-reprasentationen" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Kurz gesagt: eine Repräsentation und das, was sie repräsentiert, sind zwei
+unterschiedliche Dinge.</p>
+<ul class="simple">
+<li>Ein Name ist nicht das, was er benennt (z.B., wir sind nicht unsere Namen).</li>
+<li>Eine Adressse ist kein Haus.</li>
+<li>Eine <a class="reference external" href="https://de.wikipedia.org/wiki/Note_(Musik)">Note</a> ist nicht ihr Name (C, D,
+E, F, G, A, H) und auch nicht der Ton, den sie beschreibt.</li>
+<li>usw.</li>
+</ul>
+<blockquote class="epigraph">
+<div><div class="line-block">
+<div class="line"><strong>Mimer:</strong> Das erinniert mich an das Bild von <a class="reference external" href="https://en.wikipedia.org/wiki/Ren%C3%A9_Magritte">René Magritte</a>?</div>
+<div class="line"><strong>Alfrothul:</strong> Du meinst die Pfeife?</div>
+<div class="line"><strong>Brynja:</strong> Eben nicht, das ist ja genau der Punkt.</div>
+<div class="line"><strong>Mimer:</strong> Genau. <a class="reference external" href="https://de.wikipedia.org/wiki/La_trahison_des_images">„Der Verrat der Bilder“</a> beschäftigt sich genau   damit.</div>
+<div class="line">Magritte hat eine Pfeife gemalt und darunter geschrieben: „Dies ist keine Pfeife“.</div>
+<div class="line"><strong>Alfrothul:</strong> Weil es nur ein Bild von einer Pfeife ist.</div>
+<div class="line"><strong>Brynja:</strong> Wenn man es genau nimmt, Mimer, hat er auch nicht geschrieben:</div>
+<div class="line">„Dies ist keine Pfeife“, sondern „Ceci n’est pas une pipe.“</div>
+<div class="line">Deine Übersetzung war auch nur eine Repräsentation.</div>
+<div class="line"><strong>Loki:</strong> Ist das hier dann auch kein Lehrmaterial?</div>
+<div class="line"><strong>Alfrothul:</strong> Das, was mein Schirm mir anzeigt, kann ich lesen und davon lernen.</div>
+<div class="line">Ich glaube, das ist doch Lehrmaterial.</div>
+<div class="line"><strong>Brynja:</strong> Ich glaube auch. Die Dateien sind die Repräsentation, die der Computer lesen kann,</div>
+<div class="line">aber sobald es auf dem Schirm ist, ist es Lehrmaterial.</div>
+<div class="line"><strong>„Mad-Eye“ Moody:</strong> <a class="reference external" href="https://harrypotter.fandom.com/de/wiki/Alastor_Moody">Ständige Wachsamkeit!</a></div>
+</div>
+</div></blockquote>
+</div>
+<div class="section" id="ubung-0">
+<h2>Übung 0<a class="headerlink" href="#ubung-0" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Für einige der folgenden Übungen müsst ihr den OCaml-Prozessor in Emacs benutzen. Ihr
+werdet vorerst nur mit Zahlen und einfacher Arithmetik arbeiten. Kein Grund also für
+Berührungsangst.</p>
+<p>Öffne Emacs und gib ein <code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">run-ocaml</span> <span class="pre">&lt;RET&gt;</span></code> (das heißt: halte die <code class="docutils literal notranslate"><span class="pre">Meta</span></code> (&lt;Alt&gt;)
+Taste gedrückt und drücke dann x; dann schreib <code class="docutils literal notranslate"><span class="pre">run-ocaml</span></code> und drücke
+&lt;Enter&gt;) und drücke noch einmal &lt;Enter&gt;.</p>
+<p>Dein Emacs hat sich nun in zwei Fenster aufgeteilt. Der Cursor ist aber noch im
+falschen Fenster. Drücke <code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">o</span></code> um zwischen den Fenstern zu wechseln (das heißt:
+halte die &lt;Strg&gt;-Taste gedrückt und drücke <code class="docutils literal notranslate"><span class="pre">x</span></code>; dann lass die &lt;Strg&gt;-Taste los und
+drücke <code class="docutils literal notranslate"><span class="pre">o</span></code>). Wenn du das Fenster, in dem sich dein Cursor befindet, schließen
+möchtest, drück <code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">0</span></code> (das heißt: halte die &lt;Strg&gt;-Taste gedrückt und drücke
+<code class="docutils literal notranslate"><span class="pre">x</span></code>; dann lass die &lt;Strg&gt;-Taste los und drücke <code class="docutils literal notranslate"><span class="pre">0</span></code>). Wenn du alle Fenster
+schließen willst <strong>bis auf</strong> das, in dem sich dein Cursor befindet, drücke <code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">1</span></code>
+(das heißt: halte die &lt;Strg&gt;-Taste gedrückt und drücke <code class="docutils literal notranslate"><span class="pre">x</span></code>; dann lass die
+&lt;Strg&gt;-Taste los und drücke <code class="docutils literal notranslate"><span class="pre">1</span></code>).</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>OCaml version 4.14.0
+Enter #help;; for help.
+
+#
+</pre></div>
+</div>
+<p>Wenn wir einen „Ausdruck“ (eng: expression) gefolgt von <code class="docutils literal notranslate"><span class="pre">;;</span></code> eingeben und dann
+&lt;RET&gt; (also die &lt;Enter&gt;-Taste) drücken, dann berechnet OCaml diesen Ausdruck und</p>
+<ul class="simple">
+<li>druckt ein Resultat gefolgt von einer neuen Zeile mit <code class="docutils literal notranslate"><span class="pre">#</span></code>, welche auf weitere
+Eingaben wartet;</li>
+<li>druckt eine Fehlermeldung (auch ein Resultat) gefolgt von einer neuen Zeile mit
+<code class="docutils literal notranslate"><span class="pre">#</span></code>, welche auf weitere Eingaben wartet; oder</li>
+<li>druckt eine neue Zeile, die sich aber um keine Eingaben kümmert, weil der Prozess
+divergiert (das bedeutet länger läuft als wir warten wollen, womöglich
+unendlich). In diesem Fall drücke <code class="docutils literal notranslate"><span class="pre">C-c</span> <span class="pre">C-c</span></code> um den Berechnung abzubrechen (das
+heißt: Halte die &lt;Strg&gt;-Taste gedrückt und drücke <code class="docutils literal notranslate"><span class="pre">c</span></code>, dann halte die &lt;Strg&gt;-Taste
+gedrückt und drücke <code class="docutils literal notranslate"><span class="pre">c</span></code>).</li>
+</ul>
+<p>Ein simpler Ausdruck ist zum Beispiel <code class="docutils literal notranslate"><span class="pre">1;;</span></code>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># 1;;
+- : int = 1
+#
+</pre></div>
+</div>
+<p>Wir können OCaml auch um kompliziertere Berechnungen bitten:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># 2+2;;
+- : int = 4
+#
+</pre></div>
+</div>
+<p>Nun hat OCaml das <code class="docutils literal notranslate"><span class="pre">+</span></code> als Operation verstanden und gibt uns das Resultat.</p>
+<p>Probiere selbst noch ein paar andere Ausdrücke und Operationen aus. Wie wäre es zum
+Beispiel mit Subtraktion <code class="docutils literal notranslate"><span class="pre">(-)</span></code> oder Multiplikation <code class="docutils literal notranslate"><span class="pre">(</span> <span class="pre">*</span> <span class="pre">)</span></code>?</p>
+<p>Diese einfachen Rechenstücke geben immer ein Resultat. Wenn du nach einer Eingabe
+trotzdem eine neue Zeile ohne <code class="docutils literal notranslate"><span class="pre">#</span></code> bekommst, dann hast du das <code class="docutils literal notranslate"><span class="pre">;;</span></code> vergessen.</p>
+</div>
+<div class="section" id="ubung-01">
+<h2>Übung 01<a class="headerlink" href="#ubung-01" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Computer benutzen eine binäre Repräsentation von Zahlen (das mit den Nullen und
+Einsen). Benutze Emacs und den <a class="reference download internal" download="" href="../_downloads/221fe2d44ef83c4bd81082348c3a1172/exercises_for_week-01.ml"><code class="xref download docutils literal notranslate"><span class="pre">OCaml-Code</span></code></a> für das gegenwärtige Lehrmaterial um
+die folgenden Aufgaben zu lösen <a class="reference external" href="emacs_und_ocaml.html">(eine Anleitung dazu gibt es hier)</a>. Oder lest einfach die teilweise Lösung im nächsten Abschnitt.</p>
+<ol class="loweralpha">
+<li><p class="first">Welche Potenz von 2 ist die größte, die OCaml korrekt darstellen kann?
+In anderen Worten: Was ist die größte Zahl, <code class="docutils literal notranslate"><span class="pre">x</span></code>, so dass OCaml <span class="math notranslate nohighlight">\(2^x\)</span> korrekt repräsentiert?
+(Tipp: 4611686018427387904 ist eine Potenz von 2.)</p>
+<p><strong>Hinweis:</strong> Der OCaml-Code für das gegenwärtige Lehrmaterial lässt euch
+exponenten normal schreiben (das heißt ihr schreibt <code class="docutils literal notranslate"><span class="pre">2^3</span></code>, wenn du :math: <cite>2^3</cite>
+meint). Normalerweise bedeutet der Operator <code class="docutils literal notranslate"><span class="pre">(^)</span></code> etwas anderes in OCaml, das
+heißt, wenn ihr die Datei nicht ladet, bekommt ihr eine Fehlermeldung, die ihr
+noch nicht versteht.</p>
+</li>
+<li><p class="first">Und was, wenn wir nach dem kleinsten <span class="math notranslate nohighlight">\(-(2^x)\)</span> suchen? (Achtung! Ihr könnt
+nicht einfach <code class="docutils literal notranslate"><span class="pre">-2^n;;</span></code> ausprobieren, da ihr bei geraden exponenten <code class="docutils literal notranslate"><span class="pre">n</span></code>
+immer ein positives Ergebnis bekommt. Minus-mal-minus und so…)</p>
+</li>
+</ol>
+</div>
+<div class="section" id="teilweise-losung-zu-ubung-1a">
+<h2>Teilweise Lösung zu Übung 1a<a class="headerlink" href="#teilweise-losung-zu-ubung-1a" title="Link zu dieser Überschrift">¶</a></h2>
+<p><strong>Sigrid:</strong> Das ist einfach, dafür müssen wir die Zahlen einfach alle ausprobieren.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># 2^2;;
+Line 1, characters 0-1:
+1 | 2^2
+    ^
+Error: This expression as type int but an expression was expected of type string
+</pre></div>
+</div>
+<p><strong>Alfrothul:</strong> Ich glaube, wir müssen OCaml erst erzählen, dass es den OCaml-Coder
+für diese Woche benutzen soll.</p>
+<p><strong>Sigrid:</strong> Achja, stimmt.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># #use &quot;exercises_for_week-01.ml&quot;;;
+val test_exp : (int -&gt; int -&gt; int) -&gt; bool = &lt;fun&gt;
+exception Exponent_unter_null of int
+val ( ^ ) : int -&gt; int -&gt; int = &lt;fun&gt;
+val execute_test_exp : bool = true
+#
+</pre></div>
+</div>
+<p><strong>Sigrid:</strong> Was hat das denn alles zu bedeuten?</p>
+<p><strong>Brynja:</strong> Ich schätze mal, dass das die Resultate der .ml-Datei sind, die wir OCaml
+gerade haben berechnen lassen.</p>
+<p><strong>Alfrothul:</strong> Das sieht kompliziert aus. Aber da sollten wir uns wahrscheinlich
+jetzt noch nicht drum kümmern. Zurück zur Übung.</p>
+<p><strong>Sigrid:</strong> Okay, ich weiß schonmal, dass :math: <cite>2^8</cite> = 256 ist. Kleinere Zahlen
+muss ich also gar nicht ausprobieren. Also von da aus weiter:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># 2^9;;
+- : int 512
+# 2^10;;
+- : int 1024
+# 2^11;;
+- : int 2048
+</pre></div>
+</div>
+<p><strong>Alfrothul:</strong> Das könnte eine ganze Weile dauern… <em>gähn!</em></p>
+<p><strong>Brynja:</strong> Leute, ich habe eine Idee. Was, wenn wir erstmal eine Zahl ausprobieren,
+die bestimmt zu groß ist?</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># 2^100;;
+- : int = 0
+</pre></div>
+</div>
+<p><strong>Sigrid:</strong> Die war wirklich zu groß. Aber wir wissen ja jetzt gar nicht mehr, wie
+weit wir von 4.611.686.018.427.387.903 weg sind. Was nun?</p>
+<p><strong>Brynja:</strong> Jetzt nehmen wir einfach die in der Mitte zwischen der größten zu kleinen
+und der kleinsten zu großen Zahl. Die Mitte zwischen 11 und 100 ist… warte, das
+kann ich nicht im Kopf.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># 100 - 11;;
+- : int 89
+# 11 + (89 / 2);;
+- : int 55;;
+</pre></div>
+</div>
+<p><strong>Alfrothul:</strong> Okay, 55, weiter im Text:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># 2^55;;
+- : int = 36028797018963968
+</pre></div>
+</div>
+<p><strong>Sigrid:</strong> Wow! Damit sind wir ja schon viel näher dran.</p>
+<p><strong>Brynja:</strong> Okay, wieder die Hälfte. Diesmal ist das einfacher: 77.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># 2^77;;
+- : int = 0
+</pre></div>
+</div>
+<p><strong>Alfrothul:</strong> Mist, wieder zu groß. Aber ich glaube, ich habe das Prinzip jetzt
+begriffen. Jetzt nehmen wir die Mitte zwischen 77 und 55, richtig?</p>
+<p><strong>Brynja:</strong> Genau.</p>
+<p><strong>Mimer:</strong> Wisst ihr, dass euer System ein gängiger Algorithmus ist?</p>
+<p><strong>Sigrid:</strong> Nein?</p>
+<p><strong>Mimer:</strong> Doch! …</p>
+<p><strong>Alfrotul:</strong> <em>[Mimer unterbrechend]</em>  <a class="reference external" href="https://www.youtube.com/watch?v=w4aLThuU008">Oh!</a></p>
+<p><strong>Mimer:</strong> [lächelnd] Der Algorithmus heißt <a class="reference external" href="https://de.wikipedia.org/wiki/Bin%C3%A4re_Suche">binäre Suche</a> und funktioniert in jeder
+sortierten Liste. Also zum Beispiel in einem Telefonbuch, oder wie ihr es hier mach,
+in der Reihe der Natürlichen Zahlen.</p>
+<p><strong>Brynja:</strong> In einem Telefonbuch würde man also erst in der Mitte aufschlagen…</p>
+<p><strong>Alfrothul:</strong> [mit einer Glühbirne über dem Kopf] Ah! Und dann schauen ob man weiter
+nach vorne oder weiter nach hinten blättern muss. Wenn man weiter nach vorne muss,
+behält man einen Finger in der Mitte und geht ungefähr zur Hälfte zurück nach vorne.</p>
+<p><strong>Brynja:</strong> Genau. Und dann wieder die Mitte. Entweder zwischen dem Anfang und der
+neuen Position oder der Mitte und der neuen Position.</p>
+<p><strong>Sigrid:</strong> Ich glaube, ich verstehe!</p>
+<p>[Sie zieht ein Wörterbuch aus dem Regal.]</p>
+<p><strong>Sigrid:</strong> Das hier ist doch auch sortiert. Da müsste das auch gehen. Gebt mir mal
+ein zufälliges Wort!</p>
+<p><strong>Alfrothul:</strong> Hier ist ein <a class="reference external" href="https://capitalizemytitle.com/zufallswort-generator/">Zufallswort-Generator</a>.</p>
+<p><strong>Mimer:</strong> Sehr gut! Ihr lernt auch noch mehr über Algorithmen in ein paar
+Wochen. Jetzt zurück zu Übung 1.</p>
+</div>
+<div class="section" id="ein-kurzer-abstecher-zu-binaren-zahlen">
+<h2>Ein kurzer Abstecher zu binären Zahlen<a class="headerlink" href="#ein-kurzer-abstecher-zu-binaren-zahlen" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Wenn wir im Alltag Zahlen benutzen, dann benutzen wir das Dezimalsystem. Wer ein
+Bisschen Latein kann, der weiß, dass „dezi“ 10 bedeutet. Guckt man sich dann unser
+Zahlensystem an, bemerkt man, dass wir 10 unterschiedliche ziffern haben: <code class="docutils literal notranslate"><span class="pre">0,</span> <span class="pre">1,</span> <span class="pre">2,</span>
+<span class="pre">3,</span> <span class="pre">4,</span> <span class="pre">5,</span> <span class="pre">6,</span> <span class="pre">7,</span> <span class="pre">8,</span> <span class="pre">9</span></code>.</p>
+<p>Im Binärsystem ist das ähnlich (nur mit Griechisch statt Latein). Das Präfix „bi-“
+bedeutet was mit 2; und ganz richtig das Binärsystem hat zwei unterschiedliche
+Zahlen: <code class="docutils literal notranslate"><span class="pre">0,</span> <span class="pre">1</span></code>. (Das ist praktisch für Computerchips, deren einzige zwei Zeichen
+<code class="docutils literal notranslate"><span class="pre">Strom</span> <span class="pre">an</span></code> und <code class="docutils literal notranslate"><span class="pre">Strom</span> <span class="pre">aus</span></code> sind. Deshalb benutzen Computer das Binärsystem.)</p>
+<blockquote class="epigraph">
+<div><div class="line-block">
+<div class="line"><strong>Brynja:</strong> Fällt euch was auf Leute?</div>
+<div class="line"><strong>Sigrid:</strong> Du meinst, dass das Binärsystem gar keine 2 benutzt,</div>
+<div class="line">obwohl es das Zweiersystem ist?</div>
+<div class="line"><strong>Alfrothul:</strong> Ich glaube, Brynja meint,</div>
+<div class="line">dass wir schon wieder von Repräsentationen reden.</div>
+<div class="line"><strong>Brynja:</strong> Genau. Wenn wir also 3 meinen, können wir <code class="docutils literal notranslate"><span class="pre">3</span></code> schreiben,</div>
+<div class="line">oder <code class="docutils literal notranslate"><span class="pre">11</span></code> im Binärsystem.</div>
+<div class="line"><strong>Sigrid:</strong> Stimmt. Oder <code class="docutils literal notranslate"><span class="pre">III</span></code> in römischen Zahlen.</div>
+<div class="line"><strong>Alfrothul:</strong> Ja, aber bitte nichts mehr über tote Sprachen heute.</div>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li>Wenn wir im Dezimalsystem zählen wollen, fangen wir mit einer Stelle an und zählen
+von der kleinsten Ziffer zur größten. So kommen wir bis 9.</li>
+<li>Wenn wir weiter zählen wollen, setzen wir eine 1 voran und zählen wieder die
+hinterste Stelle hoch. Wenn diese bei der größten Zahl, also 9, angekommen ist,
+zählen wir die Stelle davor eine hoch. So kommen wir bis 99.</li>
+<li>Wenn wir weiter zählen wollen, setzen wir eine 1 voran und… bemerken, dass wir
+uns irgendwie immer wiederholen. Wir vergrößern die Ziffern von rechts nach links,
+bis alle Ziffern 9 sind. Dann setzen wir alle Ziffern wieder auf 0 und schreiben
+eine 1 davor.</li>
+</ul>
+<p>Mit diesem Verständnis ist das Zählen im Binärsystem auch nicht mehr kompliziert:</p>
+<ul class="simple">
+<li>Wenn wir im Binärsystem zählen wollen, fangen wir mit einer Stelle an und zählen
+von der kleinsten Ziffer zur größten. So kommen wir bis 1.</li>
+<li>Wenn wir weiter zählen wollen, setzen wir eine 1 voran und zählen wieder die
+hinterste Stelle hoch. Wenn diese bei der größten Zahl, also 1, angekommen ist,
+zählen wir die Stelle davor eine hoch. So kommen wir bis 11.</li>
+<li>Wenn wir weiter zählen wollen, setzen wir eine 1 voran und… bemerken, dass wir
+uns irgendwie immer wiederholen. Wir vergrößern die Ziffern von rechts nach links,
+bis alle Ziffern 1 sind. Dann setzen wir alle Ziffern wieder auf 0 und schreiben
+eine 1 davor.</li>
+</ul>
+<p>Soviel zum zählen. Aber wie rechnen wir jetzt um?</p>
+<p>Dafür brauchen wir Potenzen. (Am Computer schreiben wir <span class="math notranslate nohighlight">\(n^x\)</span> als <code class="docutils literal notranslate"><span class="pre">n^x</span></code>.)</p>
+<ul class="simple">
+<li>Im Dezimalsystem ist die kleinste positive Zahl eine <code class="docutils literal notranslate"><span class="pre">1</span></code>. Das lässt sich auch
+schreiben als <code class="docutils literal notranslate"><span class="pre">10^0</span></code>.</li>
+<li>Die kleinste zweistellige Zahl ist <code class="docutils literal notranslate"><span class="pre">10</span></code>, oder auch <code class="docutils literal notranslate"><span class="pre">10^1</span></code>.</li>
+<li>Die kleinste dreistellige Zahl ist <code class="docutils literal notranslate"><span class="pre">100</span></code>, oder auch <code class="docutils literal notranslate"><span class="pre">10^2</span></code>.</li>
+<li>Die kleinste vierstellige Zahl ist <code class="docutils literal notranslate"><span class="pre">1000</span></code>, oder auch <code class="docutils literal notranslate"><span class="pre">10^3</span></code>.</li>
+<li>usw.</li>
+</ul>
+<p>Wenn wir also <code class="docutils literal notranslate"><span class="pre">1234</span></code> schreiben, bedeutet das: <code class="docutils literal notranslate"><span class="pre">4*10^0</span> <span class="pre">+</span> <span class="pre">3*10^1</span> <span class="pre">+</span> <span class="pre">2*10^2</span> <span class="pre">+</span>
+<span class="pre">1*10^3</span></code>, oder leserlicher: <code class="docutils literal notranslate"><span class="pre">4*1</span> <span class="pre">+</span> <span class="pre">3*10</span> <span class="pre">+</span> <span class="pre">2*100</span> <span class="pre">+</span> <span class="pre">1*1000</span></code>.</p>
+<p>Im Binärsystem geht das genauso, aber mit Potenzen von 2.</p>
+<ul class="simple">
+<li>Die kleinste positive Zahl ist eine <code class="docutils literal notranslate"><span class="pre">1</span></code>, oder auch <code class="docutils literal notranslate"><span class="pre">2^0</span></code>.</li>
+<li>Die kleinste zweistellige Zahl ist <code class="docutils literal notranslate"><span class="pre">10</span></code>, oder auch <code class="docutils literal notranslate"><span class="pre">2^1</span></code> (dezimal: 2).</li>
+<li>Die kleinste dreistellige Zahl ist <code class="docutils literal notranslate"><span class="pre">100</span></code>, oder auch <code class="docutils literal notranslate"><span class="pre">2^2</span></code> (dezimal: 4).</li>
+<li>Die kleinste vierstellige Zahl ist <code class="docutils literal notranslate"><span class="pre">1000</span></code>, oder auch <code class="docutils literal notranslate"><span class="pre">2^3</span></code> (dezimal: 8).</li>
+<li>usw.</li>
+</ul>
+<p>Wenn wir also <code class="docutils literal notranslate"><span class="pre">1010</span></code> schreiben, bedeutet das: <code class="docutils literal notranslate"><span class="pre">0*2^0</span> <span class="pre">+</span> <span class="pre">1*2^1</span> <span class="pre">+</span> <span class="pre">0*2^2</span> <span class="pre">+</span> <span class="pre">1*2^3</span></code>,
+oder leserlicher: <code class="docutils literal notranslate"><span class="pre">0*1</span> <span class="pre">+</span> <span class="pre">1*2</span> <span class="pre">+</span> <span class="pre">0*4</span> <span class="pre">+</span> <span class="pre">1*8</span> <span class="pre">=</span> <span class="pre">10</span></code>.</p>
+</div>
+<div class="section" id="ubung-1-fortsetzung">
+<h2>Übung 1, Fortsetzung<a class="headerlink" href="#ubung-1-fortsetzung" title="Link zu dieser Überschrift">¶</a></h2>
+<ol class="loweralpha" start="3">
+<li><p class="first">Wer aufgepasst hat, hat folgendes bemerkt:</p>
+<p>Die größtmögliche Zahl, <code class="docutils literal notranslate"><span class="pre">max_int</span></code>, ist <code class="docutils literal notranslate"><span class="pre">(2^x)-1</span></code>.</p>
+<p>Die kleinstmögliche Zahl, <code class="docutils literal notranslate"><span class="pre">min_int</span></code>, ist <code class="docutils literal notranslate"><span class="pre">-(2^x)</span></code>.</p>
+<p>Beide für die gleiche Zahl x.</p>
+<p>Was bedeutet das im Zusammenhang mit dem Binärsystem? Hast du eine Idee, warum es genau
+eine negative Zahl mehr gibt als positive? (Tipp: Gibt es eine Zahl, die immer
+gleich bleibt, egal welches Vorzeichen sie hat?)</p>
+</li>
+</ol>
+</div>
+<div class="section" id="berechnungen-als-datenverarbeitung">
+<h2>Berechnungen als Datenverarbeitung<a class="headerlink" href="#berechnungen-als-datenverarbeitung" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Ein Computer verarbeitet Daten. Wenn ein Computer mit Daten gefüttert wird, die eine
+Input-Information darstellen, kann er:</p>
+<ul class="simple">
+<li>Output-Daten produzieren, die eine Output-Information darstellen,</li>
+<li>einen Fehlercode anzeigen (was auch Output-Information ist), oder</li>
+<li>unendlich im Kreis laufen, also keine Daten herausgeben.</li>
+</ul>
+<p>Eine Stapelverarbeitung ist ein Prozess der Input-Daten nimmt, die eine
+Input-Information repräsentieren, eine Berechnung mit diesen Daten ausführt, und
+Output-Daten ausspuckt, die eine Output-Information repräsentieren:</p>
+<img alt="../_images/ditaa-dab840b2eb004c56a15116babff79496d9228ef4.png" src="../_images/ditaa-dab840b2eb004c56a15116babff79496d9228ef4.png" />
+<p>Außer Stapelverarbeitungen gibt es auch noch andere Verarbeitungen; z.B. die
+reaktiven, die zufällige Buchstaben auf dem Bildschirm anzeigen, wenn die Katze mal
+wieder über die Tastatur läuft. Aber Stapelverarbeitungen sind ein guter Startpunkt.</p>
+<ul class="simple">
+<li>Wenn die Output-Daten einer Stapelverarbeitung immer die richtige
+Output-Information darstellen, ist die Berechnung <em>korrekt</em>.</li>
+<li>Eine Stapelverarbeitung ist <em>komplett</em>, wenn die erwartete Output-Information immer
+von den Output-Daten repräsentiert wird.</li>
+</ul>
+</div>
+<div class="section" id="ubung-2">
+<h2>Übung 2<a class="headerlink" href="#ubung-2" title="Link zu dieser Überschrift">¶</a></h2>
+<ol class="loweralpha">
+<li><p class="first">Probier ein Bisschen mit Großen Zahlen und <code class="docutils literal notranslate"><span class="pre">+</span></code> herum.</p>
+<p>Ist der Operator <code class="docutils literal notranslate"><span class="pre">(+)</span></code> eine korrekte Repräsentation der mathematischen Operation
++?</p>
+<p>Ist der Operator <code class="docutils literal notranslate"><span class="pre">(+)</span></code> eine komplette Repräsentation der mathematischen Operation
++?</p>
+</li>
+</ol>
+</div>
+<div class="section" id="programme">
+<h2>Programme<a class="headerlink" href="#programme" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Ein Programm ist das Rezept, dem ein Computer folgt um Daten zu verarbeiten. Ein
+Programm berechnet eine Funktion von Input-Daten zu Output-Daten. Ein Programm wird
+von einem Programmierer geschrieben.</p>
+<p>Ein guter Vergleich: Ein Kochrezept ist eine Notation, die vermittelt wie man etwas
+kocht. Es beschreibt Daten (die Zutaten), Ressourcen und Werkzeuge (z.B. ein Topf und
+ein Herd), und einen Algorithmus (die Methode die Daten zu verarbeiten, z.B. Eier
+schlagen um ein Omlett zu machen (die Armen Eier…)). Um ein Gericht zuzubereiten
+benutzt ein Koch die Küchenutensilien um die Zutaten entsprechend dem Algorithmus zu
+verarbeiten.</p>
+</div>
+<div class="section" id="programmiersprachen">
+<h2>Programmiersprachen<a class="headerlink" href="#programmiersprachen" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Eine Programmiersprache ist eine Sprache in der man Programme schreibt: eine Notation
+um Berechnungen zu beschreiben.
+Es gibt viele Konzepte für Berechnungen (das heißt viele unterschiedliche Arten,
+informationen darzustellen und Daten zu verarbeiten), und für jedes dieser Konzepte
+gibt es viele Notationen (das heißt viele Programmiersprachen).</p>
+</div>
+<div class="section" id="ubung-3">
+<h2>Übung 3<a class="headerlink" href="#ubung-3" title="Link zu dieser Überschrift">¶</a></h2>
+<p>In dieser Übung möchten wir die Analogie zwischen Programmen und Kochrezepten
+erweitern.</p>
+<ul class="simple">
+<li>Die Daten sind die Zutaten.</li>
+<li>Der Computer als ganzes ist die Küche.</li>
+<li>Der Prozessor (die Recheneinheit im Computer) ist der Koch in der Küche.</li>
+<li>Das Programm ist das Rezept.</li>
+</ul>
+<p>Was ist das kulinarische Analog zum Programmierer?</p>
+</div>
+<div class="section" id="ubung-4">
+<h2>Übung 4<a class="headerlink" href="#ubung-4" title="Link zu dieser Überschrift">¶</a></h2>
+<p>In dieser Übung möchten wir eine Analogie zwischen Computern und Stricken
+herstellen.</p>
+<ul class="simple">
+<li>Die Daten sind das Garn.</li>
+<li>Der Computer als ganzes ist die Person die strickt inklusive Nadeln, Stoppern usw.</li>
+<li>Der Prozessor ist die Person, die strickt.</li>
+</ul>
+<p>Was ist das Strickanalog zum Programm?</p>
+<p>Was ist das Strickanalog zum Programmierer?</p>
+</div>
+<div class="section" id="ubung-5">
+<h2>Übung 5<a class="headerlink" href="#ubung-5" title="Link zu dieser Überschrift">¶</a></h2>
+<p>In dieser Übung möchten wir eine Analogie zwischen Computern und Musik
+herstellen.</p>
+<ul class="simple">
+<li>Die Daten sind die Töne.</li>
+<li>Der Computer als ganzes sind die Instrumente (oder alles, was Geräusche machen
+kann).</li>
+</ul>
+<p>Was ist das Musikanalog zum Prozessor?</p>
+<p>Was ist das Musikanalog zum Programm?</p>
+<p>Was ist das Musikanalog zum Programmierer?</p>
+</div>
+<div class="section" id="ubung-6">
+<h2>Übung 6<a class="headerlink" href="#ubung-6" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Finde noch eine Analogie zum Programmieren.</p>
+</div>
+<div class="section" id="version">
+<h2>Version<a class="headerlink" href="#version" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Erstellt [2022-10-10]</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Einleitung: Über den Unteschied zwischen Simulation und Wirklichkeit</a><ul>
+<li><a class="reference internal" href="#informationen-und-daten">Informationen und Daten</a></li>
+<li><a class="reference internal" href="#erkenntnis-uber-reprasentationen">Erkenntnis über Repräsentationen</a></li>
+<li><a class="reference internal" href="#ubung-0">Übung 0</a></li>
+<li><a class="reference internal" href="#ubung-01">Übung 01</a></li>
+<li><a class="reference internal" href="#teilweise-losung-zu-ubung-1a">Teilweise Lösung zu Übung 1a</a></li>
+<li><a class="reference internal" href="#ein-kurzer-abstecher-zu-binaren-zahlen">Ein kurzer Abstecher zu binären Zahlen</a></li>
+<li><a class="reference internal" href="#ubung-1-fortsetzung">Übung 1, Fortsetzung</a></li>
+<li><a class="reference internal" href="#berechnungen-als-datenverarbeitung">Berechnungen als Datenverarbeitung</a></li>
+<li><a class="reference internal" href="#ubung-2">Übung 2</a></li>
+<li><a class="reference internal" href="#programme">Programme</a></li>
+<li><a class="reference internal" href="#programmiersprachen">Programmiersprachen</a></li>
+<li><a class="reference internal" href="#ubung-3">Übung 3</a></li>
+<li><a class="reference internal" href="#ubung-4">Übung 4</a></li>
+<li><a class="reference internal" href="#ubung-5">Übung 5</a></li>
+<li><a class="reference internal" href="#ubung-6">Übung 6</a></li>
+<li><a class="reference internal" href="#version">Version</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Vorheriges Thema</h4>
+  <p class="topless"><a href="week-01-willkommen.html"
+                        title="vorheriges Kapitel">Eine Wegbeschreibung der kommenden acht Wochen</a></p>
+  <h4>Nächstes Thema</h4>
+  <p class="topless"><a href="week-01-emacs_erkunden.html"
+                        title="nächstes Kapitel">Den Computer mit Emacs erkunden</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Diese Seite</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/week-01/week-01-einleitung_simulation_und_wirklichkeit.rst.txt"
+            rel="nofollow">Quellcode anzeigen</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Schnellsuche</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Los" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Stichwortverzeichnis"
+             >Index</a></li>
+        <li class="right" >
+          <a href="week-01-emacs_erkunden.html" title="Den Computer mit Emacs erkunden"
+             >weiter</a> |</li>
+        <li class="right" >
+          <a href="week-01-willkommen.html" title="Eine Wegbeschreibung der kommenden acht Wochen"
+             >zurück</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Einführung ins Programmieren 2022</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="week-01-index.html" >Lehrmaterial Woche-01</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Kira Kutscher.
+      Mit <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5 erstellt.
+    </div>
+  </body>
+</html>

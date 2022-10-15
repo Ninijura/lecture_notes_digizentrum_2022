@@ -10,6 +10,7 @@ Lehrmaterial Woche-01
    :maxdepth: 2
 
    willkommen
-   einleitung_simulation_und_wirklichkeit 
+   einleitung_simulation_und_wirklichkeit
+   emacs_erkunden
    sprachen_meta_sprachen_und_programm_verarbeiter
    emacs_und_ocaml
