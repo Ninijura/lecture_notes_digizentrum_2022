@@ -168,6 +168,7 @@ Emacs gerade läuft.
    **Alfrothul:** Hast du schon ``M-x hanoi`` probiert?
    **Brynja:** Und ``M-x life``?
    **Loki:** Und ``M-x doctor``?
+   **Brynja:** Oh, guck mal, es gibt eine ganze `Liste <https://www.gnu.org/software/emacs/manual/html_node/emacs/Amusements.html>_.
 
 
 Version
