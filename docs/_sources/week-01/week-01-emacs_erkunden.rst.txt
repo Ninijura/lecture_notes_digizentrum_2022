@@ -140,9 +140,8 @@ gefolg von dem jeweiligen Namen, gefolgt von ``RET`` ein.
 
 .. epigraph::
 
-   **Vigfus:** Hey! Ich frage mich, was passiert, wenn ich einfach nur ``C-x
-   C-f .. RET`` eingebe.
-   **Brynja:** Na probier's aus!
+   | **Vigfus:** Hey! Ich frage mich, was passiert, wenn ich einfach nur ``C-x C-f .. RET`` eingebe.
+   | **Brynja:** Na probier's aus!
 
 Über das bearbeiten von mehreren Fenster
 ========================================
@@ -164,13 +163,16 @@ Emacs gerade läuft.
 
 .. epigraph::
 
-   **Sigrid:** Mann! Emacs hat ja echt alles.
-   **Alfrothul:** Hast du schon ``M-x hanoi`` probiert?
-   **Brynja:** Und ``M-x life``?
-   **Loki:** Und ``M-x doctor``?
+   | **Sigrid:** Mann! Emacs hat ja echt alles.
+   | **Alfrothul:** Hast du schon ``M-x hanoi`` probiert?
+   | **Brynja:** Und ``M-x life``?
+   | **Loki:** Und ``M-x doctor``?
+   | **Brynja:** Oh, guck mal, es gibt eine ganze `Liste <https://www.gnu.org/software/emacs/manual/html_node/emacs/Amusements.html>`_.
+   | **Loki:** Wenn ich programmiere tue ich das grundsätzlich nur mit ``M-x butterfly``.
 
 
 Version
 =======
 
 Erstellt [2022-10-15]
+Korrigiert [2023-01-09]

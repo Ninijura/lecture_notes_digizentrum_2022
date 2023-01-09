@@ -44,6 +44,7 @@ extensions = [
     'sphinx.ext.mathjax',
     'sphinx.ext.githubpages',
     'sphinxcontrib.ditaa',
+    'sphinx.ext.autosectionlabel',
 ]
 
 ditaa = "java"

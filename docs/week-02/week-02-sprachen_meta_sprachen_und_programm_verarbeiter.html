@@ -73,10 +73,175 @@ darüber, was ein richtiges Wort ist (Rechtschreibung) und was ein richtiger Sat
 (Grammatik). Rechtschreibung und Grammatik zusammen bilden die
 <a class="reference external" href="https://de.wikipedia.org/wiki/Syntax">Syntax</a> der dänischen Sprache.</p>
 <p>Wenn man ein Wort falsch schreibt, oder einen Satz falsch konstruiert, wird man
-falsch oder gar nicht verstanden. Wenn man die Sprache richtig benutzt, wird man
-verstanden.</p>
+falsch oder gar nicht verstanden. Klare und verständliche Sätze übermitteln
+Informationen.</p>
 <p>In Natürlichen Sprachen gibt es darüber hinaus noch die Möglichkeit mehrdeutig zu
 sein; das Problem haben Programmiersprachen nicht.</p>
+<p>Wir haben auch <a class="reference external" href="../week-01/week-01-einleitung_simulation_und_wirklichkeit.html#programme">bereits gesehen</a>,
+dass Kochrezepte in einer natürlichen Sprache geschrieben sind und Beispiele für
+Programme sind.</p>
+</div>
+<div class="section" id="das-konzept-von-meta-sprachen">
+<h2>Das Konzept von Meta-Sprachen<a class="headerlink" href="#das-konzept-von-meta-sprachen" title="Link zu dieser Überschrift">¶</a></h2>
+<p>In Schulen hier in Deutschland lernen alle Schüler früher oder später
+Englisch. Normalerweise wird Englisch mit einem Arbeitsbuch gelernt. Dieses
+Arbeitsbuch ist (anfangs) wahrscheinlich auf Deutsch geschrieben und schwierige
+Fragen beantwortet der Lehrer auch auf Deutsch. Für einen solchen Englisch-Schüler
+ist deutsch die Meta-Sprache von Englisch; also die Sprache auf der man über eine
+andere Sprache spricht.</p>
+<p>Außer Englisch lernen die Schüler aber auch Deutsch in der Schule. Die deutschen
+Arbeitsbücher sind auch auf Deutsch geschrieben und lehren Rechtschreibung und
+Grammatik. Im Deutschunterricht ist also Deutsch die Meta-Sprache für Deutsch: Lehrer
+und Schüler reden über Deutsch auf Deutsch.</p>
+</div>
+<div class="section" id="programme-und-die-sprachen-in-denen-sie-geschrieben-sind">
+<h2>Programme und die Sprachen, in denen sie geschrieben sind<a class="headerlink" href="#programme-und-die-sprachen-in-denen-sie-geschrieben-sind" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Kurz gesagt: Ein Programm, das in beispielsweise OCaml geschrieben ist, nennen wir
+ein „OCaml-Programm“.</p>
+</div>
+<div class="section" id="interpreter">
+<h2>Interpreter<a class="headerlink" href="#interpreter" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Interpreter sind die
+<a class="reference external" href="https://de.wikipedia.org/wiki/Simultandolmetschen">Simultandolmetscher</a>
+der Informatik.</p>
+<p>Um genauer zu sein: Ein Interpreter ist ein Programm, das ein anderes Programm
+ausführt. Damit ist es außerdem ein Programm-Verarbeiter (program processor).</p>
+</div>
+<div class="section" id="ubung-8">
+<h2>Übung 8<a class="headerlink" href="#ubung-8" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Überlege dir kurz wie Aristoteles
+<a class="reference external" href="https://en.wikipedia.org/wiki/Four_causes">vier Ursachen</a>
+für einen Interpreter aussehen. Also:</p>
+<ul class="simple">
+<li>wofür wird ein Interpreter benutzt?</li>
+<li>was für Daten verarbeitet ein Interpreter?</li>
+<li>was für Operationen (Berechnungen) führt der Interpreter mit diesen Daten durch?</li>
+<li>welche Methoden benutzt der Interpreter für diese Operationen?</li>
+</ul>
+<p>Der Sinn dieser Aufgabe ist, dass du ein besseres Verständnis dafür bekommst, was ein
+Interpreter ist.</p>
+</div>
+<div class="section" id="i-diagramme-und-gestapelte-interpreter">
+<h2>I-Diagramme und gestapelte Interpreter<a class="headerlink" href="#i-diagramme-und-gestapelte-interpreter" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Ein Interpreter ist in einer Meta-Sprache geschrieben (also in einer
+Implementationssprache). Wir können Interpreter als I-Diagramme darstellen.</p>
+<ul class="simple">
+<li>QS steht für die Quellsprache (der interpretierten Programme) and</li>
+<li>ZS steht für die Meta-Sprache (in der der Interpreter geschrieben ist:</li>
+</ul>
+<img alt="../_images/ditaa-9fafe66cf5504cfb57bbea364f3926d01dc80e5e.png" src="../_images/ditaa-9fafe66cf5504cfb57bbea364f3926d01dc80e5e.png" />
+<p>Kurz gesagt,</p>
+<ul class="simple">
+<li>ein Interpreter für QS-Programme ist ein „QS-Interpreter“ (also ein Interpreter für
+QS-Programme, der selbst in MS geschrieben und somit ein MS-Programm ist),</li>
+<li>ein Interpreter für QS-Programme wird auch manchmal als „ein Interpreter für QS,
+implementiert in MS“ bezeichnet, obwohl er eigentlich Programme verarbeitet, nicht
+die Sprache.</li>
+</ul>
+<p><em>Terminologie:</em>
+* Wenn ein Interpreter für Byte Code oder Assembly (Sprachen, die sich
+besser für Maschinen eignen als für Menschen) in der Hardware eingebaut ist, nennt er
+sich Mikroprozessor,
+* wenn er in Software geschrieben ist, nennt er sich eine Virtuelle Maschine.</p>
+<p>(Gedankenfutter: Benutzt du auch manchmal eine Virtuelle Maschine? Vielleicht sogar
+in diesem Kurs?)</p>
+<p>Wir werden im Folgenden Mikroprozessoren (hier im Beispiel für Programme in der
+Sprache x86) wie folgt darstellen:</p>
+<img alt="../_images/ditaa-5a2c963505bf6312b8dc54227b0cab9b66041c09.png" src="../_images/ditaa-5a2c963505bf6312b8dc54227b0cab9b66041c09.png" />
+<p>und Programme (hier im Beispiel in x86 geschrieben) wie folgt:</p>
+<img alt="../_images/ditaa-d391624789813715a017d0d1d7134c8eae4c18d9.png" src="../_images/ditaa-d391624789813715a017d0d1d7134c8eae4c18d9.png" />
+<p>Die Ausfürhung dieses Programmes mit dem obigen Mikroprozessor zeigen wir so:</p>
+<img alt="../_images/ditaa-b543b51dda7de9c0545c91b3d1b4f15fa664f678.png" src="../_images/ditaa-b543b51dda7de9c0545c91b3d1b4f15fa664f678.png" />
+<p>Der x86-Mikroprozessor führt das x86-Programm aus. Bemerke dabei, dass sowohl die
+Sprache des Mikroprozessors als auch die des Programms x86 ist. Wenn wir versuchen
+würden, dem Mikroprozessor ein OCaml-Programm zu verfüttern, käme dabei nichts weiter
+heraus als ein verwirrter Mikroprozessor und ein frustrierter Programmierer.</p>
+<p>Wenn wir ein Programm ausführen wollen, was nicht in der Sprache unseres Prozessors
+geschrieben ist, dann brauchen wir einen Übersetzer für das Programm. Wie praktisch,
+dass wir gerade über Interpreter gelernt haben.</p>
+<p>Wenn wir die folgenden drei Artefakte haben:</p>
+<ol class="arabic simple">
+<li>einen x86 Mikroprozessor:</li>
+</ol>
+<img alt="../_images/ditaa-5a2c963505bf6312b8dc54227b0cab9b66041c09.png" src="../_images/ditaa-5a2c963505bf6312b8dc54227b0cab9b66041c09.png" />
+<ol class="arabic simple" start="2">
+<li>einen Interpreter für OCaml-Programme, implementiert in x86:</li>
+</ol>
+<img alt="../_images/ditaa-99c68fd8dc5f674c509b595b2282ffece11067ec.png" src="../_images/ditaa-99c68fd8dc5f674c509b595b2282ffece11067ec.png" />
+<ol class="arabic simple" start="3">
+<li>ein OCaml-Programm:</li>
+</ol>
+<img alt="../_images/ditaa-de4e9cd66571e1e91ca6b04000988d59b7f8a331.png" src="../_images/ditaa-de4e9cd66571e1e91ca6b04000988d59b7f8a331.png" />
+<p>Dann können wir die Ausfürhung des OCaml-Programms wie folgt darstellen:</p>
+<img alt="../_images/ditaa-915c6bee64130d35f595b815b4261bbbfd72c919.png" src="../_images/ditaa-915c6bee64130d35f595b815b4261bbbfd72c919.png" />
+<p>Der x86-Mikroprozessor führt den OCaml-Interpreter aus, der das OCaml-Programm
+ausfürht.</p>
+<p>Bemerke wieder:</p>
+<ul class="simple">
+<li>Der Mikroprozessor für x86-Programme führt ein x86-Programm aus (den Interpreter),
+und</li>
+<li>der OCaml-Interpreter führt ein OCaml-Programm aus.</li>
+</ul>
+</div>
+<div class="section" id="ubung-9">
+<h2>Übung 9<a class="headerlink" href="#ubung-9" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Jetzt dürft ihr selbst abstrahieren.</p>
+<p>Stellt euch vor ihr habt:</p>
+<ul class="simple">
+<li>einen x86-Mikroprozessor</li>
+<li>einen x86-Interpreter, geschrieben in OCaml</li>
+<li>einen OCaml-Interpreter, der in x86 geschrieben ist</li>
+<li>einen Interpreter für PHP-Programme, der von einem OCaml-Interpreter ausgeführt
+werden kann</li>
+<li>einen Interpreter, geschrieben in PHP, der Scheme-Programme ausführt</li>
+<li>einen Interpreter für Rust, geschrieben in Lisp</li>
+</ul>
+<p>Welche der folgenden Programme könnt ihr damit ausführen?</p>
+<ol class="loweralpha simple">
+<li>ein x86-Programm</li>
+<li>eines, was in Scheme geschrieben ist</li>
+<li>eine Webanwendung in PHP</li>
+<li>einen Interpreter für Lisp, der in PHP geschrieben ist</li>
+<li>ein Programm, dass zwei Zahlen zusammenlegen kann und in OCaml implementiert ist</li>
+<li>ein Rust-Programm</li>
+<li>ein Programm, das in Lisp geschrieben ist und von eins bis unendlich zählt</li>
+</ol>
+<p>(Tipp: zeichne die Diagramme auf, das macht es leichter, sich die Kette von
+Interpretern vorzustellen.)
+(Tipp 2: falls du bei sehr vielen Fragen „nein“ antwortest, denk daran: Interpreter
+sind auch nur Programme.)</p>
+</div>
+<div class="section" id="ein-letztes-wort-uber-virtuelle-maschinen">
+<h2>Ein letztes Wort über Virtuelle Maschinen<a class="headerlink" href="#ein-letztes-wort-uber-virtuelle-maschinen" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Wenn eine Firma einen neuen Mikroprozessor in einer tollen neuen Sprache entwickelt
+(nennen wir sie x86), ist es sehr teuer, den Mikroprozessor für jede Korrektur neu zu
+bauen. Daher wird der Mikroprozessor erst einmal als Virtuelle Maschine
+simuliert. Zum Beispiel:</p>
+<img alt="../_images/ditaa-9c812c039cc83f48de03375d1828f75c8122fdb2.png" src="../_images/ditaa-9c812c039cc83f48de03375d1828f75c8122fdb2.png" />
+</div>
+<div class="section" id="compiler">
+<h2>Compiler<a class="headerlink" href="#compiler" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Wenn Interpreter das maschinelle Pendant zu Simultandolmetschern sind, dann sind
+Complier das maschinelle Pendant zu Textübersetzern.</p>
+<p>Während der Interpreter die Befehle nimmt wie sie kommen und die Interpretation
+direkt ausspuckt, ist das Input für einen Compiler ein Programme und der Compiler
+spuckt (wenn er richtig geschrieben ist) ein äquivalentes Programm in einer anderen
+Sprache aus.</p>
+<p>Kompakter gesagt: Ein Compiler ist <em>ein Programm zum Übersetzen anderer Programme</em>
+von einer Sprache (Quellsprache) in eine andere (Zielsprache). Compiler erhalten die
+Funktionalität der Programme, die sie übersetzen. Das heißt, das Quellprogramm und
+das Zielprogramm führen die gleiche Funktion aus, nur die Sprache in der sie
+implementiert sind ist unterschiedlich.</p>
+</div>
+<div class="section" id="ubung-10">
+<h2>Übung 10<a class="headerlink" href="#ubung-10" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Schreibe die vier Ursachen eines Compilers auf.</p>
+<p>(Tipp: wie in <a class="reference internal" href="#ubung-8"><span class="std std-ref">Übung 8</span></a>.)</p>
+</div>
+<div class="section" id="version">
+<h2>Version<a class="headerlink" href="#version" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Erstellt [2022-10-15]
+Erweitert [2023-01-09]</p>
 </div>
 </div>
 
@@ -90,6 +255,16 @@ sein; das Problem haben Programmiersprachen nicht.</p>
   <ul>
 <li><a class="reference internal" href="#">Sprachen, Meta-Sprachen und Programm-Verarbeiter</a><ul>
 <li><a class="reference internal" href="#programmiersprachen-programme-und-daten">Programmiersprachen, Programme und Daten</a></li>
+<li><a class="reference internal" href="#das-konzept-von-meta-sprachen">Das Konzept von Meta-Sprachen</a></li>
+<li><a class="reference internal" href="#programme-und-die-sprachen-in-denen-sie-geschrieben-sind">Programme und die Sprachen, in denen sie geschrieben sind</a></li>
+<li><a class="reference internal" href="#interpreter">Interpreter</a></li>
+<li><a class="reference internal" href="#ubung-8">Übung 8</a></li>
+<li><a class="reference internal" href="#i-diagramme-und-gestapelte-interpreter">I-Diagramme und gestapelte Interpreter</a></li>
+<li><a class="reference internal" href="#ubung-9">Übung 9</a></li>
+<li><a class="reference internal" href="#ein-letztes-wort-uber-virtuelle-maschinen">Ein letztes Wort über Virtuelle Maschinen</a></li>
+<li><a class="reference internal" href="#compiler">Compiler</a></li>
+<li><a class="reference internal" href="#ubung-10">Übung 10</a></li>
+<li><a class="reference internal" href="#version">Version</a></li>
 </ul>
 </li>
 </ul>
