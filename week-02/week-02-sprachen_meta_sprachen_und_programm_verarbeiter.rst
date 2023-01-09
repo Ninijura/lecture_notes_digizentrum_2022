@@ -296,7 +296,7 @@ Complier das maschinelle Pendant zu Textübersetzern.
 Während der Interpreter die Befehle nimmt wie sie kommen und die Interpretation
 direkt ausspuckt, ist das Input für einen Compiler ein Programme und der Compiler
 spuckt (wenn er richtig geschrieben ist) ein äquivalentes Programm in einer anderen
-Sprache aus.
+Sprache aus. 
 
 Kompakter gesagt: Ein Compiler ist *ein Programm zum Übersetzen anderer Programme*
 von einer Sprache (Quellsprache) in eine andere (Zielsprache). Compiler erhalten die
