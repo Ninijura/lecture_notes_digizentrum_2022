@@ -498,7 +498,9 @@ k. einen OCaml-Interpreter, der in OCaml geschrieben ist
 
 Kurzes Nachwort über den Sinn
 =============================
-Ja, es hat einen. Das hier sind nicht nur verwirrende Übungen oder nutzloses Wissen
+Ja, es hat einen.
+
+Das hier sind nicht nur verwirrende Übungen oder nutzloses Wissen
 über die tieferen Zusammenhänge. Diese Übungen trainieren euch, komplexe Probleme
 systematisch anzugehen und bereiten euch auf ähnliche Herausforderungen vor, die
 nicht so leicht zu visualisieren sind. Es ist auch eine gute Vorbereitung für
