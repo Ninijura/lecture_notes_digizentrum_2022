@@ -1,6 +1,6 @@
-================================================
-Sprachen, Meta-Sprachen und Programm-Verarbeiter
-================================================
+==================================================
+ Sprachen, Meta-Sprachen und Programm-Verarbeiter
+==================================================
 
 In diesem Kapitel geht es darum, wie die `Magie eines vorigen Kapitels <../week-01/einleitung_simulation_und_wirklichkeit.html>`_ funktioniert.
 
@@ -312,11 +312,203 @@ Schreibe die vier Ursachen eines Compilers auf.
 (Tipp: wie in :ref:`Übung 8`.)
 
 
+T-Diagramme
+===========
 
-   
+Wir können Compiler als T-Diagramme darstellen, wo
 
+* QS für die Quellsprache steht,
+* ZS für die Zielsprache (der kompilierten Programme) steht und 
+* IS für die Implementationssprache steht (also die Sprache, in der der Compiler
+  geschrieben ist).
+
+.. ditaa::
+
+   +----------------+
+   |                |
+   | QS          ZS |
+   |                |
+   +----+      +----+
+        |      |
+        |      |
+        |      |
+        |  IS  |
+        +------+
+
+
+Kurz gesagt ein Compiler, der Programme von QS nach ZS übersetzt und selbst in IS
+geschrieben ist, als "ein QS-Compiler" bezeichnet.
+
+Compiler sind in der Informatik ihr eigenes Fachgebiet, ihr braucht euch also nicht
+um mehr zu kümmern als wie man sie benutzt.
+
+Zum Beispiel, nehmen wir an wir haben (1) einen x86 Mikroprozessor, (2) einen
+OCaml-Compiler in x86 implementiert und (3) ein OCaml-Programm. Dann können wir das
+Programm ausführen indem wir (a) den Compiler vom Mikroprozessor ausführen lassen und
+das Programm in ein äquivalentes x86-Programm übersetzen und (b) dieses Programm dann
+vom Mikroprozessor ausführen lassen.
+
+* So sieht Schritt (a) aus:
+
+.. ditaa::
+
+  +-------+ +---------------+  +-------+
+  |       | |               |  |       |
+  | OCaml | | OCaml     x86 |  |  x86  |
+  |  {d}  | |               |  |  {d}  |
+  +---+---+ +----+     +----+  +---+---+
+                 |     |
+                 |     |
+                 |     |
+                 | x86 |
+                 +-----+
+                 
+                 +-----+
+                 | x86 |
+                 |     |
+
+
+* und so Schritt (b):
+
+.. ditaa::
+
+   +-----+
+   |     |
+   | x86 |
+   |{d}  |
+   +--+--+
+
+   +-----+
+   | x86 |
+   |     |
+
+
+Wenn der Compiler korrekt ist (und davon gehen wir in diesem Kurs grundsätzlich aus),
+dann bekommt man das gleiche Resultat, wenn man das OCaml-Programm ausführt wie wenn
+man das kompilierte x86-Programm ausführt.
+
+Wenn zum Beispiel das OCaml-Programm einen Integer (eine positive Ganzzahl) als Input
+nimmt und bestimmt ob diese Zahl eine Primzahl ist, dann nimmt auch das x86 Programm
+einen Interger als Input und bestimmt, ob er eine Primzahl ist.
+
+Wenn wir zum Beispiel also das folgende haben:
+
+* ein PHP-Programm
+* einen Compiler von PHP nach OCaml, implementiert in x86
+* einen Compiler von OCaml nach x86, implementiert in x86 und
+* einen x86 Mikroprozessor,
+
+dann können wir das Programm ausführen wie folgt (für die Kompaktheit ist es erlaubt
+den Prozessor mehrmals abzubilden; das symbolisiert, dass er mehrere Programme
+ausführt): 
+
+.. ditaa::
+
+  +-----+ +---------------+ +---------------+  +-----+
+  |     | |               | |               |  |     |
+  | PHP | | PHP     OCaml | | OCaml     x86 |  | x86 |
+  | {d} | |               | |               |  | {d} |
+  +--+--+ +----+     +----+ +----+     +----+  +--+--+
+               |     |           |     |      
+               |     |           |     |       +-----+
+               |     |           |     |       | x86 |
+               | x86 |           | x86 |       |     |
+               +-----+           +-----+       |     |
+                                              
+               +-----+           +-----+      
+               | x86 |           | x86 |      
+               |     |           |     |       
+
+Hier wird das Input-PHP-Programm vom ersten Commpiler nach OCaml übersetzt und danach
+das resultierende OCaml-Programm weiter nach x86. Das x86-Programm kann dann unser
+Mikroprozessor ausführen. 
+
+
+Übung 11
+========
+
+Du hast:
+
+* einen x86-Mikroprozessor
+* einen PHP-Compiler, der nach SML übersetzt, in x86 geschrieben
+* eine Virtuelle Maschine für OCaml
+* einen Compiler, der SML nach PHP übersetzt, implementiert in OCaml
+* einen x86-Compiler, der auf OCaml-Prozessoren läuft und nach SML üersetzt
+* einen Compiler, der von SML nach OCaml übersetzt und in x86 geschrieben ist
+* einen SML-Compiler, der in OCaml geschrieben ist und dessen Outputs Rust-Programme
+  sind
+
+Welche der folgenden Programme kannst du damit ausführen?
+
+a. ein x86-Programm
+b. ein Rust-Programm
+c. einen OCaml-Interpreter, der in Scheme geschrieben ist
+d. einen PHP-Compiler, der in x86 implementiert ist und nach Rust übersetzt
+e. einen SML-Interpreter, der in PHP geschrieben ist
+f. eine SML-Programm, dass zwei Zahlen addiert
+g. einen Tiger-Compiler, der in SML geschrieben ist und nach x86 kompiliert  
+
+
+
+Übung 12
+========
+
+Wie auch bei Interpretern dürfen wir beim Arbeiten mit Compilern nicht vergessen,
+dass Compiler auch nur Programme sind. Und wie wir schon gemerkt haben: *was für den
+einen ein Programm ist, ist für das andere Programm ein Input.* Du kannst also auch
+Interpreter und Compiler interpretieren und übersetzen.
+
+Jetzt wird es also noch ein wenig schwieriger. Haltet "die Zunge gerade im Mund", wie
+man auf Dänisch zu sagen pflegt.
+  
+Du hast:
+
+* einen x86-Mikroprozessor
+* einen PHP-Compiler nach x86 in OCaml
+* einen OCaml-Compiler in Lisp, der nach PHP übersetzt
+* eine Virtuelle-Maschine für SML
+* einen SML-Compiler, dessen Output OCaml-Programme sind, in PHP geschrieben
+* einen Compiler, der OCaml nach PHP übersetzt, in x86 geschrieben
+* einen Interpreter für Tiger-Programme, der in Scheme geschrieben ist
+* einen Programm-Prozessor, der ein Scheme-Programm als Input nimmt un ein
+  äquivalentes SML-Programm als Output gibt; Implementationssprache SML
+* einen Programm-Prozessor, der ein Lisp-Programm als Input nimmt und einen
+  Go-Interpreter in x86 geschrieben als Output gibt
+* einen Programm-Prozessor, der in Tiger geschrieben ist, ein Go-Programm als Input
+  nimmt und einen Lisp-Compiler in Rust geschrieben als Output gibt 
+* einen Programm-Prozessor, der ein Rust-Programm als Input nimmt und die Zahl 42 als
+  Output gibt, geschrieben in x86
+
+Welche der folgenden Programme kannst du damit ausführen.
+
+a. einen PHP-Compiler nach x86 in OCaml
+b. ein Programm, dass zwei Zahlen addiert, in Rust geschrieben
+c. ein Programm, dass in bis unendlich zählt, geschrieben in PHP
+d. ein x86-Programm
+e. einen Scheme-Interpreter geschrieben in Tiger
+f. ein SML-Programm
+g. ein Go-Programm
+h. ein Lisp-Programm
+i. ein Lisp-Programm, wenn du auch ein Go-Programm hast
+j. ein Go-Programm, wenn du auch ein Lisp-Programm hast
+k. einen OCaml-Interpreter, der in OCaml geschrieben ist
+
+(Tipp: Bei dieser Übung kann es von Vorteil sein, die Lösungen zu zeichnen.)
+
+
+Kurzes Nachwort über den Sinn
+=============================
+Ja, es hat einen. Das hier sind nicht nur verwirrende Übungen oder nutzloses Wissen
+über die tieferen Zusammenhänge. Diese Übungen trainieren euch, komplexe Probleme
+systematisch anzugehen und bereiten euch auf ähnliche Herausforderungen vor, die
+nicht so leicht zu visualisieren sind. Es ist auch eine gute Vorbereitung für
+algorithmisches Denken, was wir in einer späteren Woche lernen werden. 
+  
+
+               
 Version
 =======
 
 Erstellt [2022-10-15]
-Erweitert [2023-01-09]
+
+Aktuelle Version [2023-01-15]
