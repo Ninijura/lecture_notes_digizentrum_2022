@@ -507,6 +507,32 @@ nicht so leicht zu visualisieren sind. Es ist auch eine gute Vorbereitung für
 algorithmisches Denken, was wir in einer späteren Woche lernen werden. 
   
 
+Bootstrapping
+=============
+
+Vielleicht kennt ihr die Geschichte vom Baron Münchhausen, der sich an seinen eigenen
+Stiefelriemen aus dem Sumpf gezogen hat. Genau daher kommt der Name Bootstrapping.
+
+Stell dir vor, du hast eine neue Programmiersprache entwickelt und möchtest jetzt
+einen Compiler dafür schreiben. Weil deine Sprache (nenne wir sie ML für "Marvellous
+Language (fantastische Sprache)) so großartig ist, möchtest du natürlich deinen
+Compiler gerne in ML schreiben.
+
+Jetzt hast du einen Compiler für ML nach x86, geschrieben in ML. Nur doof, dass du
+deinen Compiler nicht kompilieren kannst.
+
+Für diesen Zweck schreibst du einen "schnell-und-dreckig"-Compiler in einer anderen
+Sprache. Dann kompilierst du deinen Compiler mit dem
+schnell-und-dreckig-Compiler. Das ist jetzt aber noch kein besonders effektiver Code,
+also benutzt du diesen schnell-und-dreckig kompiliereten Compiler um deinen schönen
+ML-Compiler noch einmal zu übersetzen. Das Resultat dieses Kompiliervorgangs ist ein
+Compiler für ML nach x86 geschrieben in x86, der sich sozusagen selbst kompiliert
+hat.
+
+Bootstrapping ist nichts, was wir in diesem Kurs lernen werden, aber es sich
+vorzustellen ist eine gute Übung für die Denkmuster. 
+
+
                
 Version
 =======

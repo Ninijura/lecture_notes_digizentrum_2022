@@ -361,6 +361,26 @@ systematisch anzugehen und bereiten euch auf ähnliche Herausforderungen vor, di
 nicht so leicht zu visualisieren sind. Es ist auch eine gute Vorbereitung für
 algorithmisches Denken, was wir in einer späteren Woche lernen werden.</p>
 </div>
+<div class="section" id="bootstrapping">
+<h2>Bootstrapping<a class="headerlink" href="#bootstrapping" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Vielleicht kennt ihr die Geschichte vom Baron Münchhausen, der sich an seinen eigenen
+Stiefelriemen aus dem Sumpf gezogen hat. Genau daher kommt der Name Bootstrapping.</p>
+<p>Stell dir vor, du hast eine neue Programmiersprache entwickelt und möchtest jetzt
+einen Compiler dafür schreiben. Weil deine Sprache (nenne wir sie ML für „Marvellous
+Language (fantastische Sprache)) so großartig ist, möchtest du natürlich deinen
+Compiler gerne in ML schreiben.</p>
+<p>Jetzt hast du einen Compiler für ML nach x86, geschrieben in ML. Nur doof, dass du
+deinen Compiler nicht kompilieren kannst.</p>
+<p>Für diesen Zweck schreibst du einen „schnell-und-dreckig“-Compiler in einer anderen
+Sprache. Dann kompilierst du deinen Compiler mit dem
+schnell-und-dreckig-Compiler. Das ist jetzt aber noch kein besonders effektiver Code,
+also benutzt du diesen schnell-und-dreckig kompiliereten Compiler um deinen schönen
+ML-Compiler noch einmal zu übersetzen. Das Resultat dieses Kompiliervorgangs ist ein
+Compiler für ML nach x86 geschrieben in x86, der sich sozusagen selbst kompiliert
+hat.</p>
+<p>Bootstrapping ist nichts, was wir in diesem Kurs lernen werden, aber es sich
+vorzustellen ist eine gute Übung für die Denkmuster.</p>
+</div>
 <div class="section" id="version">
 <h2>Version<a class="headerlink" href="#version" title="Link zu dieser Überschrift">¶</a></h2>
 <p>Erstellt [2022-10-15]</p>
@@ -391,6 +411,7 @@ algorithmisches Denken, was wir in einer späteren Woche lernen werden.</p>
 <li><a class="reference internal" href="#ubung-11">Übung 11</a></li>
 <li><a class="reference internal" href="#ubung-12">Übung 12</a></li>
 <li><a class="reference internal" href="#kurzes-nachwort-uber-den-sinn">Kurzes Nachwort über den Sinn</a></li>
+<li><a class="reference internal" href="#bootstrapping">Bootstrapping</a></li>
 <li><a class="reference internal" href="#version">Version</a></li>
 </ul>
 </li>
