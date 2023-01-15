@@ -11,5 +11,6 @@ Einführung ins Programmieren
 
    week-01/week-01-index
    week-02/week-02-index
+   week-03/week-03-index
    resources/dramatis_personae
 
