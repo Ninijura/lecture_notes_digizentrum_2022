@@ -171,8 +171,8 @@ Emacs gerade läuft.
    | **Loki:** Wenn ich programmiere tue ich das grundsätzlich nur mit ``M-x butterfly``.
 
 
-Version
-=======
+Version of "emacs_erkunden"
+===========================
 
 Erstellt [2022-10-15]
 Korrigiert [2023-01-09]

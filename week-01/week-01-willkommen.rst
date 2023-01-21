@@ -110,7 +110,7 @@ Hiermit also noch ein großes Dankeschön an Olivier, der jetzt schon der am hä
 in Danksagungen erwähnte Informatiker ist. 
 
 
-Version
--------
+Version of "willkommen"
+-----------------------
 
 Erstellt [2022-10-08]

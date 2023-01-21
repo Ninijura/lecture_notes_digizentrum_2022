@@ -47,7 +47,7 @@ benutzen solltet um git zu lernen.
 
 
 
-Version
-=======
+Version of "git"
+================
 
 Erstellt [2023-01-15]

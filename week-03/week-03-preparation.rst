@@ -261,8 +261,8 @@ ohne jemals ein Ergebnis zu geben).
 
 
   
-Version
-=======
+Version of "preparation"
+========================
 Erstellt [2023-01-15]
 
 Erweitert [2023-01-18]

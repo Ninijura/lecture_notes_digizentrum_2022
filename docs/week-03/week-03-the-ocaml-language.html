@@ -48,8 +48,139 @@
             
   <div class="section" id="ocaml-eine-sprache-von-algebraischen-ausdrucken-mit-namen-und-funktionen">
 <h1>OCaml: eine Sprache von algebraischen Ausdrücken mit Namen und Funktionen<a class="headerlink" href="#ocaml-eine-sprache-von-algebraischen-ausdrucken-mit-namen-und-funktionen" title="Link zu dieser Überschrift">¶</a></h1>
-<div class="section" id="version">
-<h2>Version<a class="headerlink" href="#version" title="Link zu dieser Überschrift">¶</a></h2>
+<p>OCaml ist eine typisierte Sprache. Ihre syntaktischen Einheiten sind typisierte
+Ausdrücke, und wenn man einen typisierten Ausdruck berechnet (evaluiert), ist das
+Ergebnis ein Wert mit dem selben Typen wie der des Ausdrucks.</p>
+<p>Das Ziel dieses Kapitels ist es, OCaml Ausdrücke und ihre Grammatik zu präsentieren
+sowie die Grammatik von OCamls Typensystem.</p>
+<p>(Für die Fachausdrücke werden wir die gängigen englischen Bezeichnungen verweden, da
+dies die am häufigsten gebrauchte Ausdrücke sind.)</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;type&gt;       ::= ...
+
+&lt;expression&gt; ::= ...
+</pre></div>
+</div>
+<p>Jeder Ausdruck (expression) hat einen Typen:</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd>G <a href="#id1"><span class="problematic" id="id2">|</span></a>- e : t</dd>
+</dl>
+<p>In Worten: in der Typenumgebung (type environment) <code class="docutils literal notranslate"><span class="pre">G</span></code>, hat der Ausdruck
+(expression) <code class="docutils literal notranslate"><span class="pre">e</span></code> den Typen <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p>
+<p>Im Rest des Lehrmaterials für diese Woche werden wir <code class="docutils literal notranslate"><span class="pre">G</span></code>, <code class="docutils literal notranslate"><span class="pre">e</span></code> und <code class="docutils literal notranslate"><span class="pre">t</span></code> weiter
+definieren.</p>
+<div class="section" id="toplevel-loop">
+<h2>Toplevel-Loop<a class="headerlink" href="#toplevel-loop" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Wir interagieren mit OCaml in der Toplevel-Loop, die wir schon in der ersten Woche
+gesehen haben. Hier druckt der OCaml-Prozess ein <code class="docutils literal notranslate"><span class="pre">#</span></code> als Eingabeaufforderung und
+wir können Ausdrücke schreiben. Wenn diese Ausdrücke grammatikalisch korrekt und
+typenkorrekt sind, dann evaluiert der OCaml-Prozess den Ausdruck und druckt das
+Ergebnis.</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd>&lt;toplevel-expression&gt; ::= &lt;expression&gt;</dd>
+</dl>
+</div>
+<div class="section" id="kommentare">
+<h2>Kommentare<a class="headerlink" href="#kommentare" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Ein Kommentar ist eine beliebe Abfolge von Zeichen, die mit <code class="docutils literal notranslate"><span class="pre">(*</span></code> anfängt und mit
+<code class="docutils literal notranslate"><span class="pre">*)</span></code> abgeschlossen wird. Kommentare werden von OCaml bei der lexikalischen Analyse
+(die analysiert ob ein Ausdruck korrekt ist) übersprungen.</p>
+<p>Kommentare können außerdem verschachtelt sein (So wie Klammern in Texten. (Das heißt
+das, wenn man im Kommentar einen anderen Kommentar anfängt, muss man beide beenden.
+(So wie bei Klammern in Texten. (Ich kann schließlich nicht einfach 4 Klamemrn öffnen
+und nur 2 wieder schließen…) (Emacs kann euch übrigens damit helfen, immer die
+zugehörigen Start- oder Endklammern zu finden. Diese Hilfe könnt ihr aktivieren mit
+<code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">show-paren-mode</span> <span class="pre">RET</span></code> oder indem ihr in eurer .emacs-Datei (der Datei mit den
+Einstellungen für Emacs) <code class="docutils literal notranslate"><span class="pre">(show-paren-mode</span> <span class="pre">1)</span></code> hinzufügt.)))).</p>
+</div>
+<div class="section" id="integer">
+<h2>Integer<a class="headerlink" href="#integer" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Oder auf deutsch: Ganzzahlen.</p>
+<p>In Woche-01 haben wir Integer benutzt und die Konstanten <code class="docutils literal notranslate"><span class="pre">min_int</span></code> und <code class="docutils literal notranslate"><span class="pre">max_int</span></code>
+gefunden.</p>
+<p>Wir erweitern also unsere Grammatik um den Typen <code class="docutils literal notranslate"><span class="pre">int</span></code>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;type&gt;       ::= int
+
+&lt;expression&gt; ::= &lt;integer&gt;
+
+&lt;integer&gt;    ::= 0 | -1 | 1 | -2 | 2 | -3 | 3 | ... | -4611686018427387903
+| 4611686018427387903 | -4611686018427387904
+</pre></div>
+</div>
+<p>Dementpsrechend bekommen wir eine Typen-Regel wie folgt:</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd><dl class="first last docutils">
+<dt>INT —————– wo n ein Integer ist</dt>
+<dd>G <a href="#id3"><span class="problematic" id="id4">|</span></a>- n : int</dd>
+</dl>
+</dd>
+</dl>
+<p>Solche Regeln lesen wir wie folgt:</p>
+<ul class="simple">
+<li>Der Name der Regel ist (in diesem Beispiel) <code class="docutils literal notranslate"><span class="pre">INT</span></code>.</li>
+<li>über dem Strich stehen die Voraussetzungen.</li>
+<li>unter dem Strich steht was unter den Voraussetzungen außerdem korrekt ist.</li>
+</ul>
+<p>In diesem Fall: In einer beliebigen Typenumgebung <code class="docutils literal notranslate"><span class="pre">G</span></code> hat eine Ganzzahl <code class="docutils literal notranslate"><span class="pre">n</span></code> den
+Typen <code class="docutils literal notranslate"><span class="pre">int</span></code>.</p>
+<p>Außerdem: wenn man einen Integer evaluiert, hat das ist das Ergebnis ebendieser
+Integer vom Typen <code class="docutils literal notranslate"><span class="pre">int</span></code>.</p>
+<p><strong>Aufgabe:</strong> Probiere selbst mit dem OCaml-Prozess und integern herum. Finde heraus,
+wie Vorzeichen funktionieren.</p>
+</div>
+<div class="section" id="booleans-ganzzahlen">
+<h2>Booleans (Ganzzahlen)<a class="headerlink" href="#booleans-ganzzahlen" title="Link zu dieser Überschrift">¶</a></h2>
+<p>OCaml hat Booleans:</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd><p class="first">&lt;type&gt;       ::= int | bool</p>
+<dl class="docutils">
+<dt>&lt;expression&gt; ::= &lt;integer&gt;</dt>
+<dd><div class="first last line-block">
+<div class="line">&lt;boolean&gt;</div>
+</div>
+</dd>
+</dl>
+<p>&lt;integer&gt;    ::= 0 | -1 | 1 | -2 | 2 | -3 | 3 | …</p>
+<p class="last">&lt;boolean&gt;    ::= true | false</p>
+</dd>
+</dl>
+<p>Die entsprechenden Typenregeln sind:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>BOOL_TRUE--------------------
+           G |- true : bool
+
+BOOL_FLASE-------------------
+           G |- false : bool
+</pre></div>
+</div>
+<p>In Worten:
+* in einer beliebigen Typenumgebung <code class="docutils literal notranslate"><span class="pre">G</span></code> hat der Wert <code class="docutils literal notranslate"><span class="pre">true</span></code> den Typen
+<code class="docutils literal notranslate"><span class="pre">bool</span></code>; und
+* in einer beliebigen Typenumgebung <code class="docutils literal notranslate"><span class="pre">G</span></code> hat der Wert <code class="docutils literal notranslate"><span class="pre">false</span></code> den Typen
+<code class="docutils literal notranslate"><span class="pre">bool</span></code>.</p>
+<p>Außerdem: wenn man einen Boolean evaluiert, ist das Ergebnis ebendieser Boolean.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># true;;
+- : bool = true
+# false;;
+- : bool = false
+#
+</pre></div>
+</div>
+<p>Probiere das gerne selbst aus.</p>
+<p>Ein Tipp:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">M-p</span></code> und <code class="docutils literal notranslate"><span class="pre">M-n</span></code> (gelesen: „meta-p“ und „meta-n“) lassen uns durch die Historik
+der Eingaben in unserer Toplevel-Loop gehen und die Ausdrücke wiederverwenden.</li>
+<li>Die Meta-Taste ist unter Windows und Linux Alt und option unter Mac.</li>
+</ul>
+</div>
+<div class="section" id="characters-zeichen">
+<h2>Characters (Zeichen)<a class="headerlink" href="#characters-zeichen" title="Link zu dieser Überschrift">¶</a></h2>
+</div>
+<div class="section" id="version-of-the-ocaml-language">
+<h2>Version of „the-ocaml-language“<a class="headerlink" href="#version-of-the-ocaml-language" title="Link zu dieser Überschrift">¶</a></h2>
 <p>Erstellt [2023-01-21]</p>
 </div>
 </div>
@@ -63,7 +194,12 @@
   <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">OCaml: eine Sprache von algebraischen Ausdrücken mit Namen und Funktionen</a><ul>
-<li><a class="reference internal" href="#version">Version</a></li>
+<li><a class="reference internal" href="#toplevel-loop">Toplevel-Loop</a></li>
+<li><a class="reference internal" href="#kommentare">Kommentare</a></li>
+<li><a class="reference internal" href="#integer">Integer</a></li>
+<li><a class="reference internal" href="#booleans-ganzzahlen">Booleans (Ganzzahlen)</a></li>
+<li><a class="reference internal" href="#characters-zeichen">Characters (Zeichen)</a></li>
+<li><a class="reference internal" href="#version-of-the-ocaml-language">Version of „the-ocaml-language“</a></li>
 </ul>
 </li>
 </ul>

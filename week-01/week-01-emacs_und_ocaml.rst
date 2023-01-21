@@ -73,7 +73,7 @@ verwenden.
 
 
 
-Version
--------
+Version of "emacs_und_ocaml"
+----------------------------
 
 Erstellt [2022-10-14]

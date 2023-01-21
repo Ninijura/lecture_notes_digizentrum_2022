@@ -534,8 +534,8 @@ vorzustellen ist eine gute Übung für die Denkmuster.
 
 
                
-Version
-=======
+Version of "sprachen-meta-sprachen-und-programm-verarbeiter"
+============================================================
 
 Erstellt [2022-10-15]
 

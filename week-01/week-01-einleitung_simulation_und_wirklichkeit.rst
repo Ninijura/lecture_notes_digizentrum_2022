@@ -605,7 +605,7 @@ Finde noch eine Analogie zum Programmieren.
 
 
 
-Version
-=======
+Version of "einleitung"
+=======================
 
 Erstellt [2022-10-10]
