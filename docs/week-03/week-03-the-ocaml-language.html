@@ -1,0 +1,319 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>OCaml: eine Sprache von algebraischen Ausdrücken mit Namen und Funktionen &#8212; Einführung ins Programmieren 2022</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/extra-styles.css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Stichwortverzeichnis" href="../genindex.html" />
+    <link rel="search" title="Suche" href="../search.html" />
+    <link rel="next" title="Dramatis Personae" href="../resources/dramatis_personae.html" />
+    <link rel="prev" title="Lehrmaterial Woche-03" href="week-03-index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Stichwortverzeichnis"
+             accesskey="I">Index</a></li>
+        <li class="right" >
+          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+             accesskey="N">weiter</a> |</li>
+        <li class="right" >
+          <a href="week-03-index.html" title="Lehrmaterial Woche-03"
+             accesskey="P">zurück</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Einführung ins Programmieren 2022</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="week-03-index.html" accesskey="U">Lehrmaterial Woche-03</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="ocaml-eine-sprache-von-algebraischen-ausdrucken-mit-namen-und-funktionen">
+<h1>OCaml: eine Sprache von algebraischen Ausdrücken mit Namen und Funktionen<a class="headerlink" href="#ocaml-eine-sprache-von-algebraischen-ausdrucken-mit-namen-und-funktionen" title="Link zu dieser Überschrift">¶</a></h1>
+<ul>
+<li><p class="first">Die Struktur einer Sprache wird von ihrer Grammatik vorgegeben.</p>
+</li>
+<li><p class="first">Die Sprache hat drei Lagen: Zeichen, Wörter und Sätze:</p>
+<ul>
+<li><p class="first">zulässige Zeichen sind für gewöhnlich Buchstaben, Zahlen, Satzzeichen, usw. und
+einige dieser Zeichen sind „Separatoren“;</p>
+</li>
+<li><p class="first">zulässige Wörter sind Folgen von Zeichen, die von Separatoren getrennt werden
+(zum Beispiel Leerzeichen) und in der lexikalischen Struktur der Sprache
+definiert sind (bei natürlichen Sprachen heißt das so viel wie: die, die im
+Wörterbuch stehen; bei Programmiersprachen sprechen wir gleich noch darüber,
+welche Wörter zulässig sind)</p>
+</li>
+<li><p class="first">zulässige Sätze sind Folgen von Wörtern, die grammatikalisch korrekt sind.</p>
+<p>Während diese drei Lagen eine Beschreibung für natürliche Sprachen sind, sind sie in
+Programmiersprachen Vorschrift: Was nicht lexikalisch oder grammatikalisch
+korrekt ist, das wird direkt abgelehnt.</p>
+</li>
+</ul>
+</li>
+<li><p class="first">In Emacs, wenn man <code class="docutils literal notranslate"><span class="pre">M-x</span> <span class="pre">run-ocaml</span></code> eingibt, startet man damit eine
+„Read-Eval-Print-Loop“ (oft als REPL abgekürzt, auch Toplevel-Loop genannt, oder
+einfach Toplevel). Emacs schreibt dann <code class="docutils literal notranslate"><span class="pre">#</span></code> als Eingabeaufforderung und der
+Benutzer schreibt einen OCaml-Ausdruck beendet von <code class="docutils literal notranslate"><span class="pre">;;</span></code> und drückt Enter. Das
+System liest diesen Ausdruck und</p>
+<ul>
+<li><p class="first">wenn der Ausdruck lexikalisch oder grammatikalisch inkorrekt ist, wird eine
+Fehlermeldung gezeigt.</p>
+</li>
+<li><p class="first">wenn der Ausdruck lexikalisch und grammatikalisch korrekt ist, wird er
+ausgerechnet. Das Ergebnis ist eines der folgenden:</p>
+<ul class="simple">
+<li>Wenn die Berechnung (eng: evaluation) einen Fehler verursacht, wird eine
+Fehlermeldung gezeigt und die Read-Eval-Print-Loop wird fortgesetzt.</li>
+<li>Wenn die Berechnung länger dauert als wir Zeit haben zu warten (zum Beispiel,
+weil sie in einer endlosen Schleife läuft), passiert nichts bis jemand <code class="docutils literal notranslate"><span class="pre">C-c</span>
+<span class="pre">C-c</span></code> (also zweimal Strg und C zugleich) drückt; daraufhin wird eine
+Fehlermeldung angezeigt und die Read-Eval-Print-Lopp wird fortgesetzt.</li>
+<li>Wenn die Berechnung mehr Speicherplatz braucht als auf unserem System zur
+Verfügung steht, wird ein Fehler gedruckt und die Read-Eval-Print-Loop
+fortgesetzt.</li>
+<li>Wenn die Berechnung mit einem Ergebnis abgeschlossen wird, wird dieses Ergebnis
+angezeigt und die Read-Eval-Print-Loop fortgesetzt.</li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">C-c</span> <span class="pre">C-d</span></code> stoppt den OCaml-Prozess.</p>
+</li>
+</ul>
+</li>
+<li><p class="first">OCaml ist eine Sprache von Ausdrücken.</p>
+</li>
+<li><p class="first">Durch die Toplevel-Loop werden OCaml Ausdrücke ausgewertet und geben
+Ergebnisse. Diese Ergebnisse haben einen <em>Typen</em>: integer, boolean, string, etc.</p>
+<p>Doch nicht nur die Ergebnisse haben Typen. Jeder Ausdruck hat den Typen, den das
+Ergebnis hat, wenn OCaml diesen Ausdruck berechnet.</p>
+<p>(Zur Veranschaulichung ein beispiel an nicht-negativen Ganzzahlen, die den Typen
+integer haben. Wir schreiben hier <strong>Ausdruck</strong> <code class="docutils literal notranslate"><span class="pre">:</span></code> <strong>Typ</strong>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">:</span> <span class="pre">int</span></code> ist relativ klar. Eine nicht-negative Ganzzahl.
+<code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">+</span> <span class="pre">1</span> <span class="pre">:</span> <span class="pre">int</span></code> ergibt sich für unsere Intuition daraus, dass wir das Ergebnis
+ausrechnen und sehen ahh! <code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">:</span> <span class="pre">int</span></code>.</p>
+<p>Wenn ein Programm allerdings nicht typen-korrekt ist, dann weiß der Computer damit
+nichts anzufangen. Ein Beispiel wäre: <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">+</span> <span class="pre">'x'</span></code>. Hier ist 1 ein Integer, während
+‚x‘ ein Zeichen ist. Da die Operation <code class="docutils literal notranslate"><span class="pre">+</span></code> nur für Zahlen definiert ist, würde
+dieses Beispiel einen Typenfehler hervorrufen.</p>
+<p>Computer haben leider keine Intuition, daher kommt über das mit den Typen noch ein
+ganzer Abschnitt inklusive Übungen.)</p>
+<p>Aber nicht nur Ausdrücke, die ein direktes Ergebnis haben, haben einen Typen. ALLE
+syntaktischen Konstrukte haben Typen. Etwas konkreter gesagt:</p>
+<ul>
+<li><p class="first">Nehmen wir einen Compiler von OCaml nach x86. Wenn wir diesen Compiler benutzen
+um ein OCaml-Programm auszuführen, dann geschieht das in zwei Schritten: (1,
+compile time) das Programm wird kompiliert (übersetzt), und (2, run time) wo das
+kompilierte Programm ausgeführt wird. Traditionell nennen wir alles was in der
+compile time passiert <em>statisch</em> und alles was zur run time gehört <em>dynamisch</em>.</p>
+<p>Zum Beispiel das Parsen (oder Zerlegen, also das Überprüfen, ob das Programm
+syntaktisch (grammatikalisch) korrekt ist) passiert in der compile time, und die
+Ausführung eine syntaktisch korrekten Programms geschieht in der run time: daher
+ist Parsen statisch.</p>
+<p>In OCaml ist die Typen-Analyse (also die Analyse, ob alle Ausdrücke den richtigen
+Typen haben) auch statisch.</p>
+</li>
+<li><p class="first">Das bedeutet, dass OCaml eine <em>statisch typisierte</em> Sprache ist. Nur Ausdrücke,
+die sowohl syntaktisch korrekt als auch typen-korrekt sind, werden
+berechnet. Alle andere Ausdrücke werden vor der Berechnung mit einer
+Fehlermeldung abgelehnt.</p>
+<p>Der Vorteil dieser syntaktischen Disziplin ist, dass <em>die Ausführung eines
+OCaml-Programms niemals einen Syntaxfehler herbeiführt</em>, da nur syntaktisch
+korrekte Programme ausgeführt werden.</p>
+<p>Der Vorteil diser Disziplin mit Typen ist, dass <em>die Ausführung eines
+OCaml-Programms niemals einen Typenfehler herbeiführt</em>, da nur typenkorrekte
+Programme überhaupt ausgeführt werden.</p>
+</li>
+</ul>
+</li>
+</ul>
+<div class="section" id="ein-paar-erinnerungen">
+<h2>Ein paar Erinnerungen<a class="headerlink" href="#ein-paar-erinnerungen" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Der Sinn der folgenden Abschnitte ist, uns die mathematischen Grundlagen noch einmal
+ins Gedächtnis zu rufen. Es ist nichts esotherisches oder kompliziertes dabei,
+trotzdem solltet auch Überflieger die Abschnitte wenigstens überfliegen.</p>
+</div>
+<div class="section" id="binare-relationen-eine-erinnerung">
+<h2>Binäre Relationen - eine Erinnerung<a class="headerlink" href="#binare-relationen-eine-erinnerung" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Eine binäre Relation über zwei Mengen, A und B, ist eine Menge sortierter Paare,
+(a,b) aus elementen a aus der Menge A und b aus der Menge B.</p>
+<p>Zum Beispiel die Relations „größer als“ über die Menge Z (Ganzzahlen) ist die Menge
+von Paaren (i,j) für welche eine positive Zahl k existiert, so dass j=i+k.</p>
+<p>Ein Beispiel zum Beispiel: (2,5) ist ein Paar von Ganzzahlen und die positive Zahl 3
+existiert sodass 5=2+3.</p>
+<p>Wenn wir diese Relation mathematisch schreiben möchten, würden wir schreiben:</p>
+<p>{(i,j)|i ist in Z, j ist in Z und es existiert eine positive Zahl k sodass j=i+k}</p>
+</div>
+<div class="section" id="mathematische-funktionen-eine-erinnerung">
+<h2>Mathematische Funktionen - eine Erinnerung<a class="headerlink" href="#mathematische-funktionen-eine-erinnerung" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Eine Funktion ist eine Relation zwischen zwei Mengen (also eine binäre Relation). Die
+Mengen werden als Definitionsbereich und Zielmenge (eng.: domain und codomain)
+bezeichnet und die Funktion definiert für jedes Element im Definitionsbereich ein
+Element in der Zielmenge.</p>
+<p>Beispiele von Funktionen:</p>
+<ul>
+<li><p class="first">Die „Nachfolger“ (eng.: successor) Funktion über den Definitionsbereich der
+Ganzzahlen, Z ist die Relation {(i,j|i+1=j}. Hier sind sowohl Definitionsbereich
+als auch Zielmenge Z.</p>
+<p>Oder in Worten: Die Paare (i,j), wo i und j Ganzzahlen sind und j genau eins größer
+ist als i.</p>
+</li>
+<li><p class="first">Die „Absoluter Wert“ Funktion (für Ganzzahlen) bildet negative Zahlen, -i, als die
+positive Zahl mit   gleichem Wert, i, ab und nicht-negative Zahlen als sich
+selbst. Hier ist der Definitionsbereich Z, Ganzzahlen, und die Zielmenge N, die
+nicht-negativen Zahlen.</p>
+</li>
+</ul>
+<p>Ein <em>Prädikat</em> ist eine Funktion, deren Zielmenge die Booleans sind (zur Erinnerung:
+es gibt genau zwei Booleans: wahr und falsch (eng.: true und false) und sie werden
+genutzt um einen Wahrheitswert darzustellen).</p>
+<p>Beispiele von Prädikaten:</p>
+<ul class="simple">
+<li>Eine Funktion, die negative Zahlen zu falsch und positive Zahlen zu wahr abbildet.</li>
+<li>Eine Funktion, die gerade Zahlen zu wahr und ungerade Zahlen zu falsch abbildet.</li>
+</ul>
+<p>Im Alltag betrachten wir Funktionen oftmals als Maschinen, denen ein Wert eingegeben
+wird und die einen veränderten Wert zurückgeben. Wenn wir uns als Beispiel hierzu die
+„Nachfolger“-Funktion noch einmal unter die Lupe nehmen, kann sie betrachtet werden
+als:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Nachfolger</span> <span class="pre">1</span> <span class="pre">=</span> <span class="pre">2</span></code></p>
+<p>oder</p>
+<p><code class="docutils literal notranslate"><span class="pre">Nachfolger</span> <span class="pre">4</span> <span class="pre">=</span> <span class="pre">5</span></code>.</p>
+<p>Es ist auch gängige Praxis, funktionen mit einem Graphen (Kurvendiagramm)
+darzustellen. Die „Nachfolger“-Funktion hätte zum Beispiel den Graphen y=x+1.</p>
+<p>(Bonus: verstehst du, warum x+1 die „Nachfolger“-Funktion ist?)</p>
+</div>
+<div class="section" id="aquivalenz-von-funktionen">
+<h2>Äquivalenz von Funktionen<a class="headerlink" href="#aquivalenz-von-funktionen" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Zwei Funktionen sind äquivalent, wenn sie den gleichen Graphen definieren.</p>
+<p>Nehmen wir zwei Funktionen, <code class="docutils literal notranslate"><span class="pre">f</span></code> und <code class="docutils literal notranslate"><span class="pre">g</span></code>, von den natürlichen Zahlen <code class="docutils literal notranslate"><span class="pre">N</span></code> zu den
+Booleans <code class="docutils literal notranslate"><span class="pre">B</span></code>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>f : N -&gt; B
+
+g : N -&gt; B
+</pre></div>
+</div>
+<p>(Wir könnten hier auch sagen, dass die Typen von <code class="docutils literal notranslate"><span class="pre">f</span></code> und <code class="docutils literal notranslate"><span class="pre">g</span></code> Funktionstypen von
+Typ <code class="docutils literal notranslate"><span class="pre">N</span></code> nach Typ <code class="docutils literal notranslate"><span class="pre">B</span></code> sind. Mehr dazu später.)</p>
+<p>Wir vergleichen zwei natürliche Zahlen mit dem Infix-Operator <code class="docutils literal notranslate"><span class="pre">=N=</span></code> und Booleans
+mit dem Infix-Operator <code class="docutils literal notranslate"><span class="pre">=B=</span></code>. (Infix bedeutet, dass der Operator zwischen seinen
+Operanden steht, also wie wir gewöhnlich (+) und (-) zwischen zwei Zahlen
+schreiben.)</p>
+<p>Wir sagen nun, dass <code class="docutils literal notranslate"><span class="pre">f</span></code> und <code class="docutils literal notranslate"><span class="pre">g</span></code> äquivalent sind, wenn sie gleiche natürliche
+Zahlen zu gleichen Booleans abbilden:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>für beliebige natürlichen Zahlen i und j
+und
+für beliebige Booleans x und y, wo f(i)=x und g(j)=y
+wenn i =N= j, dann x =B= y
+</pre></div>
+</div>
+<p>Oder präziser:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>für eine beliebige natürliche Zahl i,
+  f(i) =B= g(i)
+</pre></div>
+</div>
+</div>
+<div class="section" id="funktionen-in-der-informatik">
+<h2>Funktionen in der Informatik<a class="headerlink" href="#funktionen-in-der-informatik" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Nun können wir zu unserem Diagramm aus Woche-01 zurückkeheren.</p>
+<p>Im Großen und Ganzen: Ein Programm (nennen wir es <code class="docutils literal notranslate"><span class="pre">p</span></code>) verarbeitet Daten und
+berechnet eine Funktion (nennen wir sie <code class="docutils literal notranslate"><span class="pre">f</span></code>, sodass <code class="docutils literal notranslate"><span class="pre">run</span> <span class="pre">p</span> <span class="pre">=</span> <span class="pre">f</span></code>) die
+Input-Informationen (repräsentiert von Input-Daten) zu Output-Informationen abbildet
+(repräsentiert von Output-Daten:</p>
+<img alt="../_images/ditaa-31ade5a3286e89d9870fecf73d877589a8ab7b6c.png" src="../_images/ditaa-31ade5a3286e89d9870fecf73d877589a8ab7b6c.png" />
+<p>Etwas näher betrachtet: Wir können Funktoinen in OCaml implementieren. (Allerdings
+Vorsicht: eine „OCaml-Funktion“ ist keine mathematische Funktion.)</p>
+</div>
+<div class="section" id="version">
+<h2>Version<a class="headerlink" href="#version" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Erstellt [2023-01-15]
+Erweitert [2023-01-18]</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">OCaml: eine Sprache von algebraischen Ausdrücken mit Namen und Funktionen</a><ul>
+<li><a class="reference internal" href="#ein-paar-erinnerungen">Ein paar Erinnerungen</a></li>
+<li><a class="reference internal" href="#binare-relationen-eine-erinnerung">Binäre Relationen - eine Erinnerung</a></li>
+<li><a class="reference internal" href="#mathematische-funktionen-eine-erinnerung">Mathematische Funktionen - eine Erinnerung</a></li>
+<li><a class="reference internal" href="#aquivalenz-von-funktionen">Äquivalenz von Funktionen</a></li>
+<li><a class="reference internal" href="#funktionen-in-der-informatik">Funktionen in der Informatik</a></li>
+<li><a class="reference internal" href="#version">Version</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Vorheriges Thema</h4>
+  <p class="topless"><a href="week-03-index.html"
+                        title="vorheriges Kapitel">Lehrmaterial Woche-03</a></p>
+  <h4>Nächstes Thema</h4>
+  <p class="topless"><a href="../resources/dramatis_personae.html"
+                        title="nächstes Kapitel">Dramatis Personae</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Diese Seite</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/week-03/week-03-the-ocaml-language.rst.txt"
+            rel="nofollow">Quellcode anzeigen</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Schnellsuche</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Los" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Stichwortverzeichnis"
+             >Index</a></li>
+        <li class="right" >
+          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+             >weiter</a> |</li>
+        <li class="right" >
+          <a href="week-03-index.html" title="Lehrmaterial Woche-03"
+             >zurück</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Einführung ins Programmieren 2022</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="week-03-index.html" >Lehrmaterial Woche-03</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Kira Kutscher.
+      Mit <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5 erstellt.
+    </div>
+  </body>
+</html>

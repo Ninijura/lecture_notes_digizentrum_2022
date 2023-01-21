@@ -1,0 +1,9 @@
+            Input-            f               Output-
+          Information  -------------------> Information
+              ^                                 ^
+              |                                 |
+repräsentiert |                                 | repräsentiert
+              |                                 |
+              |                                 |
+           Input-           run p             Output-
+           Daten    ---------------------->   Daten
