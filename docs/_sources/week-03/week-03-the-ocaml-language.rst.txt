@@ -21,6 +21,7 @@ dies die am häufigsten gebrauchte Ausdrücke sind.)
 Jeder Ausdruck (expression) hat einen Typen:
 
 ::
+
    G |- e : t
 
 In Worten: in der Typenumgebung (type environment) ``G``, hat der Ausdruck
@@ -75,12 +76,12 @@ Wir erweitern also unsere Grammatik um den Typen ``int``.
 
    <expression> ::= <integer>
 
-   <integer>    ::= 0 | -1 | 1 | -2 | 2 | -3 | 3 | ... | -4611686018427387903
-   | 4611686018427387903 | -4611686018427387904
+   <integer>    ::= 0 | -1 | 1 | -2 | 2 | -3 | 3 | ... | -4611686018427387903 | 4611686018427387903 | -4611686018427387904
 
 Dementpsrechend bekommen wir eine Typen-Regel wie folgt:
 
 ::
+
    INT ----------------- wo n ein Integer ist
           G |- n : int
 
@@ -122,7 +123,7 @@ Die entsprechenden Typenregeln sind:
    BOOL_TRUE--------------------
               G |- true : bool
 
-   BOOL_FLASE-------------------
+   BOOL_FALSE-------------------
               G |- false : bool
 
 In Worten:
@@ -151,6 +152,141 @@ Ein Tipp:
 
 Characters (Zeichen)
 ====================
+In OCaml gibt es auch einen Typ für Zeichen:
+
+::
+   
+   <type>       ::= int | bool | char
+
+   <expression> ::= <integer>
+                  | <boolean>
+                  | <character>
+
+   <integer>    ::= 0 | -1 | 1 | -2 | 2 | -3 | 3 | ...
+
+   <boolean>    ::= true | false
+
+   <character>  ::= ein Zeichen in einfachen Anführungszeichen
+
+Die zugehörige Typenregel lautet:
+
+::
+
+  CHAR-------------------- wo c ein Zeichen ist*
+        G |- c : char
+
+(``*`` "Zeichen" ist hier in OCamls Verständnis von Zeichen gemeint. Das heißt ``c``
+ist kein Zeichen, aber ``'c'`` ist ein Zeichen.)
+
+In Worten:
+
+* in einer beliebigen Typenumgebung ``G`` hat ein Zeichen ``'c'`` (in einfachen
+  Anführungszeichen) den Typen ``char`` (für englisch character).
+
+Außerdem: wenn man ein Zeichen evaluiert, ist das Ergebnis dieses Zeichen. 
+
+
+Zwischenspiel
+=============
+
+**Sigrid:** Das heißt ein ``char`` in OCaml ist einfach ein Buchstabe zwischen zwei
+``'``?
+
+**Brynja:** Nicht nur ein Buchstabe, glaube ich, ein beliebiges Zeichen.
+
+**Sigrid:** Das muss ich ausprobieren!
+
+::
+
+   # 'a';;
+   - : char = 'a'
+   # '(';;
+   - : char = '('
+   # '%';;
+   - : char = '%'
+   #
+
+**Sigrid:** Ja, sieht ganz so aus.
+
+**Loke:** Und was mit dem einfachen Anführungszeichen selbst?
+
+**Alfrothul:** Oh-oh!
+
+::
+
+   # ''';;
+   Error: Illegal empty character literal ''
+   Hint: Did you mean ' ' or a type variable 'a?
+   #
+
+**Mimer:** OCaml nutzt den Backslash ``\`` um das einfache Anführungszeichen zu
+schreiben.
+
+**Brynja:** Also schreiben wir ``'\''`` für das einfache Anführungszeichen?
+
+**Sigrid:** ``'\''``! Das muss ein Zeichen sein!
+
+::
+
+   # '\'';;
+   - : char = '\''
+   #
+
+**Alfrothul:** Stimmt, ist ein Zeichen.
+
+**Brynja:** Und damit OCaml nicht verwirrt wird, müssen wir den Backslash betimmt
+auch mit Backslash davor schreiben:
+
+::
+
+   # '\\';;
+   - : char = '\\'
+   #
+
+**Mimer:** Yup!
+
+
+Strings (Zeichenfolgen)
+=======================
+OCaml hat auch Strings, die wir gewöhnlich für Wörter und Sätze benutzen:
+
+::
+
+   <type>       ::= int | bool | char
+
+   <expression> ::= <integer>
+                  | <boolean>
+                  | <character>
+                  | <string>
+
+   <integer>    ::= 0 | -1 | 1 | -2 | 2 | -3 | 3 | ...
+
+   <boolean>    ::= true | false
+
+   <character>  ::= ein Zeichen in einfachen Anführungszeichen
+
+   <string>     ::= eine Folge von Zeichen zwischen doppelten Anführugszeichen
+
+Die zugehörige Typenregel lautet wie folgt:
+
+::
+
+   STRING-------------------wo s ein string ist*
+          G |- s : string
+
+(``*`` "string" ist hier in OCamls Verständnis von string gemeint. Das heißt ``hallo``
+ist kein string, aber ``"hallo"`` ist einer.)
+
+In Worten:
+* in einer beliebigen Typenumgebung ``G`` hat ein String ``s`` den Typen ``string``.
+
+Außerdem:
+* einen String zu evaluieren gibt als Ergebnis ebendiesen String.
+
+**Aufgabe:** Probier es selbst aus. Schreibe ein paar Strings in OCaml und schaue dir
+das Ergebnis an.
+
+
 
 
 

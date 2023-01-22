@@ -61,10 +61,9 @@ dies die am häufigsten gebrauchte Ausdrücke sind.)</p>
 </pre></div>
 </div>
 <p>Jeder Ausdruck (expression) hat einen Typen:</p>
-<dl class="docutils">
-<dt>::</dt>
-<dd>G <a href="#id1"><span class="problematic" id="id2">|</span></a>- e : t</dd>
-</dl>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>G |- e : t
+</pre></div>
+</div>
 <p>In Worten: in der Typenumgebung (type environment) <code class="docutils literal notranslate"><span class="pre">G</span></code>, hat der Ausdruck
 (expression) <code class="docutils literal notranslate"><span class="pre">e</span></code> den Typen <code class="docutils literal notranslate"><span class="pre">t</span></code>.</p>
 <p>Im Rest des Lehrmaterials für diese Woche werden wir <code class="docutils literal notranslate"><span class="pre">G</span></code>, <code class="docutils literal notranslate"><span class="pre">e</span></code> und <code class="docutils literal notranslate"><span class="pre">t</span></code> weiter
@@ -104,19 +103,14 @@ gefunden.</p>
 
 &lt;expression&gt; ::= &lt;integer&gt;
 
-&lt;integer&gt;    ::= 0 | -1 | 1 | -2 | 2 | -3 | 3 | ... | -4611686018427387903
-| 4611686018427387903 | -4611686018427387904
+&lt;integer&gt;    ::= 0 | -1 | 1 | -2 | 2 | -3 | 3 | ... | -4611686018427387903 | 4611686018427387903 | -4611686018427387904
 </pre></div>
 </div>
 <p>Dementpsrechend bekommen wir eine Typen-Regel wie folgt:</p>
-<dl class="docutils">
-<dt>::</dt>
-<dd><dl class="first last docutils">
-<dt>INT —————– wo n ein Integer ist</dt>
-<dd>G <a href="#id3"><span class="problematic" id="id4">|</span></a>- n : int</dd>
-</dl>
-</dd>
-</dl>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>INT ----------------- wo n ein Integer ist
+       G |- n : int
+</pre></div>
+</div>
 <p>Solche Regeln lesen wir wie folgt:</p>
 <ul class="simple">
 <li>Der Name der Regel ist (in diesem Beispiel) <code class="docutils literal notranslate"><span class="pre">INT</span></code>.</li>
@@ -151,7 +145,7 @@ wie Vorzeichen funktionieren.</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>BOOL_TRUE--------------------
            G |- true : bool
 
-BOOL_FLASE-------------------
+BOOL_FALSE-------------------
            G |- false : bool
 </pre></div>
 </div>
@@ -178,6 +172,109 @@ der Eingaben in unserer Toplevel-Loop gehen und die Ausdrücke wiederverwenden.<
 </div>
 <div class="section" id="characters-zeichen">
 <h2>Characters (Zeichen)<a class="headerlink" href="#characters-zeichen" title="Link zu dieser Überschrift">¶</a></h2>
+<p>In OCaml gibt es auch einen Typ für Zeichen:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;type&gt;       ::= int | bool | char
+
+&lt;expression&gt; ::= &lt;integer&gt;
+               | &lt;boolean&gt;
+               | &lt;character&gt;
+
+&lt;integer&gt;    ::= 0 | -1 | 1 | -2 | 2 | -3 | 3 | ...
+
+&lt;boolean&gt;    ::= true | false
+
+&lt;character&gt;  ::= ein Zeichen in einfachen Anführungszeichen
+</pre></div>
+</div>
+<p>Die zugehörige Typenregel lautet:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>CHAR-------------------- wo c ein Zeichen ist*
+      G |- c : char
+</pre></div>
+</div>
+<p>(<code class="docutils literal notranslate"><span class="pre">*</span></code> „Zeichen“ ist hier in OCamls Verständnis von Zeichen gemeint. Das heißt <code class="docutils literal notranslate"><span class="pre">c</span></code>
+ist kein Zeichen, aber <code class="docutils literal notranslate"><span class="pre">'c'</span></code> ist ein Zeichen.)</p>
+<p>In Worten:</p>
+<ul class="simple">
+<li>in einer beliebigen Typenumgebung <code class="docutils literal notranslate"><span class="pre">G</span></code> hat ein Zeichen <code class="docutils literal notranslate"><span class="pre">'c'</span></code> (in einfachen
+Anführungszeichen) den Typen <code class="docutils literal notranslate"><span class="pre">char</span></code> (für englisch character).</li>
+</ul>
+<p>Außerdem: wenn man ein Zeichen evaluiert, ist das Ergebnis dieses Zeichen.</p>
+</div>
+<div class="section" id="zwischenspiel">
+<h2>Zwischenspiel<a class="headerlink" href="#zwischenspiel" title="Link zu dieser Überschrift">¶</a></h2>
+<p><strong>Sigrid:</strong> Das heißt ein <code class="docutils literal notranslate"><span class="pre">char</span></code> in OCaml ist einfach ein Buchstabe zwischen zwei
+<code class="docutils literal notranslate"><span class="pre">'</span></code>?</p>
+<p><strong>Brynja:</strong> Nicht nur ein Buchstabe, glaube ich, ein beliebiges Zeichen.</p>
+<p><strong>Sigrid:</strong> Das muss ich ausprobieren!</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># &#39;a&#39;;;
+- : char = &#39;a&#39;
+# &#39;(&#39;;;
+- : char = &#39;(&#39;
+# &#39;%&#39;;;
+- : char = &#39;%&#39;
+#
+</pre></div>
+</div>
+<p><strong>Sigrid:</strong> Ja, sieht ganz so aus.</p>
+<p><strong>Loke:</strong> Und was mit dem einfachen Anführungszeichen selbst?</p>
+<p><strong>Alfrothul:</strong> Oh-oh!</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># &#39;&#39;&#39;;;
+Error: Illegal empty character literal &#39;&#39;
+Hint: Did you mean &#39; &#39; or a type variable &#39;a?
+#
+</pre></div>
+</div>
+<p><strong>Mimer:</strong> OCaml nutzt den Backslash <code class="docutils literal notranslate"><span class="pre">\</span></code> um das einfache Anführungszeichen zu
+schreiben.</p>
+<p><strong>Brynja:</strong> Also schreiben wir <code class="docutils literal notranslate"><span class="pre">'\''</span></code> für das einfache Anführungszeichen?</p>
+<p><strong>Sigrid:</strong> <code class="docutils literal notranslate"><span class="pre">'\''</span></code>! Das muss ein Zeichen sein!</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># &#39;\&#39;&#39;;;
+- : char = &#39;\&#39;&#39;
+#
+</pre></div>
+</div>
+<p><strong>Alfrothul:</strong> Stimmt, ist ein Zeichen.</p>
+<p><strong>Brynja:</strong> Und damit OCaml nicht verwirrt wird, müssen wir den Backslash betimmt
+auch mit Backslash davor schreiben:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># &#39;\\&#39;;;
+- : char = &#39;\\&#39;
+#
+</pre></div>
+</div>
+<p><strong>Mimer:</strong> Yup!</p>
+</div>
+<div class="section" id="strings-zeichenfolgen">
+<h2>Strings (Zeichenfolgen)<a class="headerlink" href="#strings-zeichenfolgen" title="Link zu dieser Überschrift">¶</a></h2>
+<p>OCaml hat auch Strings, die wir gewöhnlich für Wörter und Sätze benutzen:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;type&gt;       ::= int | bool | char
+
+&lt;expression&gt; ::= &lt;integer&gt;
+               | &lt;boolean&gt;
+               | &lt;character&gt;
+               | &lt;string&gt;
+
+&lt;integer&gt;    ::= 0 | -1 | 1 | -2 | 2 | -3 | 3 | ...
+
+&lt;boolean&gt;    ::= true | false
+
+&lt;character&gt;  ::= ein Zeichen in einfachen Anführungszeichen
+
+&lt;string&gt;     ::= eine Folge von Zeichen zwischen doppelten Anführugszeichen
+</pre></div>
+</div>
+<p>Die zugehörige Typenregel lautet wie folgt:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>STRING-------------------wo s ein string ist*
+       G |- s : string
+</pre></div>
+</div>
+<p>(<code class="docutils literal notranslate"><span class="pre">*</span></code> „string“ ist hier in OCamls Verständnis von string gemeint. Das heißt <code class="docutils literal notranslate"><span class="pre">hallo</span></code>
+ist kein string, aber <code class="docutils literal notranslate"><span class="pre">&quot;hallo&quot;</span></code> ist einer.)</p>
+<p>In Worten:
+* in einer beliebigen Typenumgebung <code class="docutils literal notranslate"><span class="pre">G</span></code> hat ein String <code class="docutils literal notranslate"><span class="pre">s</span></code> den Typen <code class="docutils literal notranslate"><span class="pre">string</span></code>.</p>
+<p>Außerdem:
+* einen String zu evaluieren gibt als Ergebnis ebendiesen String.</p>
+<p><strong>Aufgabe:</strong> Probier es selbst aus. Schreibe ein paar Strings in OCaml und schaue dir
+das Ergebnis an.</p>
 </div>
 <div class="section" id="version-of-the-ocaml-language">
 <h2>Version of „the-ocaml-language“<a class="headerlink" href="#version-of-the-ocaml-language" title="Link zu dieser Überschrift">¶</a></h2>
@@ -199,6 +296,8 @@ der Eingaben in unserer Toplevel-Loop gehen und die Ausdrücke wiederverwenden.<
 <li><a class="reference internal" href="#integer">Integer</a></li>
 <li><a class="reference internal" href="#booleans-ganzzahlen">Booleans (Ganzzahlen)</a></li>
 <li><a class="reference internal" href="#characters-zeichen">Characters (Zeichen)</a></li>
+<li><a class="reference internal" href="#zwischenspiel">Zwischenspiel</a></li>
+<li><a class="reference internal" href="#strings-zeichenfolgen">Strings (Zeichenfolgen)</a></li>
 <li><a class="reference internal" href="#version-of-the-ocaml-language">Version of „the-ocaml-language“</a></li>
 </ul>
 </li>
