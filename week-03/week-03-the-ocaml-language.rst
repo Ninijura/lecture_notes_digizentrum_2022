@@ -271,17 +271,17 @@ Die zugehörige Typenregel lautet wie folgt:
 
 ::
 
-   STRING-------------------wo s ein string ist*
+   STRING-------------------wo s ein String ist*
           G |- s : string
 
-(``*`` "string" ist hier in OCamls Verständnis von string gemeint. Das heißt ``hallo``
-ist kein string, aber ``"hallo"`` ist einer.)
+(``*`` "String" ist hier in OCamls Verständnis von String gemeint. Das heißt ``hallo``
+ist kein String, aber ``"hallo"`` ist einer.)
 
 In Worten:
+
 * in einer beliebigen Typenumgebung ``G`` hat ein String ``s`` den Typen ``string``.
 
-Außerdem:
-* einen String zu evaluieren gibt als Ergebnis ebendiesen String.
+Außerdem: einen String zu evaluieren gibt als Ergebnis ebendiesen String.
 
 **Aufgabe:** Probier es selbst aus. Schreibe ein paar Strings in OCaml und schaue dir
 das Ergebnis an.
