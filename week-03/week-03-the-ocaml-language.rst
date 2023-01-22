@@ -267,7 +267,7 @@ OCaml hat auch Strings, die wir gewöhnlich für Wörter und Sätze benutzen:
 
    <string>     ::= eine Folge von Zeichen zwischen doppelten Anführugszeichen
 
-Die zugehörige Typenregel lautet wie folgt:
+Die dazugehörige Typenregel lautet wie folgt:
 
 ::
 
@@ -286,6 +286,271 @@ Außerdem: einen String zu evaluieren gibt als Ergebnis ebendiesen String.
 **Aufgabe:** Probier es selbst aus. Schreibe ein paar Strings in OCaml und schaue dir
 das Ergebnis an.
 
+Zwischenspiel über Strings
+==========================
+
+**Sigrid:** Lass mich raten -- wenn ein String das doppelte Anführungszeichen
+enthalten soll, dann schreibt man einen Backslash davor:
+::
+
+   # "\"";;
+   - : string = "\""
+   #
+
+**Alfrothul:** Sieht ganz so aus, ja. Und wahrscheinlich schreibt man einen Backslash
+auch mit Backslash davor:
+
+::
+
+   # "\";;
+   ";;
+   - : string = "\";;\n"
+   # "\\";;
+   - : string = "\\"
+   #
+
+**Sigrid:** Stimmt, wenn du einfach nur einen Backslash schreibst, dann liest er die
+Anführungszeichen am Schluss nicht als Anführungszeichen und die Semikolons nicht als
+Ende des Ausdrucks, sondern wartet auf eine weitere Eingabe.
+
+**Loke:** Und was ist dann ``"\\\\\\"``?
+
+**Brynja:** Ganz logisch: ein String bestehend aus drei Backslashes.
+
+**Sigrid:** Und gibt es auch einen leeren String?
+
+::
+
+   # "";;
+   - : string = ""
+   #
+
+**Sigrid:** Tatsache!
+
+**Alfrothul:** Wartet mal, was passiert eigentlich, wenn man nicht Buchstaben sondern
+Zahlen schreibt? Dann ist es ja kein Wort mehr sondern eine Zahl zwischen zwei
+Anführungszeichen...?
+
+::
+
+   # "42";;
+   - : string = "42"
+   #
+
+**Sigrid:** Anscheinend trotzdem ein String... Müsste das nicht eher den Typen
+``int`` haben, oder vielleicht sogar ``"int"``?
+
+**Brynja:** Ich verstehe eure Verwirrung, aber den Typen ``"int"`` gibt es doch gar
+nicht. ``"42"`` ist ein String aus zwei Zeichen, die halt zufälligerweise numerisch
+sind. Genauso ist ``"d42"`` ein String. Was für ein Typ sollte denn das sonst nach
+euch sein? ``charint``?
+
+**Alfrothul:** Hm... stimmt. Dann ist wohl '2' auch kein ``'int'``, sondern ein
+``char``, der aber halt zufälligerweise eine 2 ist.
+
+**Sigrid:** Macht Sinn. Und den Typen ``'int'`` gibt es sowieso nicht. 
+
+
+Conditional expressions (bedingte Ausdrücke)
+============================================
+
+Bisher waren alle Ausdrücke, die wir gesehen haben, nur einfache Werte. Conditionals
+(oder if-Ausdrücke) sind die ersten Ausdrücke, die zu einem Wert reduziert werden
+können, der nicht der Ausdruck selbst ist.
+
+::
+
+   <type>       ::= int | bool | char 
+
+   <expression> ::= <integer>
+                  | <boolean>
+                  | <character>
+                  | <string>
+                  | if <expression> then <expression> else <expression>
+
+   <integer>    ::= 0 | -1 | 1 | -2 | 2 | -3 | 3 | ...
+
+   <boolean>    ::= true | false
+
+   <character>  ::= ein Zeichen in einfachen Anführungszeichen
+
+   <string>     ::= eine Folge von Zeichen zwischen doppelten Anführugszeichen
+
+Die zugehörige Typenregel lautet:
+
+::
+
+      G |- e1 : bool      G |- e2 : t      G |- e3 : t
+   IF---------------------------------------------------
+      G |- if e1 then e2 else e3 : t
+
+In Worten:
+
+* In einer beliebigen Typenumgebung ``G``, wenn
+  
+  * der Ausdruck ``e1`` (der Test) den Typen ``bool`` hat;
+    
+  * der Ausdruck ``e2`` (die Konsekvente) einen beliebigen Typen ``t`` hat; und
+    
+  * der Ausdruck ``e3`` (die Alternative) den gleichen Typen ``t`` hat,
+    dann hat der Ausdruck ``if e1 then e2 else e3`` den Typen ``t``.
+
+Außerdem:
+
+* wenn wir ``if e1 then e2 else e3`` evaluieren, dann evaluieren wir zuerst den Test,
+  ``e1``;
+  
+  * wenn das Evaulieren von ``e1`` divergiert (unendlich weiterläuft), dann
+    divergiert auch das Evaluieren von ``if e1 then e2 else e3``;
+    
+  * wenn das Evaluieren von ``e1`` einen Fehler hervorruft, ruft das Evaluieren von
+    ``if e1 then e2 else e3`` denselben Fehler hervor;
+    
+  * wenn das Evaluieren von ``e1`` einen Boolean als Ergebnis hat, dann
+    
+    * wenn dieser Boolean ``true`` ist, dann reduziert sich das Evaluieren von ``if
+      e1 then e2 else e3`` auf ``e2``; und
+      
+    * wenn dieser Boolean ``false`` ist, dann reduziert sich das Evaluieren von ``if
+      e1 then e2 else e3`` auf ``e3``.
+      
+Bedingte Ausdrücke sind polymorphisch; das bedeutet, dass sie einen beliebigen Typen
+haben können. Die einzige Bedingung hierbei ist, dass sowohl der konsequente als auch
+der alternative Ausdruck den gleichen Typen haben. Dieser Typ ist dann der Typ des
+gesamten bedingten Ausdruckes. 
+
+
+Ein Beispiel dazu, wie ein bedingter Ausdruck vom Typen ``int`` aussehen könnte:
+
+::
+
+   # if true then 1 else 2;;
+   - : int = 1
+   # if false then 1 else 2;;
+   - : int = 2
+   #
+
+Die dementsprechenden Beweisbäume (proof trees) sehen wie folgt aus:
+
+::
+
+      BOOL_TRUE ----------------    INT ------------    INT ------------
+             G |- true : bool        G |- 1 : int        G |- 2 : int
+  IF ------------------------------------------------------------------
+     G |- if true then 1 else 2 : int  
+
+
+   BOOL_FALSE -----------------    INT ------------    INT ------------
+              G |- false : bool        G |- 1 : int        G |- 2 : int
+  IF --------------------------------------------------------------------
+     G |- if false then 1 else 2 : int
+
+**Aufgabe:** Guck dir den Beweis an und versuche ihn nachzuvollziehen. Bedenke dabei,
+dass über dem Strich immer die Voraussetzung steht und unter dem Strich was mit der
+(links davon) angeführten Regel demnach außerdem gilt.
+
+
+
+Ein Beispiel mit einem Bedingten Ausdruck, dessen Typ ``string`` ist:
+
+::
+
+   # if true then "hello" else "world";;
+   - : string = "hello"
+   # if false then "hello" else "world";;
+   - : string = "world"
+   #
+
+**Aufgabe:** Zeichne die Beweisbäume zu diesen beiden Ausdrücken.
+
+(Tipp: Orientiere dich gerne am obigen Beispiel mit ``int``.)
+
+
+
+Verschachtelte Ausdrücke
+========================
+
+Sehen wir uns das an, was wir bisher von der OCaml Grammatik gelernt haben, dann
+bemerken wir, dass bedingte Ausdrücke selber wieder Ausdrücke enthalten.
+
+::
+
+   <expression> = if <expression> then <expression> else <expression> | ...
+
+Das bedeutet in der praxis, dass wir diese Ausdrücke auch verschachteln können. Zum
+Beispiel:
+
+:: 
+
+  # if (if true then true else false) then 2 else 3;;
+  - : int = 2
+  # if (if false then true else false) then 'a' else 'b';;
+  - : char = 'b'
+  # if true then (if false then "false" else "true") else "nö";;
+  - : string = "true"
+  #
+
+Wenn ein bedingter Ausdruck einen anderen bedingten Ausdruck als Test hat, dann muss
+der Ausdruck, der als Test dient, den Typen ``bool`` haben, egal welchen Typen der
+äußere Ausdruck hat.
+
+
+Übung 14
+========
+
+Spiele mit
+
+* einem bedingten Ausdruck, der einen anderen bedingten Ausdruck als Alternative
+  hat.
+
+* einem bedingten Ausdruck, der drei weitere bedingte Ausdrücke enthält: einen als
+  Test, einen als Konsequenten und einen als Alternative.
+
+In jedem diser Fälle denke vorher darüber nach, was du als Ergebnis erwartetst und
+überprüfe deine Hypothese dann mit OCaml.
+
+Außerdem zeichne den Beweisbaum für jeden deiner Ausdrücke.
+
+
+Typenfehler
+===========
+
+Im vorigen Kapitel haben wir uns damit beschäftigt, dass ein Ausdruck syntaktisch
+(also lexikalisch und grammatikalisch) korrekt sein muss, damit er korrekt ist.
+
+In diesem Kapitel setzen wir den Fokus daruaf, dass ein Ausdruck typenkorrekt sein
+muss um korrekt zu sein.
+
+Damit ein bedingter Ausdruck syntaktisch korrekt ist, müssen seine drei Teilausdrücke
+(der Test, der Konsequent und die Alternative) syntaktisch korrekt sein. Damit ein
+bedingter Ausdruck typenkorrekt ist, muss sein Test den Typen ``bool`` haben und
+der Konsequent und die Alternative müssen vom gleichen beliebigen Typen sein.
+
+
+Übung 15
+========
+
+Probiere aus, was passiert wenn du einen bewusst nicht typenkorrekten
+bedingten Ausdruck an OCaml verfütterst.
+
+Was, wenn du gleich mehrere Typenfehler einbaust?
+
+
+Typenfehler, fortgesetzt
+========================
+
+Leider sind Fehlermeldungen nicht immer so hilfreich. Oftmals sind sie sogar eher
+verwirrend:
+
+::
+
+   # if A then why not B else your guess is as good as mine;;
+   Error: Syntax error
+   #
+
+Mit dieser Fehlermeldung können wir gar nichts anfangen. Das ist der Grund dafür,
+dass wir Gummienten brauchen. (Mehr zu Gummienten in einer späteren Woche.) 
+
 
 
 
@@ -294,3 +559,4 @@ Version of "the-ocaml-language"
 ===============================
 Erstellt [2023-01-21]
 
+Fertiggestellt [2024-01-22]
