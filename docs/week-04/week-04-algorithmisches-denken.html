@@ -169,6 +169,106 @@ Wie viele Durchläufe bräuchte die Binäre Suche um ein bestimmtes Wort in eine
 Liste alle Wörter zu finden?</li>
 </ol>
 </div>
+<div class="section" id="ubung-17">
+<h2>Übung 17<a class="headerlink" href="#ubung-17" title="Link zu dieser Überschrift">¶</a></h2>
+<ol class="loweralpha simple">
+<li>Nimm ein Kartenspiel zur Hand und mische es gut.</li>
+<li>Nimm eine Stoppuhr zur Hand und starte sie.</li>
+<li>Sortiere das Kartenspiel. Während du das Kartenspiel sortierst, werde dir darüber
+bewusst, welchen Algorithmus du benutzt.</li>
+<li>Stoppe die Stoppuhr und notiere dir die Zeit.</li>
+</ol>
+</div>
+<div class="section" id="mergesort">
+<h2>Mergesort<a class="headerlink" href="#mergesort" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Mergesort ist ein effizienter Algorithmus um Werte zu sortieren. Hierbei ist es egal
+ob die Werte Zahlen sind oder Wörter oder was auch immer, das einzig wichtige ist,
+dass es eine definierte Reihenfolge gibt, die sich überprüfen lässt (bei Zahlen die
+Größe, bei Wörtern das Alphabet, etc.). Mergesort wurde von <a class="reference external" href="https://de.wikipedia.org/wiki/John_von_Neumann">John von Neumann</a>
+erfunden und ist ein „divide and conquer“-Algorithmus.</p>
+<p>Divide and conquer (teile-und-herrsche-Verfahren) ist ein gängiges Prinzip bei
+Algirithmen. Einfach ausgedrückt geht es darum, dass kleine Mengen von Daten leicht
+zu überschauen sind und sich große Datenmengen in kleinere aufteilen lassen.</p>
+<p>Der Mergesort-Algorithmus geht wie folgt (hier mit dem Beispiel einer Liste von
+<em>n</em> zufälligen Zahlen):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Teile deine Liste in n Listen mit Länge 1 auf.
+</pre></div>
+</div>
+<p>(Anmerkung: Eine Liste mit einem einzigen Element ist immer sortiert. Nun haben wir
+also <em>n</em> sortierte Listen.)</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Lasse x = 2
+
+Solange x &lt; 2*n ist tue das folgende:
+
+  Für alle Zahlen i zwischen 0 und n/x tue folgendes:
+
+      XX
+
+      Nimm Liste i und 2*i
+
+      Vergleiche das erste Element in Liste i mit dem ersten Element in Liste 2*i
+
+      Lege das kleinere Element der beiden ab
+
+      Wenn eine der beiden Listen leer ist, bedeutet das, das alle Elemente der
+      anderen Liste größer sind als die bisher abgelegten und der Rest der Liste kann
+      ebenfalls abgelegt werden.
+
+      Wiederhole die Schritte von XX bis beide Listen komplett abgelegt sind.
+
+  Lasse das neue x = 2 mal das alte x sein.
+</pre></div>
+</div>
+<p>Oder etwas weniger formell:</p>
+<ol class="arabic simple">
+<li>Lege alle Zahlen einzeln auf den Tisch. Jeder Stapel ist nun sortiert, aber nur
+eine Zahl hoch.</li>
+<li>Fange oben links an und arbeite nach unten rechts.</li>
+<li>Nimm zwei Stapel und drehe beide um.</li>
+<li>Vergleiche die oberen Zahlen auf beiden Stapeln und leg die kleinere auf einen
+neuen Stapel.</li>
+<li>Wiederhole Schritt 4. bis ein Stapel leer ist.</li>
+<li>Nimm den noch nicht leeren Stapel, drehe ihn um und lege ihn auf den neuen
+Stapel.</li>
+<li>Wähle die nächsten beiden Stapel und gehe zurück zu Schritt 3.</li>
+<li>Wenn du jeden Stapel mit einem anderen zusammensortiert hast, fange mit den neuen
+Stapeln wieder bei Schritt 2 an.</li>
+<li>Wenn du nur noch einen Stapel übrig hast, bist du fertig.</li>
+</ol>
+<p>Das alles mag sehr kompliziert klingen, ist aber in der Praxis simpler als die
+berüchtigte IKEA-Bauanleitung. Um das ganze besser zu verstehen kommen nun ein paar
+Übungen.</p>
+</div>
+<div class="section" id="ubung-18">
+<h2>Übung 18<a class="headerlink" href="#ubung-18" title="Link zu dieser Überschrift">¶</a></h2>
+<ol class="loweralpha simple">
+<li>Nimm das Kartenspiel von Übung 17 (oder ein anderes) und mische es wieder gut.</li>
+<li>Nimm wieder eine Stoppuhr und starte sie.</li>
+<li>Sortiere das Kartenspiel wieder, diesmal mit dem Mergesort Algorithmus.</li>
+<li>(Du rätst es wohl schon…) Stopp die Stoppuhr. Vergleich die Zeit mit der
+ersten.</li>
+<li>Überlege, warum der erste Durchgang schneller oder langsamer war.</li>
+</ol>
+</div>
+<div class="section" id="ubung-19">
+<h2>Übung 19<a class="headerlink" href="#ubung-19" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Bei einem Kartenspiel weiß man vorher auf welchen Bereich von Karten man sich
+einstellen muss. Daher funktionieren einige Sortieralgorithmen mit Kartenspielen, die
+mit Zufälligen Zahlen nicht funktionieren würden.</p>
+<ul class="simple">
+<li>Für diese Übung brauchst du jemanden, der dir 40-60 zufällige Zahlen auf Zettel
+schreibt. Diese extra Person ist wichtig, damit du nicht weißt, auf welche Zahlen du
+dich einstellen musst. Alle Zettel sollten in der Mitte gefaltet sein, damit du die
+Zahlen nicht sehen kannst.</li>
+<li>Wähle die Hälfte der Zahlen per Zufallsprinzip aus.</li>
+<li>Wenn du eine Zahl angucken möchtest, falte den Zettel auf und falte ihn hinterher
+wieder zu. Du darfst bis zu zwei Zettel zugleich aufgefaltet haben.</li>
+<li>Führe beide Sortieralgorithmen durch (deinen eigenen und Mergesort). Miss wieder
+die Zeiten und vergleiche sie.</li>
+<li>Reflektiere über das Resultat und was es für Sortieralgorithmen in Computern
+bedeuten könnte. Ziehe gerne deinen Unterrichter zu Rate.</li>
+</ul>
+</div>
 <div class="section" id="version-of-algorithmisches-denken">
 <h2>Version of „algorithmisches-denken“<a class="headerlink" href="#version-of-algorithmisches-denken" title="Link zu dieser Überschrift">¶</a></h2>
 <p>Erstellt [2023-01-22]</p>
@@ -187,6 +287,10 @@ Liste alle Wörter zu finden?</li>
 <li><a class="reference internal" href="#suchen-und-sortieren">Suchen und Sortieren</a></li>
 <li><a class="reference internal" href="#binare-suche">Binäre Suche</a></li>
 <li><a class="reference internal" href="#ubung-16">Übung 16</a></li>
+<li><a class="reference internal" href="#ubung-17">Übung 17</a></li>
+<li><a class="reference internal" href="#mergesort">Mergesort</a></li>
+<li><a class="reference internal" href="#ubung-18">Übung 18</a></li>
+<li><a class="reference internal" href="#ubung-19">Übung 19</a></li>
 <li><a class="reference internal" href="#version-of-algorithmisches-denken">Version of „algorithmisches-denken“</a></li>
 </ul>
 </li>

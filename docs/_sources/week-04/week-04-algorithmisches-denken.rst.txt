@@ -154,8 +154,138 @@ d. Der deutsche Wortschatz wird auf bis zu 500.000 Wörter `geschätzt <https://
    Liste alle Wörter zu finden?
 
 
+
+Übung 17
+========
+
+a. Nimm ein Kartenspiel zur Hand und mische es gut.
+
+b. Nimm eine Stoppuhr zur Hand und starte sie.
+
+c. Sortiere das Kartenspiel. Während du das Kartenspiel sortierst, werde dir darüber
+   bewusst, welchen Algorithmus du benutzt.
+
+d. Stoppe die Stoppuhr und notiere dir die Zeit.
+
+
    
+Mergesort
+=========
+
+Mergesort ist ein effizienter Algorithmus um Werte zu sortieren. Hierbei ist es egal
+ob die Werte Zahlen sind oder Wörter oder was auch immer, das einzig wichtige ist,
+dass es eine definierte Reihenfolge gibt, die sich überprüfen lässt (bei Zahlen die
+Größe, bei Wörtern das Alphabet, etc.). Mergesort wurde von `John von Neumann <https://de.wikipedia.org/wiki/John_von_Neumann>`_ 
+erfunden und ist ein "divide and conquer"-Algorithmus.
+
+Divide and conquer (teile-und-herrsche-Verfahren) ist ein gängiges Prinzip bei
+Algirithmen. Einfach ausgedrückt geht es darum, dass kleine Mengen von Daten leicht
+zu überschauen sind und sich große Datenmengen in kleinere aufteilen lassen.
+
+Der Mergesort-Algorithmus geht wie folgt (hier mit dem Beispiel einer Liste von
+*n* zufälligen Zahlen):
+
+::
+
+   Teile deine Liste in n Listen mit Länge 1 auf.
+
+(Anmerkung: Eine Liste mit einem einzigen Element ist immer sortiert. Nun haben wir
+also *n* sortierte Listen.)
+
+::
+
+   Lasse x = 2
    
+   Solange x < 2*n ist tue das folgende:
+   
+     Für alle Zahlen i zwischen 0 und n/x tue folgendes:
+
+         XX
+
+         Nimm Liste i und 2*i
+
+         Vergleiche das erste Element in Liste i mit dem ersten Element in Liste 2*i
+
+         Lege das kleinere Element der beiden ab
+
+         Wenn eine der beiden Listen leer ist, bedeutet das, das alle Elemente der
+         anderen Liste größer sind als die bisher abgelegten und der Rest der Liste kann
+         ebenfalls abgelegt werden.
+
+         Wiederhole die Schritte von XX bis beide Listen komplett abgelegt sind.
+
+     Lasse das neue x = 2 mal das alte x sein.
+
+
+Oder etwas weniger formell:
+
+1. Lege alle Zahlen einzeln auf den Tisch. Jeder Stapel ist nun sortiert, aber nur
+   eine Zahl hoch. 
+
+2. Fange oben links an und arbeite nach unten rechts.
+
+3. Nimm zwei Stapel und drehe beide um.
+
+4. Vergleiche die oberen Zahlen auf beiden Stapeln und leg die kleinere auf einen
+   neuen Stapel.
+
+5. Wiederhole Schritt 4. bis ein Stapel leer ist.
+
+6. Nimm den noch nicht leeren Stapel, drehe ihn um und lege ihn auf den neuen
+   Stapel.
+
+7. Wähle die nächsten beiden Stapel und gehe zurück zu Schritt 3.
+
+8. Wenn du jeden Stapel mit einem anderen zusammensortiert hast, fange mit den neuen
+   Stapeln wieder bei Schritt 2 an.
+
+9. Wenn du nur noch einen Stapel übrig hast, bist du fertig.
+
+
+Das alles mag sehr kompliziert klingen, ist aber in der Praxis simpler als die
+berüchtigte IKEA-Bauanleitung. Um das ganze besser zu verstehen kommen nun ein paar
+Übungen. 
+
+
+
+Übung 18
+========
+
+a. Nimm das Kartenspiel von Übung 17 (oder ein anderes) und mische es wieder gut.
+
+b. Nimm wieder eine Stoppuhr und starte sie.
+
+c. Sortiere das Kartenspiel wieder, diesmal mit dem Mergesort Algorithmus.
+
+d. (Du rätst es wohl schon...) Stopp die Stoppuhr. Vergleich die Zeit mit der
+   ersten.
+
+e. Überlege, warum der erste Durchgang schneller oder langsamer war.
+
+
+Übung 19
+========
+
+Bei einem Kartenspiel weiß man vorher auf welchen Bereich von Karten man sich
+einstellen muss. Daher funktionieren einige Sortieralgorithmen mit Kartenspielen, die
+mit Zufälligen Zahlen nicht funktionieren würden. 
+
+* Für diese Übung brauchst du jemanden, der dir 40-60 zufällige Zahlen auf Zettel
+  schreibt. Diese extra Person ist wichtig, damit du nicht weißt, auf welche Zahlen du
+  dich einstellen musst. Alle Zettel sollten in der Mitte gefaltet sein, damit du die
+  Zahlen nicht sehen kannst. 
+
+* Wähle die Hälfte der Zahlen per Zufallsprinzip aus.
+
+* Wenn du eine Zahl angucken möchtest, falte den Zettel auf und falte ihn hinterher
+  wieder zu. Du darfst bis zu zwei Zettel zugleich aufgefaltet haben.
+
+* Führe beide Sortieralgorithmen durch (deinen eigenen und Mergesort). Miss wieder
+  die Zeiten und vergleiche sie.
+
+* Reflektiere über das Resultat und was es für Sortieralgorithmen in Computern
+  bedeuten könnte. Ziehe gerne deinen Unterrichter zu Rate. 
+  
 
 
 
