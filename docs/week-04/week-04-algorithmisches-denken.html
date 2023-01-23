@@ -48,6 +48,127 @@
             
   <div class="section" id="algorithmisches-denken">
 <h1>Algorithmisches Denken<a class="headerlink" href="#algorithmisches-denken" title="Link zu dieser Überschrift">¶</a></h1>
+<p><strong>Alfrothul:</strong> Algorithmisch? Wie Algorithmus? Das habe ich schonmal gehört. Aber um
+ganz ehrlich zu sein habe ich keine Ahnung, was ein Algorithmus kann.</p>
+<p><strong>Sigrid:</strong> Irgendwas mit Computern. Soviel weiß ich.</p>
+<p><strong>Brynja:</strong> Ich glaube es ist irgendwas mit systematischem Denken. Also denken wie
+ein Computer.</p>
+<p><strong>Alfrothul:</strong> Klingt gut. Ich habe mal auf <a class="reference external" href="https://de.wikipedia.org/wiki/Algorithmus">Wikipedia</a>
+nachgeschaut. Da steht: „eine eindeutige Handlungsvorschrift zur Lösung eines
+Problems oder einer Klasse von Problemen.“</p>
+<p><strong>Brynja:</strong> Dann ist also die Bauanleitung von meinen IKEA-Möbeln auch ein
+Algorithmus?</p>
+<p><strong>Sigrid:</strong> Wenn das stimmt, dann kann ich nicht algorithmisch denken. Ich baue immer
+irgendwas falsch zusammen und muss dann die Anleitung nochmal durchgucken um meinen
+Fehler zu finden.</p>
+<p><strong>Mimer:</strong> Die Fehlersuche ist aber auch ein wichtiger Teil des algorithmischen
+Denkens. Du gehst die Schritte systematisch durch und überprüfst bei jedem Schritt,
+ob du ihn richtig gemacht hast. Wenn du den Fehler gefunden hast, dann korrigierst du
+ihn und machst hinterher mit dem ursprünglichen Algorithmus weiter.</p>
+<p><strong>Brynja:</strong> Ahh! Das ergibt Sinn. Danke Mimer.</p>
+<p><strong>Sigrid:</strong> Gut, ich glaube ich habe jetzt verstanden, was Algorithmen sind. Fällt
+euch denn noch was ein, wo wir Algorithmen im Alltag benutzen?</p>
+<p><strong>Alfrothul:</strong> Ja! Wenn wir nach Wörtern in einem Wörterbuch oder Inhaltsverzeichnis
+suchen. Wir wissen dass die Einträge alphabetisch sortiert sind und wenn wir ein Wort
+angucken, können wir abschätzen, wieviel weiter vorne oder hinten das Wort sein muss,
+was wir suchen.</p>
+<p><strong>Brynja:</strong> Stimmt, gut bemerkt Alfrothul! Ich habe auch noch einen. Wenn wir einem
+Kochrezept folgen. Dann machen wir genau die Schritte, die das Rezept vorgibt.</p>
+<p><strong>Sigrid:</strong> Ach, zurück zu Woche 01?</p>
+<p><strong>Brynja:</strong> Stimmt, da hatten wir noch mehr solche Vergleiche. Fällt dir sonst noch
+was ein Sigrid?</p>
+<p><strong>Sigrid:</strong> Hm… vielleicht… Wenn wir Karten spiele und ich sortiere die Karten
+auf meiner Hand?</p>
+<p><strong>Brynja:</strong> Stimmt… Aber ist das algorithmisch? Ich meine: folgst du einer festen
+Vorgehensweise?</p>
+<p><strong>Sigrid:</strong> Ja, ich nehme immer eine Karte, die nicht in die Reihenfolge passt und
+sortiere sie ein wo sie besser passt.</p>
+<p><strong>Alfrothul:</strong> Für mich klingt das auf jeden Fall nach einem Algorithmus.</p>
+<div class="section" id="suchen-und-sortieren">
+<h2>Suchen und Sortieren<a class="headerlink" href="#suchen-und-sortieren" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Wie unsere Freunde gerade schon bemerkt haben, benutzen wir im Alltag viel mehr
+Algorithmen als uns klar ist. Heute wollen wir uns aber mit solchen beschäftigen, die
+wir mit relativer leichtigkeit unserem Computer beibringen können.</p>
+<p>(Eine Bermerkung an der Seite: Zu Algorithmen gehören immer auch Datenstrukturen. Da
+der Umfang dieses Kurses begrenzt ist, werden wir also nicht alle Algorithmen aus
+diesem Abschnitt auch implementieren können. Dennoch ist es wichtig die Übungen zu
+machen um das Gehirn auf diese Denkweise zu trainieren.</p>
+<p>Die Fähigkeit strukturiert zu denken ist, wie jede andere Fähigkeit, eine, die
+praktische Übung erfordert. Wir lernen nicht zu tanzen indem wir Bücher über’s Tanzen
+lesen, sondern nur indem wir Musik an machen und uns dazu bewegen.)</p>
+<p>Im folgenden werden wir einige gängige Algorithmen aus der Informatik in der realen
+Welt ausprobieren.</p>
+</div>
+<div class="section" id="binare-suche">
+<h2>Binäre Suche<a class="headerlink" href="#binare-suche" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Die binäre Suche ist der schnellste Algorithmus um einen Eintrag in einer sortierten
+Liste zu finden. Und noch dazu ist er einer der einfachsten.</p>
+<p>Bemerke jedoch, dass die Liste sortiert sein muss, damit die binäre Suche funktioniert!</p>
+<p>Für das Beispiel eines Wörterbuches lautet der Algorithmus wie folgt:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Lass n_s Seite 1 und n_e die Anzahl der Seite im Wörterbuch sein
+
+Lass W das Wort sein, was du suchst
+
+XX
+
+  Schlage das Wörterbuch auf Seite (n_e - n_s)/2 auf
+  (also in der Mitte des Bereiches in dem du suchst)
+
+  Bestimme ob dein Wort im Bereich der Seite liegt.
+
+      Wenn JA: Fertig. Du hast die richtige Seite gefunden
+
+      Wenn NEIN: Bestimme ob dein Wort vor der aufgeschlagenen Seite ist.
+
+          Wenn JA: das neue n_e ist nun die aufgeschlagene Seitenzahl.
+                   Wiederhole die Schritte ab XX.
+
+          Wenn NEIN: das neue n_s ist nun die aufgeschlagene Seitenzahl.
+                   Wiederhole die Schritte ab XX.
+</pre></div>
+</div>
+<p>In Worten:</p>
+<ul>
+<li><p class="first">in der binären Suche definieren wir erst den Bereich in dem wir suchen
+(das Wörterbuch zwischen der ersten und der letzten Seite).</p>
+</li>
+<li><p class="first">Dann schauen wir uns das Element (die Seite) genau in der Mitte des Suchbereiches
+an.</p>
+<ul>
+<li><p class="first">Ist es das Element, was wir suchen, sind wir fertig.</p>
+</li>
+<li><p class="first">Ist es nicht das Element, was wir suchen, definieren wir einen neuen
+Suchbereich. Wir wissen, dass die Liste von Elementen (das Wörterbuch) sortiert
+ist und können daher bestimmt, ob wir vor der aktuellen Position (aufgeschlagenen
+Seite) gucken müssen, oder dahinter.</p>
+<p>Nun ist der neue Suchbereich die Hälfte vor oder hinter der aktuellen Position
+und in die andere Hälfte brauchen wir nie wieder einen Blick zu werfen.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>Dieser Algorithmus halbiert mit jedem Durchgang die Größe des Bereiches, in dem noch
+zu suchen ist. Mathematisch würden wir sagen, wenn der Suchbereich <em>n</em> Elemente hat,
+braucht der Algorithmus <span class="math notranslate nohighlight">\(log_2 n\)</span> Durchläufe um das richtige Element zu finden.</p>
+</div>
+<div class="section" id="ubung-16">
+<h2>Übung 16<a class="headerlink" href="#ubung-16" title="Link zu dieser Überschrift">¶</a></h2>
+<ol class="loweralpha simple">
+<li>Nimm ein Wörterbuch zur Hand und fürhe ein paar binäre Suchen durch. Wähle dazu
+beliebige Wörter, oder lass dir <a class="reference external" href="https://capitalizemytitle.com/zufallswort-generator/">ein Zufallswort generieren</a>.</li>
+</ol>
+<p>(Tipp: Einem Menschen fällt es nicht so leicht genau in der Mitte einer Liste
+nachzuschauen wie einem Computer. Daher reicht es, wenn du jedes Mal ungefähr in der
+Mitte aufschlägst.)</p>
+<ol class="loweralpha simple" start="2">
+<li>Was passiert, wenn das Wort nicht im Wörterbuch steht?</li>
+<li>Überlege dir, wie du das Problem, das du in Aufgabe b. identifiziert hast im
+Algorithmus lösen oder verbessern könntest.</li>
+<li>Der deutsche Wortschatz wird auf bis zu 500.000 Wörter <a class="reference external" href="https://www.statistik-bw.de/Service/Veroeff/Monatshefte/20100911">geschätzt</a>.
+Wie viele Durchläufe bräuchte die Binäre Suche um ein bestimmtes Wort in einer
+Liste alle Wörter zu finden?</li>
+</ol>
+</div>
 <div class="section" id="version-of-algorithmisches-denken">
 <h2>Version of „algorithmisches-denken“<a class="headerlink" href="#version-of-algorithmisches-denken" title="Link zu dieser Überschrift">¶</a></h2>
 <p>Erstellt [2023-01-22]</p>
@@ -63,6 +184,9 @@
   <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">Algorithmisches Denken</a><ul>
+<li><a class="reference internal" href="#suchen-und-sortieren">Suchen und Sortieren</a></li>
+<li><a class="reference internal" href="#binare-suche">Binäre Suche</a></li>
+<li><a class="reference internal" href="#ubung-16">Übung 16</a></li>
 <li><a class="reference internal" href="#version-of-algorithmisches-denken">Version of „algorithmisches-denken“</a></li>
 </ul>
 </li>
