@@ -1,0 +1,147 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Die Grammatik von OCaml (fortgesetzt von Woche 03) &#8212; Einführung ins Programmieren 2022</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/extra-styles.css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Stichwortverzeichnis" href="../genindex.html" />
+    <link rel="search" title="Suche" href="../search.html" />
+    <link rel="next" title="Dramatis Personae" href="../resources/dramatis_personae.html" />
+    <link rel="prev" title="Algorithmisches Denken" href="week-04-algorithmisches-denken.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Stichwortverzeichnis"
+             accesskey="I">Index</a></li>
+        <li class="right" >
+          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+             accesskey="N">weiter</a> |</li>
+        <li class="right" >
+          <a href="week-04-algorithmisches-denken.html" title="Algorithmisches Denken"
+             accesskey="P">zurück</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Einführung ins Programmieren 2022</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="week-04-index.html" accesskey="U">Lehrmaterial Woche-04</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="die-grammatik-von-ocaml-fortgesetzt-von-woche-03">
+<h1>Die Grammatik von OCaml (fortgesetzt von Woche 03)<a class="headerlink" href="#die-grammatik-von-ocaml-fortgesetzt-von-woche-03" title="Link zu dieser Überschrift">¶</a></h1>
+<p>Wir rufen uns ins Gedächtnis, was wir in Woche 03 schon von OCamls Grammatik gelernt
+haben:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;type&gt;       ::= int | bool | char | string
+
+&lt;expression&gt; ::= &lt;integer&gt;
+               | &lt;boolean&gt;
+               | &lt;character&gt;
+               | &lt;string&gt;
+               | if &lt;expression&gt; then &lt;expression&gt; else &lt;expression&gt;
+
+&lt;integer&gt;    ::= 0 | -1 | 1 | -2 | 2 | -3 | 3 | ...
+
+&lt;boolean&gt;    ::= true | false
+
+&lt;character&gt;  ::= &#39;a&#39; | &#39;b&#39; | &#39;c&#39;| ...
+
+&lt;string&gt;     ::= &quot;&quot; | &quot;A&quot; | &quot;hello world&quot; | &quot;42&quot; | ...
+</pre></div>
+</div>
+<p>In Worten: Wir kennen</p>
+<ul class="simple">
+<li>die Typen<ul>
+<li><code class="docutils literal notranslate"><span class="pre">int</span></code> für Ganzzahlen,</li>
+<li><code class="docutils literal notranslate"><span class="pre">bool</span></code> für Booleans (Antworten auf ja/nein-Fragen),</li>
+<li><code class="docutils literal notranslate"><span class="pre">char</span></code> für Zeichen, und</li>
+<li><code class="docutils literal notranslate"><span class="pre">string</span></code> für Zeichenfolgen (Wörter, Sätze, etc.);</li>
+</ul>
+</li>
+<li>die Ausdrücke<ul>
+<li><code class="docutils literal notranslate"><span class="pre">&lt;integer&gt;</span></code> (ein Wert vom Typ <code class="docutils literal notranslate"><span class="pre">int</span></code>),</li>
+<li><code class="docutils literal notranslate"><span class="pre">&lt;boolean&gt;</span></code> (ein Wert vom Typ <code class="docutils literal notranslate"><span class="pre">bool</span></code>),</li>
+<li><code class="docutils literal notranslate"><span class="pre">&lt;character&gt;</span></code> (ein Wert vom Typ <code class="docutils literal notranslate"><span class="pre">char</span></code>),</li>
+<li><code class="docutils literal notranslate"><span class="pre">&lt;string&gt;</span></code> (ein Wert vom Typ <code class="docutils literal notranslate"><span class="pre">string</span></code>), und</li>
+<li><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">&lt;expression&gt;</span> <span class="pre">then</span> <span class="pre">&lt;expression&gt;</span> <span class="pre">else</span> <span class="pre">&lt;expression&gt;</span></code> (ein bedingter Ausdruck
+mit einem Test, einem Konsequenten und einer Alternative).</li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Vorheriges Thema</h4>
+  <p class="topless"><a href="week-04-algorithmisches-denken.html"
+                        title="vorheriges Kapitel">Algorithmisches Denken</a></p>
+  <h4>Nächstes Thema</h4>
+  <p class="topless"><a href="../resources/dramatis_personae.html"
+                        title="nächstes Kapitel">Dramatis Personae</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Diese Seite</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/week-04/week-04-ocaml-grammar-continued.rst.txt"
+            rel="nofollow">Quellcode anzeigen</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Schnellsuche</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Los" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Stichwortverzeichnis"
+             >Index</a></li>
+        <li class="right" >
+          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+             >weiter</a> |</li>
+        <li class="right" >
+          <a href="week-04-algorithmisches-denken.html" title="Algorithmisches Denken"
+             >zurück</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Einführung ins Programmieren 2022</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="week-04-index.html" >Lehrmaterial Woche-04</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Kira Kutscher.
+      Mit <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5 erstellt.
+    </div>
+  </body>
+</html>
