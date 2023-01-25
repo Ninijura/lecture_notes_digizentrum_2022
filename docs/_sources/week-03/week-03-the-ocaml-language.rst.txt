@@ -252,7 +252,7 @@ OCaml hat auch Strings, die wir gewöhnlich für Wörter und Sätze benutzen:
 
 ::
 
-   <type>       ::= int | bool | char
+   <type>       ::= int | bool | char | string
 
    <expression> ::= <integer>
                   | <boolean>
@@ -360,7 +360,7 @@ können, der nicht der Ausdruck selbst ist.
 
 ::
 
-   <type>       ::= int | bool | char 
+   <type>       ::= int | bool | char | string
 
    <expression> ::= <integer>
                   | <boolean>
