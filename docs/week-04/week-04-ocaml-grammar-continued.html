@@ -21,7 +21,7 @@
     
     <link rel="index" title="Stichwortverzeichnis" href="../genindex.html" />
     <link rel="search" title="Suche" href="../search.html" />
-    <link rel="next" title="Dramatis Personae" href="../resources/dramatis_personae.html" />
+    <link rel="next" title="Lehrmaterial Woche-05" href="../week-05/week-05-index.html" />
     <link rel="prev" title="Algorithmisches Denken" href="week-04-algorithmisches-denken.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -31,7 +31,7 @@
           <a href="../genindex.html" title="Stichwortverzeichnis"
              accesskey="I">Index</a></li>
         <li class="right" >
-          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+          <a href="../week-05/week-05-index.html" title="Lehrmaterial Woche-05"
              accesskey="N">weiter</a> |</li>
         <li class="right" >
           <a href="week-04-algorithmisches-denken.html" title="Algorithmisches Denken"
@@ -82,10 +82,342 @@ haben:</p>
 <li><code class="docutils literal notranslate"><span class="pre">&lt;character&gt;</span></code> (ein Wert vom Typ <code class="docutils literal notranslate"><span class="pre">char</span></code>),</li>
 <li><code class="docutils literal notranslate"><span class="pre">&lt;string&gt;</span></code> (ein Wert vom Typ <code class="docutils literal notranslate"><span class="pre">string</span></code>), und</li>
 <li><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">&lt;expression&gt;</span> <span class="pre">then</span> <span class="pre">&lt;expression&gt;</span> <span class="pre">else</span> <span class="pre">&lt;expression&gt;</span></code> (ein bedingter Ausdruck
-mit einem Test, einem Konsequenten und einer Alternative).</li>
+mit einem Test, einer Konsequente  und einer Alternative).</li>
 </ul>
 </li>
 </ul>
+<div class="section" id="paare">
+<h2>Paare<a class="headerlink" href="#paare" title="Link zu dieser Überschrift">¶</a></h2>
+<p>OCaml hat außerdem auch Paare:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;type&gt;       ::= int | bool | char | string | &lt;type&gt; * &lt;type&gt;
+
+&lt;expression&gt; ::= &lt;integer&gt;
+               | &lt;boolean&gt;
+               | &lt;character&gt;
+               | &lt;string&gt;
+               | if &lt;expression&gt; then &lt;expression&gt; else &lt;expression&gt;
+               | (&lt;expression&gt;, &lt;expression&gt;)
+
+&lt;integer&gt;    ::= 0 | -1 | 1 | -2 | 2 | -3 | 3 | ...
+
+&lt;boolean&gt;    ::= true | false
+
+&lt;character&gt;  ::= &#39;a&#39; | &#39;b&#39; | &#39;c&#39;| ...
+
+&lt;string&gt;     ::= &quot;&quot; | &quot;A&quot; | &quot;hello world&quot; | &quot;42&quot; | ...
+</pre></div>
+</div>
+<p>Die entpsrechend Typenregel lautet wie folgt:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>      G |- e1 : t1      G |- e2 : t2
+PAIR----------------------------------
+      G |- (e1, e2) : t1 * t2
+</pre></div>
+</div>
+<p>In Worten:</p>
+<ul class="simple">
+<li>In einer beiliebigen Typenumgebung <code class="docutils literal notranslate"><span class="pre">G</span></code> hat der Ausdruck <code class="docutils literal notranslate"><span class="pre">(e1,</span> <span class="pre">e2)</span></code> den Typen
+<code class="docutils literal notranslate"><span class="pre">t1</span> <span class="pre">*</span> <span class="pre">t2</span></code> wenn in der selben Typenumgebung der Ausdruck <code class="docutils literal notranslate"><span class="pre">e1</span></code> den Typen <code class="docutils literal notranslate"><span class="pre">t1</span></code>
+und der Ausdruck <code class="docutils literal notranslate"><span class="pre">e2</span></code> den Typden <code class="docutils literal notranslate"><span class="pre">t2</span></code> hat.</li>
+</ul>
+<p>Außerdem:</p>
+<ul class="simple">
+<li>Wenn <code class="docutils literal notranslate"><span class="pre">(e1,</span> <span class="pre">e2)</span></code> evaluiert wird, dann evaluieren wir erst <code class="docutils literal notranslate"><span class="pre">e1</span></code> und dann <code class="docutils literal notranslate"><span class="pre">e2</span></code>:<ul>
+<li>wenn das Evaluieren eines der beiden Ausdrücke divergiert (unendlich läuft), dann
+divergiert das Evaluieren von <code class="docutils literal notranslate"><span class="pre">(e1,</span> <span class="pre">e2)</span></code> ebenfalls.</li>
+<li>wenn einer der beiden Ausdrück einen Fehler hervorruft, ruft der Ausdrück <code class="docutils literal notranslate"><span class="pre">(e1,</span>
+<span class="pre">e2)</span></code> den selben Fehler hervor.</li>
+<li>wenn <code class="docutils literal notranslate"><span class="pre">e1</span></code> und <code class="docutils literal notranslate"><span class="pre">e2</span></code> zu den Werten w1 und w2 evaluiert werden, dann wird <code class="docutils literal notranslate"><span class="pre">(e1,</span>
+<span class="pre">e2)</span></code> zu dem Paar evaluiert, das w1 an erster und w2 an zweiter Stelle enthält.</li>
+</ul>
+</li>
+</ul>
+<p>Paare sind polymorph, weil sie unterschiedliche Typen haben können. Wenn die
+Komponenten eines Paares die Typen <code class="docutils literal notranslate"><span class="pre">t1</span></code> und <code class="docutils literal notranslate"><span class="pre">t2</span></code> haben, dann hat das Paar den
+Typen <code class="docutils literal notranslate"><span class="pre">t1</span> <span class="pre">*</span> <span class="pre">t2</span></code>, egal was <code class="docutils literal notranslate"><span class="pre">t1</span></code> und <code class="docutils literal notranslate"><span class="pre">t2</span></code> für Typen sind.</p>
+<p>Als Beispiel die folgende Interaktion:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># (1, 2);;
+- : int * int = (1, 2)
+# (&quot;hello&quot;, &quot;world&quot;);;
+- : string * string = (&quot;hello&quot;, &quot;world&quot;)
+#
+</pre></div>
+</div>
+<p>Die entsprechenden Beweisbäume sehen wie folgt aus:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>     INT ------------    INT ------------
+         G |- 1 : int        G |- 2 : int
+PAIR ------------------------------------
+     G |- (1, 2) : int * int
+
+
+     STRING ---------------------    STRING ---------------------
+            G |- &quot;hello&quot; : string           G |- &quot;world&quot; : string
+PAIR ------------------------------------------------------------
+     G |- (&quot;hello&quot;, &quot;world&quot;) : string * string
+</pre></div>
+</div>
+</div>
+<div class="section" id="zwischenspiel">
+<h2>Zwischenspiel<a class="headerlink" href="#zwischenspiel" title="Link zu dieser Überschrift">¶</a></h2>
+<p><strong>Sigrid:</strong> Ich schätze, Paare können auch Elemente mit unterschiedlichen Typen
+haben:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># (1, &quot;world&quot;);;
+- : int * string = (1, &quot;world&quot;)
+# (&quot;hello&quot;, 2);;
+- : string * int = (&quot;hello&quot;, 2)
+#
+</pre></div>
+</div>
+<p><strong>Alfrothul:</strong> Dann können wir auch Paare von Paaren machen:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># ((1, &quot;world&quot;), (&quot;hello&quot;, 2));;
+- : (int * string) * (string * int) = ((1, &quot;world&quot;), (&quot;hello&quot;, 2))
+#
+</pre></div>
+</div>
+<p><strong>Brynja:</strong> Wir können sogar bedingte Paare machen:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># if true then (true, 22) else (false, 33);;
+- : bool * int = (true, 22)
+#
+</pre></div>
+</div>
+<p><strong>Alfrothul:</strong> Und wir können beweisen, dass dieser Ausdruck den Typen hat, den OCaml
+behauptet, dass er hat.</p>
+<p><strong>Sigrid:</strong> Na dann los.</p>
+<p><strong>Brynja:</strong> Anfangen tun wir mit dem, was wir beweisen wollen. Nämlich dass der
+Ausdruck <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">true</span> <span class="pre">then</span> <span class="pre">(true,</span> <span class="pre">22)</span> <span class="pre">else</span> <span class="pre">(false,</span> <span class="pre">33)</span></code> den Typen <code class="docutils literal notranslate"><span class="pre">bool</span> <span class="pre">*</span> <span class="pre">int</span></code> hat:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>G |- if true then (true, 22) else (false, 33) : bool * int
+</pre></div>
+</div>
+<p><strong>Alfrothul:</strong> Der Ausdruck sieht mir sehr nach etwas aus, wo wir die <code class="docutils literal notranslate"><span class="pre">IF</span></code> Regel
+benutzen können:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>   G |- true : bool    G |- (true, 22) : bool * int    G |- (false, 33) : bool * int
+IF ---------------------------------------------------------------------------------
+   G |- if true then (true, 22) else (false, 33) : bool * int
+</pre></div>
+</div>
+<p>Und jetzt? Jetzt haben wir auf einmal die Typen von drei Ausdrücken zu beweisen…</p>
+<p><strong>Sigrid:</strong> Fangen wir doch einfach mit dem ersten (und einfachsten) an. Hier gibt es
+nur eine Regel, die wir benutzen können, nämlich <code class="docutils literal notranslate"><span class="pre">BOOL_TRUE</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>BOOL_TRUE ----------------
+       G |- true : bool    G |- (true, 22) : bool * int    G |- (false, 33) : bool * int
+    IF ---------------------------------------------------------------------------------
+       G |- if true then (true, 22) else (false, 33) : bool * int
+</pre></div>
+</div>
+<p>Damit ist der erste Zweig abgeschlossen.</p>
+<p><strong>Brynja:</strong> Okay, also dann als nächstes der mittlere Zweig. Hier können wir wieder
+nur eine Regel verwenden: <code class="docutils literal notranslate"><span class="pre">PAIR</span></code>. Wir müssen aber unsere Ausdrücke einsetzen. Also
+<code class="docutils literal notranslate"><span class="pre">G</span></code> wird ersetzt mit <code class="docutils literal notranslate"><span class="pre">G</span></code>, <code class="docutils literal notranslate"><span class="pre">e1</span></code> ist <code class="docutils literal notranslate"><span class="pre">true</span></code> und <code class="docutils literal notranslate"><span class="pre">e2</span></code> ist <code class="docutils literal notranslate"><span class="pre">22</span></code>. Für die
+Typen haben wir <code class="docutils literal notranslate"><span class="pre">bool</span></code> für <code class="docutils literal notranslate"><span class="pre">t1</span></code> und <code class="docutils literal notranslate"><span class="pre">int</span></code> für <code class="docutils literal notranslate"><span class="pre">t2</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>                                 G |- true : bool    G |- 22 : int
+BOOL_TRUE ----------------  PAIR----------------------------------
+       G |- true : bool          G |- (true, 22) : bool * int           G |- (false, 33) : bool * int
+    IF ----------------------------------------------------------------------------------------------
+       G |- if true then (true, 22) else (false, 33) : bool * int
+</pre></div>
+</div>
+<p><strong>Alfrothul:</strong> Oh Mann! Schon wieder zwei neue Zweige. Also den ersten zuerst. Der
+geht wieder einfach mit <code class="docutils literal notranslate"><span class="pre">BOOL_TRUE</span></code>. Der zweite geht genau so einfach mit
+<code class="docutils literal notranslate"><span class="pre">INT</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>                              BOOL_TRUE ----------------    INT -------------
+                                        G |- true : bool        G |- 22 : int
+BOOL_TRUE ----------------         PAIR -------------------------------------
+          G |- true : bool              G |- (true, 22) : bool * int             G |- (false, 33) : bool * int
+       IF ----------------------------------------------------------------------------------------------------
+          G |- if true then (true, 22) else (false, 33) : bool * int
+</pre></div>
+</div>
+<p><strong>Sigrid:</strong> Super! Jetzt fehlt nur noch der letzte Zweig! Gibt es Freiwillige?</p>
+</div>
+<div class="section" id="ubung-20">
+<h2>Übung 20<a class="headerlink" href="#ubung-20" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Beweise den letzten Zweig des Beweisbaumes.</p>
+</div>
+<div class="section" id="ubung-21">
+<h2>Übung 21<a class="headerlink" href="#ubung-21" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Spiele ein wenig mit Paaren und ihren Typen:</p>
+<ol class="loweralpha simple">
+<li>Was ist der Typ von Paaren aus Integern und Booleans? Schreibe einen OCaml
+Ausdruck mit diesem Typen.</li>
+<li>Was ist der Typ von Paaren aus Integers und Paaren von Integern und Booleans?
+Schreibe einen OCaml Ausdruck mit diesem Typen.</li>
+<li>Was ist der Typ von Paaren aus Integern und Paaren aus Integern und Paaren aus
+Integern und Booleans? Schreibe einen OCaml Ausdruck mit diesem Typen.</li>
+</ol>
+</div>
+<div class="section" id="zwischenspiel-uber-satzzeichen">
+<h2>Zwischenspiel über Satzzeichen<a class="headerlink" href="#zwischenspiel-uber-satzzeichen" title="Link zu dieser Überschrift">¶</a></h2>
+<p><strong>Mimer:</strong> In Augenblicken wie diesem wünsche ich mir mehr Satzzeichen.</p>
+<p><strong>`Victor Borge &lt;https://www.youtube.com/watch?v=TIf3IfHCoiE&gt;`_:</strong> Vielleicht sogar
+phonetische?</p>
+</div>
+<div class="section" id="ubung-21-fortgesetzt-mit-mehr-satzzeichen">
+<h2>Übung 21, fortgesetzt mit mehr Satzzeichen<a class="headerlink" href="#ubung-21-fortgesetzt-mit-mehr-satzzeichen" title="Link zu dieser Überschrift">¶</a></h2>
+<ol class="loweralpha simple">
+<li>Was ist der Typ von Paaren aus Integern und Booleans? Schreibe einen OCaml
+Ausdruck mit diesem Typen.</li>
+<li>Was ist der Typ von Paaren aus Integern und (Paaren von Integern und Booleans)?
+Schreibe einen OCaml Ausdruck mit diesem Typen.</li>
+<li>Was ist der Typ von Paaren aus Integern und (Paaren aus Integern und( Paaren aus
+Integern und Booleans))? Schreibe einen OCaml Ausdruck mit diesem Typen.</li>
+<li>Was ist der Typ von Paaren aus Booleans und Integern? Schreibe einen OCaml
+Ausdruck mit diesem Typen.</li>
+<li>Was ist der Typ von Paaren aus (Paaren aus Booleans und Integern) und Integern?
+Schreibe einen OCaml Ausdruck mit diesem Typen.</li>
+<li>Was ist der Typ von Paaren aus (Paaren aus (Paaren aus Booleans und Integern) und
+Integern) und Integern? Schreibe einen OCaml Ausdruck mit diesem Typen.</li>
+<li>Was ist der Typ von Paaren aus (Paaren aus Integern und Booleans) und (Paaren aus
+Booleans und Integern)? Schreibe einen OCaml
+Ausdruck mit diesem Typen.</li>
+</ol>
+</div>
+<div class="section" id="tupel">
+<h2>Tupel<a class="headerlink" href="#tupel" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Paare sind nur ein Sonderfall von der generelleren Version: Tupel.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;type&gt;       ::= int | bool | char | string | &lt;type&gt; * ... * &lt;type&gt;
+
+&lt;expression&gt; ::= &lt;integer&gt;
+               | &lt;boolean&gt;
+               | &lt;character&gt;
+               | &lt;string&gt;
+               | if &lt;expression&gt; then &lt;expression&gt; else &lt;expression&gt;
+               | (&lt;expression&gt;, ..., &lt;expression&gt;)
+
+&lt;integer&gt;    ::= 0 | -1 | 1 | -2 | 2 | -3 | 3 | ...
+
+&lt;boolean&gt;    ::= true | false
+
+&lt;character&gt;  ::= &#39;a&#39; | &#39;b&#39; | &#39;c&#39;| ...
+
+&lt;string&gt;     ::= &quot;&quot; | &quot;A&quot; | &quot;hello world&quot; | &quot;42&quot; | ...
+</pre></div>
+</div>
+<p>Die entsprechende Typenregel sieht wie folgt aus:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>       G |- e1 : t1  ...     G |- eN : tN
+TUPLE------------------------------------
+       G |- (e1, ..., eN) : t1 * ... * tN
+</pre></div>
+</div>
+<p>In Worten:</p>
+<ul class="simple">
+<li>in einer beliebigen Typenumgebung <code class="docutils literal notranslate"><span class="pre">G</span></code> hat der Ausdruck <code class="docutils literal notranslate"><span class="pre">(e1,</span> <span class="pre">...,</span> <span class="pre">eN)</span></code> den
+Typen <code class="docutils literal notranslate"><span class="pre">t1</span> <span class="pre">*</span> <span class="pre">...</span> <span class="pre">*</span> <span class="pre">tN</span></code> wenn in der selben Typenumgebung der erste Ausdruck <code class="docutils literal notranslate"><span class="pre">e1</span></code>
+den ersten Typen <code class="docutils literal notranslate"><span class="pre">t1</span></code> hat, der zweite ausdruck <code class="docutils literal notranslate"><span class="pre">e2</span></code> den zweiten Typen <code class="docutils literal notranslate"><span class="pre">t2</span></code>
+hat, …, und der Nte Ausdruck <code class="docutils literal notranslate"><span class="pre">eN</span></code> den Typen <code class="docutils literal notranslate"><span class="pre">tN</span></code> hat.</li>
+</ul>
+<p>Außerdem,</p>
+<ul class="simple">
+<li>um den Ausdruck <code class="docutils literal notranslate"><span class="pre">(e1,</span> <span class="pre">...,</span> <span class="pre">eN)</span></code> zu evaluieren werden erst die Ausdrück <code class="docutils literal notranslate"><span class="pre">e1</span></code>,
+…, und <code class="docutils literal notranslate"><span class="pre">eN</span></code> evaluiert:<ul>
+<li>wenn einer dieser Ausdrücke divergiert, dann divergiert auch das Evaluieren des
+Ausdruckes <code class="docutils literal notranslate"><span class="pre">(e1,</span> <span class="pre">...,</span> <span class="pre">eN)</span></code>.</li>
+<li>wenn einer dieser Ausdrücke einen Fehler hervorruft, ruft auch das Evaluieren des
+Ausdruckes <code class="docutils literal notranslate"><span class="pre">(e1,</span> <span class="pre">...,</span> <span class="pre">eN)</span></code> diesen Fehler hervor.</li>
+<li>wenn die Ausdrücke <code class="docutils literal notranslate"><span class="pre">e1</span></code>, …, <code class="docutils literal notranslate"><span class="pre">eN</span></code> zu den Werte w1, …, wN evaluiert werden,
+wird der Ausdruck <code class="docutils literal notranslate"><span class="pre">(e1,</span> <span class="pre">...,</span> <span class="pre">eN)</span></code> zum Wert des Tupels evaluiert, welches die
+Werte w1, …, wN enthält.</li>
+</ul>
+</li>
+</ul>
+<p>Genau wie Paare sind auch Tupel polymorph indem ein Tupel das aus N Komponenten von den
+Typen <code class="docutils literal notranslate"><span class="pre">t1</span></code>, …, <code class="docutils literal notranslate"><span class="pre">tN</span></code> besteht den Typen <code class="docutils literal notranslate"><span class="pre">t1</span> <span class="pre">*</span> <span class="pre">...</span> <span class="pre">*</span> <span class="pre">tN</span></code> haben wird, egal welche
+Typen <code class="docutils literal notranslate"><span class="pre">t1</span></code>, …, <code class="docutils literal notranslate"><span class="pre">tN</span></code> sind.</p>
+<p>Ein Beispiel ist diese Interaktion mit dem OCaml Prozess:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># (1, 2, 3);;
+- : int * int * int = (1, 2, 3)
+# (1, 2, 3, 4);;
+- : int * int * int * int = (1, 2, 3, 4)
+# (1, 2, 3, 4, 5);;
+- : int * int * int * int * int = (1, 2, 3, 4, 5)
+#
+</pre></div>
+</div>
+</div>
+<div class="section" id="ubung-22">
+<h2>Übung 22<a class="headerlink" href="#ubung-22" title="Link zu dieser Überschrift">¶</a></h2>
+<ol class="loweralpha simple">
+<li>Welchen Typ haben Trippel aus Integern, Booleans und Zeichen? Schreibe einen
+OCaml-Ausdruck mit diesem Typen.</li>
+<li>Welchen Typen haben Quadrupel aus Integern, Booleans, Zeichen und Strings?
+Schreibe einen OCaml Ausdruck mit diesem Typen.</li>
+<li>Schreibe ein Tupel aus Strings für die 12 Monate des Standard-Jahres. Welchen
+Typen hat es?</li>
+<li>Schreibe ein Tupel aus Strings für die 15 Monate des norddeutschen Jahres (siehe
+Zwischenspiel unter dieser Übung). Welchen Typen hat es?</li>
+<li>Was ist der Typ von Trippeln aus Integer-Paaren? Schreibe einen OCaml-Ausdruck mit
+diesem Typen.</li>
+<li>Schreibe einen Typen für ein Tupel auf, das mindestens ein anderes Tupel enthält
+und schreibe einen OCaml-Ausdruck mit diesem Typen.</li>
+</ol>
+</div>
+<div class="section" id="zwischenspiel-uber-den-jahreszyklus">
+<h2>Zwischenspiel über den Jahreszyklus<a class="headerlink" href="#zwischenspiel-uber-den-jahreszyklus" title="Link zu dieser Überschrift">¶</a></h2>
+<p><strong>`Henrik Nodrbrandt &lt;https://de.wikipedia.org/wiki/Henrik_Nordbrandt&gt;`_
+(sorgmütig):</strong> Überall sonst in der Welt hat das Jahr 12 Monate.</p>
+<p><strong>Brynja:</strong> …ja?</p>
+<p><strong>Henrik Nodrbrandt:</strong> Aber in Dänemark (und Norddeutschland) hat das Jahr 15
+Monate.</p>
+<p><strong>Brynja:</strong> 15? Wie geht das denn auf?</p>
+<p><strong>Henrik Nodrbrandt:</strong> Naja, siehst
+du: 1. November, 2. Dezember, 3. Januar, 4. Februar, 5. März, 6. April, 7. Mai, 8. Juni, 9. Juli, 10. August, 11. September, 12. Oktober;
+und dann November, November und November.</p>
+<p><strong>Brynja (tröstend):</strong> Aber wenigstens hat der November nur 30 Tage.</p>
+</div>
+<div class="section" id="das-leere-tupel-unit">
+<h2>Das leere Tupel (unit)<a class="headerlink" href="#das-leere-tupel-unit" title="Link zu dieser Überschrift">¶</a></h2>
+<p>OCaml hat zwar kein Tupel von Länge 1, aber es gibt eins von Länge 0.
+Dieses Tupel hat seinen eigenen Typen: <code class="docutils literal notranslate"><span class="pre">unit</span></code> und nur einen möglichen Wert:
+<code class="docutils literal notranslate"><span class="pre">()</span></code>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;type&gt; ::= int | bool | char | string | &lt;type&gt; * ... * &lt;type&gt; | unit
+</pre></div>
+</div>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>UNIT -----------------
+     G |- () : unit
+</pre></div>
+</div>
+<p>In Worten:</p>
+<ul class="simple">
+<li>in einer beliebigen Typenumgebung <code class="docutils literal notranslate"><span class="pre">G</span></code> hat der Ausdruck <code class="docutils literal notranslate"><span class="pre">()</span></code> immer den Typen
+<code class="docutils literal notranslate"><span class="pre">unit</span></code>.</li>
+</ul>
+<p>Außerdem:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">()</span></code> zu evaluieren ergebt den Wert <code class="docutils literal notranslate"><span class="pre">()</span></code>.</li>
+</ul>
+</div>
+<div class="section" id="ubung-23">
+<h2>Übung 23<a class="headerlink" href="#ubung-23" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Welche Typen haben die folgenden Ausdrücke und können sie einfacher geschrieben
+werden?</p>
+<ul class="simple">
+<li>(())</li>
+<li>((()))</li>
+<li>((), ())</li>
+<li>((()), ())</li>
+<li>((), (()))</li>
+<li>((()), (()))</li>
+<li>(((()), (())))</li>
+</ul>
+</div>
+<div class="section" id="zwischenspiel-klammern-in-ocaml">
+<h2>Zwischenspiel - Klammern in OCaml<a class="headerlink" href="#zwischenspiel-klammern-in-ocaml" title="Link zu dieser Überschrift">¶</a></h2>
+<p><strong>Sigrid:</strong> Also Klammern in OCaml benutzen wir entweder für Tupel…</p>
+<p><strong>Alfrothul:</strong> …oder um verschachtelte Ausdrücke auseinander zu halten.</p>
+<p><strong>Mimer:</strong> Genau das!</p>
+<p><strong>Brynja:</strong> Und OCaml hat Tupel in allen Längen, bis auf eins von Länge 1.</p>
+<p><strong>Mimer:</strong> Auch das.</p>
+</div>
+<div class="section" id="ubung-24">
+<h2>Übung 24<a class="headerlink" href="#ubung-24" title="Link zu dieser Überschrift">¶</a></h2>
+<ol class="loweralpha simple">
+<li>Was ist der Typ von Trippeln aus Unit-Werten? Schreibe einen Ausdruck mit diesem
+Typen in OCaml.</li>
+<li>Gibt es andere Ausdrücke, die denselben Typen haben?</li>
+</ol>
+</div>
+<div class="section" id="version-of-ocaml-grammar-continued">
+<h2>Version of „ocaml-grammar-continued“<a class="headerlink" href="#version-of-ocaml-grammar-continued" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Erstellt [2023-01-22]</p>
+</div>
 </div>
 
 
@@ -94,12 +426,33 @@ mit einem Test, einem Konsequenten und einer Alternative).</li>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Die Grammatik von OCaml (fortgesetzt von Woche 03)</a><ul>
+<li><a class="reference internal" href="#paare">Paare</a></li>
+<li><a class="reference internal" href="#zwischenspiel">Zwischenspiel</a></li>
+<li><a class="reference internal" href="#ubung-20">Übung 20</a></li>
+<li><a class="reference internal" href="#ubung-21">Übung 21</a></li>
+<li><a class="reference internal" href="#zwischenspiel-uber-satzzeichen">Zwischenspiel über Satzzeichen</a></li>
+<li><a class="reference internal" href="#ubung-21-fortgesetzt-mit-mehr-satzzeichen">Übung 21, fortgesetzt mit mehr Satzzeichen</a></li>
+<li><a class="reference internal" href="#tupel">Tupel</a></li>
+<li><a class="reference internal" href="#ubung-22">Übung 22</a></li>
+<li><a class="reference internal" href="#zwischenspiel-uber-den-jahreszyklus">Zwischenspiel über den Jahreszyklus</a></li>
+<li><a class="reference internal" href="#das-leere-tupel-unit">Das leere Tupel (unit)</a></li>
+<li><a class="reference internal" href="#ubung-23">Übung 23</a></li>
+<li><a class="reference internal" href="#zwischenspiel-klammern-in-ocaml">Zwischenspiel - Klammern in OCaml</a></li>
+<li><a class="reference internal" href="#ubung-24">Übung 24</a></li>
+<li><a class="reference internal" href="#version-of-ocaml-grammar-continued">Version of „ocaml-grammar-continued“</a></li>
+</ul>
+</li>
+</ul>
+
   <h4>Vorheriges Thema</h4>
   <p class="topless"><a href="week-04-algorithmisches-denken.html"
                         title="vorheriges Kapitel">Algorithmisches Denken</a></p>
   <h4>Nächstes Thema</h4>
-  <p class="topless"><a href="../resources/dramatis_personae.html"
-                        title="nächstes Kapitel">Dramatis Personae</a></p>
+  <p class="topless"><a href="../week-05/week-05-index.html"
+                        title="nächstes Kapitel">Lehrmaterial Woche-05</a></p>
   <div role="note" aria-label="source link">
     <h3>Diese Seite</h3>
     <ul class="this-page-menu">
@@ -130,7 +483,7 @@ mit einem Test, einem Konsequenten und einer Alternative).</li>
           <a href="../genindex.html" title="Stichwortverzeichnis"
              >Index</a></li>
         <li class="right" >
-          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+          <a href="../week-05/week-05-index.html" title="Lehrmaterial Woche-05"
              >weiter</a> |</li>
         <li class="right" >
           <a href="week-04-algorithmisches-denken.html" title="Algorithmisches Denken"
