@@ -1,0 +1,197 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Variablen und Funktionen (der Rest der OCaml-Grammatik) &#8212; Einführung ins Programmieren 2022</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/extra-styles.css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Stichwortverzeichnis" href="../genindex.html" />
+    <link rel="search" title="Suche" href="../search.html" />
+    <link rel="next" title="Dramatis Personae" href="../resources/dramatis_personae.html" />
+    <link rel="prev" title="Lehrmaterial Woche-05" href="week-05-index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Stichwortverzeichnis"
+             accesskey="I">Index</a></li>
+        <li class="right" >
+          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+             accesskey="N">weiter</a> |</li>
+        <li class="right" >
+          <a href="week-05-index.html" title="Lehrmaterial Woche-05"
+             accesskey="P">zurück</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Einführung ins Programmieren 2022</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="week-05-index.html" accesskey="U">Lehrmaterial Woche-05</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="variablen-und-funktionen-der-rest-der-ocaml-grammatik">
+<h1>Variablen und Funktionen (der Rest der OCaml-Grammatik)<a class="headerlink" href="#variablen-und-funktionen-der-rest-der-ocaml-grammatik" title="Link zu dieser Überschrift">¶</a></h1>
+<p>In diesem Teil des Lehrmaterials lernen wir endlich das, was unsere Programme
+interessant macht.</p>
+<div class="section" id="namen-und-typenumgebungen">
+<h2>Namen und Typenumgebungen<a class="headerlink" href="#namen-und-typenumgebungen" title="Link zu dieser Überschrift">¶</a></h2>
+<p>OCaml gibt uns die Möglichkeit, Namen festzulegen. Diese Namen werden oftmals auch
+als „Identifikatoren“ oder „Variablen“ bezeichnet und ihre Typen werden in der
+Typenumgebung gespeichert:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;type_environment&gt; ::= . | ( &lt;name&gt; : &lt;type&gt;), &lt;type_environment&gt;
+
+&lt;type&gt;             ::= int | bool | char | string | &lt;type&gt; * ... * &lt;type&gt;
+
+&lt;expression&gt;       ::= &lt;integer&gt;
+                     | &lt;boolean&gt;
+                     | &lt;character&gt;
+                     | &lt;string&gt;
+                     | if &lt;expression&gt; then &lt;expression&gt; else &lt;expression&gt;
+                     | (&lt;expression&gt;, ..., &lt;expression&gt;)
+
+&lt;integer&gt;          ::= 0 | -1 | 1 | -2 | 2 | -3 | 3 | ...
+
+&lt;boolean&gt;          ::= true | false
+
+&lt;character&gt;        ::= &#39;a&#39; | &#39;b&#39; | &#39;c&#39;| ...
+
+&lt;string&gt;           ::= &quot;&quot; | &quot;A&quot; | &quot;hello world&quot; | &quot;42&quot; | ...
+
+&lt;name&gt;             ::= eine Folge von Zeichen, angefangen mit einem Kleinbuchstaben
+</pre></div>
+</div>
+<p>Die Typenumgebung enthält eine Sammlung von Bindungen zwischen Namen und den
+entsprechenden Typen. Es ist aufgebaut wie die sprichwörtliche Zwiebel: Innen ist ein
+Keim und darum liegt eine Schicht nach der anderen:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">.</span></code> repräsentiert eine leere Typenumgebung; und</li>
+<li>nehmen wir einen Namen <code class="docutils literal notranslate"><span class="pre">x</span></code>, einen Typen <code class="docutils literal notranslate"><span class="pre">t</span></code> und eine Typenumgebung <code class="docutils literal notranslate"><span class="pre">G</span></code>, dann
+repräsentiert <code class="docutils literal notranslate"><span class="pre">(x</span> <span class="pre">:</span> <span class="pre">t),</span> <span class="pre">G</span></code> die Erweiterung der Typenumgebung <code class="docutils literal notranslate"><span class="pre">G</span></code> um die Bindung
+von <code class="docutils literal notranslate"><span class="pre">x</span></code> zum Typen <code class="docutils literal notranslate"><span class="pre">t</span></code>.</li>
+</ul>
+<p>Also zum Beispiel:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">.</span></code> ist die leere Typenumgebung, die keine Bindungen zwischen Namen und Typen
+enthält.</li>
+<li><code class="docutils literal notranslate"><span class="pre">(c</span> <span class="pre">:</span> <span class="pre">char),</span> <span class="pre">.</span></code> erweitert die vorige Typenumgebung mit der Bindung des Namens
+<code class="docutils literal notranslate"><span class="pre">c</span></code> zum Typen <code class="docutils literal notranslate"><span class="pre">char</span></code>. In dieser Typenumgebung hat also <code class="docutils literal notranslate"><span class="pre">c</span></code> den Typen
+<code class="docutils literal notranslate"><span class="pre">char</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">(b</span> <span class="pre">:</span> <span class="pre">bool),</span> <span class="pre">((c</span> <span class="pre">:</span> <span class="pre">char),</span> <span class="pre">.)</span></code> erweitert die vorige Typenumgebung um die Bindung
+des Namens <code class="docutils literal notranslate"><span class="pre">b</span></code> zum Typen <code class="docutils literal notranslate"><span class="pre">bool</span></code>. Hier hat also der Name <code class="docutils literal notranslate"><span class="pre">c</span></code> den Typen
+<code class="docutils literal notranslate"><span class="pre">char</span></code> und der Name <code class="docutils literal notranslate"><span class="pre">b</span></code> den Typen <code class="docutils literal notranslate"><span class="pre">bool</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">(i</span> <span class="pre">:</span> <span class="pre">int),</span> <span class="pre">((b:</span> <span class="pre">bool),</span> <span class="pre">((c</span> <span class="pre">:</span> <span class="pre">char),</span> <span class="pre">.))</span></code> erweitert die vorige Typenumgebung um
+die Bindung des Namens <code class="docutils literal notranslate"><span class="pre">i</span></code> zum Typen <code class="docutils literal notranslate"><span class="pre">int</span></code>. Hier hat also der Name <code class="docutils literal notranslate"><span class="pre">i</span></code> den
+Typen <code class="docutils literal notranslate"><span class="pre">int</span></code>, der Name <code class="docutils literal notranslate"><span class="pre">b</span></code> den Typen <code class="docutils literal notranslate"><span class="pre">bool</span></code> und der Name <code class="docutils literal notranslate"><span class="pre">c</span></code> den Typen
+<code class="docutils literal notranslate"><span class="pre">char</span></code>.</li>
+<li><code class="docutils literal notranslate"><span class="pre">(b</span> <span class="pre">:</span> <span class="pre">string),</span> <span class="pre">((i</span> <span class="pre">:</span> <span class="pre">int),</span> <span class="pre">((b</span> <span class="pre">:</span> <span class="pre">bool),</span> <span class="pre">((c</span> <span class="pre">:</span> <span class="pre">char),</span> <span class="pre">.)))</span></code> erweitert die vorige
+Typenumgebung um die Bindung des Namens <code class="docutils literal notranslate"><span class="pre">b</span></code> zum Typen <code class="docutils literal notranslate"><span class="pre">string</span></code>. Hier hat der
+Name <code class="docutils literal notranslate"><span class="pre">b</span></code> den Typen <code class="docutils literal notranslate"><span class="pre">string</span></code>, der Name <code class="docutils literal notranslate"><span class="pre">i</span></code> den Typen <code class="docutils literal notranslate"><span class="pre">int</span></code> und der Name
+<code class="docutils literal notranslate"><span class="pre">c</span></code> de Typen <code class="docutils literal notranslate"><span class="pre">char</span></code>.</li>
+</ul>
+<p>Die Frage stellt sich nun, warum in der letzten Typenumgebung der Name <code class="docutils literal notranslate"><span class="pre">b</span></code> den
+Typen <code class="docutils literal notranslate"><span class="pre">string</span></code> hat und nicht den Typen <code class="docutils literal notranslate"><span class="pre">bool</span></code>. Das liegt daran, dass die
+Typeumgebung von außen nach innen gelesen wird und die neueste Bindung diejenige ist,
+die zählt. Die Bindung von <code class="docutils literal notranslate"><span class="pre">(b</span> <span class="pre">:</span> <span class="pre">string)</span></code> „überschattet“ („shadows“) also die
+ältere Bindung von <code class="docutils literal notranslate"><span class="pre">(b</span> <span class="pre">:</span> <span class="pre">bool)</span></code>.</p>
+<p>Der Infix-Konstruktor <code class="docutils literal notranslate"><span class="pre">,</span></code> ist rechts-assoziativ, weshalb wir die Klammern rechts
+vom <code class="docutils literal notranslate"><span class="pre">,</span></code> auch weg lassen können:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">(b</span> <span class="pre">:</span> <span class="pre">bool),</span> <span class="pre">(c</span> <span class="pre">:</span> <span class="pre">char),</span> <span class="pre">.</span></code> ist kurz für <code class="docutils literal notranslate"><span class="pre">(b</span> <span class="pre">:</span> <span class="pre">bool),</span> <span class="pre">((c</span> <span class="pre">:</span> <span class="pre">char),</span> <span class="pre">.)</span></code>,</li>
+<li><code class="docutils literal notranslate"><span class="pre">(i</span> <span class="pre">:</span> <span class="pre">int),</span> <span class="pre">(b</span> <span class="pre">:</span> <span class="pre">bool),</span> <span class="pre">(c</span> <span class="pre">:</span> <span class="pre">char),</span> <span class="pre">.</span></code> ist kurz für <code class="docutils literal notranslate"><span class="pre">(i</span> <span class="pre">:</span> <span class="pre">int),</span> <span class="pre">((b</span> <span class="pre">:</span> <span class="pre">bool),</span> <span class="pre">((c</span>
+<span class="pre">:</span> <span class="pre">char),</span> <span class="pre">.))</span></code>, usw.</li>
+</ul>
+<p>Das Überschatten wird klarer, wenn wir uns die Typenregeln anschauen, die das
+Nachschlagen (lookup) in der Typenumgebung beschreiben.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>LOOKUP_FOUND -------------------
+             (x : t), G |- x : t
+
+                        G |- x : t
+LOOKUP_NOT_FOUND_YET ----------------------- where x and x&#39; differ
+                     (x&#39; : t&#39;), G |- x : t
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Variablen und Funktionen (der Rest der OCaml-Grammatik)</a><ul>
+<li><a class="reference internal" href="#namen-und-typenumgebungen">Namen und Typenumgebungen</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Vorheriges Thema</h4>
+  <p class="topless"><a href="week-05-index.html"
+                        title="vorheriges Kapitel">Lehrmaterial Woche-05</a></p>
+  <h4>Nächstes Thema</h4>
+  <p class="topless"><a href="../resources/dramatis_personae.html"
+                        title="nächstes Kapitel">Dramatis Personae</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Diese Seite</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/week-05/week-05-variablen-und-funktionen.rst.txt"
+            rel="nofollow">Quellcode anzeigen</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Schnellsuche</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Los" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Stichwortverzeichnis"
+             >Index</a></li>
+        <li class="right" >
+          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+             >weiter</a> |</li>
+        <li class="right" >
+          <a href="week-05-index.html" title="Lehrmaterial Woche-05"
+             >zurück</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Einführung ins Programmieren 2022</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="week-05-index.html" >Lehrmaterial Woche-05</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Kira Kutscher.
+      Mit <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5 erstellt.
+    </div>
+  </body>
+</html>
