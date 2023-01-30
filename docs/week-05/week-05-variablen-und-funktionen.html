@@ -65,6 +65,7 @@ Typenumgebung gespeichert:</p>
                      | &lt;string&gt;
                      | if &lt;expression&gt; then &lt;expression&gt; else &lt;expression&gt;
                      | (&lt;expression&gt;, ..., &lt;expression&gt;)
+                     | &lt;name&gt;
 
 &lt;integer&gt;          ::= 0 | -1 | 1 | -2 | 2 | -3 | 3 | ...
 
@@ -123,10 +124,215 @@ Nachschlagen (lookup) in der Typenumgebung beschreiben.</p>
              (x : t), G |- x : t
 
                         G |- x : t
-LOOKUP_NOT_FOUND_YET ----------------------- where x and x&#39; differ
+LOOKUP_NOT_FOUND_YET ----------------------- wo x und x&#39; verschieden sind.
                      (x&#39; : t&#39;), G |- x : t
 </pre></div>
 </div>
+<p>In Worten:</p>
+<ul class="simple">
+<li>für einen beliebigen Namen <code class="docutils literal notranslate"><span class="pre">x</span></code>, einen beliebigen Typen <code class="docutils literal notranslate"><span class="pre">t</span></code> und eine beliebige
+Typenumgebung <code class="docutils literal notranslate"><span class="pre">G</span></code> hat <code class="docutils literal notranslate"><span class="pre">x</span></code> den Typen <code class="docutils literal notranslate"><span class="pre">t</span></code> in der Typenumgebung <code class="docutils literal notranslate"><span class="pre">(x</span> <span class="pre">:</span> <span class="pre">t),</span> <span class="pre">G</span></code>;
+und</li>
+<li>für eine beliebige Typenumgebung <code class="docutils literal notranslate"><span class="pre">G</span></code>, einen beliebigen Namen <code class="docutils literal notranslate"><span class="pre">x</span></code>, einen
+beliebigen Typen <code class="docutils literal notranslate"><span class="pre">t</span></code>, einen beliebigen Namen <code class="docutils literal notranslate"><span class="pre">x'</span></code>, der nicht der gleiche ist
+wie <code class="docutils literal notranslate"><span class="pre">x</span></code> und einen beliebigen Typen <code class="docutils literal notranslate"><span class="pre">t'</span></code>: Wenn <code class="docutils literal notranslate"><span class="pre">x</span></code> in der Typenumgebung <code class="docutils literal notranslate"><span class="pre">G</span></code>
+den Typen <code class="docutils literal notranslate"><span class="pre">t</span></code> hat, dann hat es denselben Typen <code class="docutils literal notranslate"><span class="pre">t</span></code>, wenn <code class="docutils literal notranslate"><span class="pre">G</span></code> durch die
+Bindung <code class="docutils literal notranslate"><span class="pre">x'</span> <span class="pre">:</span> <span class="pre">t'</span></code> erweitert wird.</li>
+</ul>
+<p>In anderen Worten:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">x</span></code> hat immer den Typen <code class="docutils literal notranslate"><span class="pre">t</span></code> in einer Typenumgebung, die mit <code class="docutils literal notranslate"><span class="pre">(x</span> <span class="pre">:</span> <span class="pre">t)</span></code>
+anfängt;</li>
+<li><code class="docutils literal notranslate"><span class="pre">x</span></code> hat den Typen <code class="docutils literal notranslate"><span class="pre">t</span></code> in einer Typenumgebung, die mit <code class="docutils literal notranslate"><span class="pre">(x'</span> <span class="pre">:</span> <span class="pre">t')</span></code> anfängt und
+mit <code class="docutils literal notranslate"><span class="pre">G</span></code> fortsetzt, wannimmer <code class="docutils literal notranslate"><span class="pre">x'</span></code> und <code class="docutils literal notranslate"><span class="pre">x</span></code> unterschiedliche Namen sind und
+<code class="docutils literal notranslate"><span class="pre">x</span></code> in der Typenumgebung <code class="docutils literal notranslate"><span class="pre">G</span></code> den Typen <code class="docutils literal notranslate"><span class="pre">t</span></code> hat.</li>
+</ul>
+<p>Wir benutzen diese Regeln um Namen in einer Typenumgebung nachzuschlagen. Also zum
+Beispiel:</p>
+<ol class="loweralpha simple">
+<li>einen beliebigen Namen in der leeren Typenumgebung <code class="docutils literal notranslate"><span class="pre">.</span></code> nachzuschlagen ist
+undefiniert (und ruft einen Fehler hervor),</li>
+<li><code class="docutils literal notranslate"><span class="pre">i</span></code> in der Typenumgebung <code class="docutils literal notranslate"><span class="pre">(i</span> <span class="pre">:</span> <span class="pre">int),</span> <span class="pre">(b</span> <span class="pre">:</span> <span class="pre">bool),</span> <span class="pre">(c</span> <span class="pre">:</span> <span class="pre">char),</span> <span class="pre">.</span></code> nachzuschlagen
+ergibt <code class="docutils literal notranslate"><span class="pre">int</span></code>,</li>
+<li><code class="docutils literal notranslate"><span class="pre">b</span></code> in der Typenumgebung <code class="docutils literal notranslate"><span class="pre">(i</span> <span class="pre">:</span> <span class="pre">int),</span> <span class="pre">(b</span> <span class="pre">:</span> <span class="pre">bool),</span> <span class="pre">(c</span> <span class="pre">:</span> <span class="pre">char),</span> <span class="pre">.</span></code> nachzuschlagen
+ergibt <code class="docutils literal notranslate"><span class="pre">bool</span></code>,</li>
+<li><code class="docutils literal notranslate"><span class="pre">c</span></code> in der Typenumgebung <code class="docutils literal notranslate"><span class="pre">(i</span> <span class="pre">:</span> <span class="pre">int),</span> <span class="pre">(b</span> <span class="pre">:</span> <span class="pre">bool),</span> <span class="pre">(c</span> <span class="pre">:</span> <span class="pre">char),</span> <span class="pre">.</span></code> nachzuschlagen
+ergibt <code class="docutils literal notranslate"><span class="pre">char</span></code>,</li>
+<li><code class="docutils literal notranslate"><span class="pre">x</span></code> in der Typenumgebung <code class="docutils literal notranslate"><span class="pre">(i</span> <span class="pre">:</span> <span class="pre">int),</span> <span class="pre">(b</span> <span class="pre">:</span> <span class="pre">bool),</span> <span class="pre">(c</span> <span class="pre">:</span> <span class="pre">char),</span> <span class="pre">.</span></code> nachzuschlagen
+ist undefiniert und ruft einen Fehler hervor,</li>
+<li><code class="docutils literal notranslate"><span class="pre">x</span></code> in der Typenumgebung <code class="docutils literal notranslate"><span class="pre">(x</span> <span class="pre">:</span> <span class="pre">int),</span> <span class="pre">(x</span> <span class="pre">:</span> <span class="pre">bool),</span> <span class="pre">(x</span> <span class="pre">:</span> <span class="pre">char),</span> <span class="pre">.</span></code> nachzuschlagen
+ergibt <code class="docutils literal notranslate"><span class="pre">int</span></code>.</li>
+</ol>
+<p>Im letzten Fall überschattet die letzte Bindung von <code class="docutils literal notranslate"><span class="pre">x</span></code> die beiden vorigen
+Bindungen.</p>
+</div>
+<div class="section" id="ubung-25">
+<h2>Übung 25<a class="headerlink" href="#ubung-25" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Überzeuge dich von den obigen Beispielen indem du die jeweiligen Beweisbäume
+aufzeichnest.</p>
+</div>
+<div class="section" id="teilweise-losung-fur-ubung-25">
+<h2>Teilweise Lösung für Übung 25<a class="headerlink" href="#teilweise-losung-fur-ubung-25" title="Link zu dieser Überschrift">¶</a></h2>
+<ol class="loweralpha">
+<li><p class="first">Nehmen wir den Namen <code class="docutils literal notranslate"><span class="pre">x</span></code> und versuchen wir, diesen Namen in der leeren
+Typenumgebung <code class="docutils literal notranslate"><span class="pre">.</span></code> nachzuschlagen. Die Wurzel des Baumes ist folglich:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>. |- x : ehm
+</pre></div>
+</div>
+<p>für einen bisher noch unbekannten Typen <code class="docutils literal notranslate"><span class="pre">ehm</span></code>.</p>
+<p>Wir könenn weder die Regel <code class="docutils literal notranslate"><span class="pre">LOOKUP_FOUND</span></code> noch die Regel
+<code class="docutils literal notranslate"><span class="pre">LOOKUP_NOT_FOUND_YET</span></code> anwenden. Also können wir keinen Beweisbaum konstruieren
+und somit auch keinen Typen für <code class="docutils literal notranslate"><span class="pre">x</span></code> finden. Der Typ von <code class="docutils literal notranslate"><span class="pre">x</span></code> ist also
+undefiniert.</p>
+</li>
+<li><p class="first">Versuchen wir <code class="docutils literal notranslate"><span class="pre">i</span></code> in der Typenumgebung <code class="docutils literal notranslate"><span class="pre">(i</span> <span class="pre">:</span> <span class="pre">int),</span> <span class="pre">(b</span> <span class="pre">:</span> <span class="pre">bool),</span> <span class="pre">(c</span> <span class="pre">:</span> <span class="pre">char),</span> <span class="pre">.</span></code>
+nachzuschlagen. Die Wurzel des Baumes lautet:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(i : int), (b : bool), (c : char), . |- i : ehm
+</pre></div>
+</div>
+<p>für einen bisher unbekannten Typen <code class="docutils literal notranslate"><span class="pre">ehm</span></code>.</p>
+<p>Wir können (nur) die Regel <code class="docutils literal notranslate"><span class="pre">LOOKUP_FOUND</span></code> verwenden, wo <code class="docutils literal notranslate"><span class="pre">x</span></code> mit <code class="docutils literal notranslate"><span class="pre">i</span></code> ersetzt
+wird, <code class="docutils literal notranslate"><span class="pre">t</span></code> mit <code class="docutils literal notranslate"><span class="pre">int</span></code>, und <code class="docutils literal notranslate"><span class="pre">G</span></code> mit <code class="docutils literal notranslate"><span class="pre">(b</span> <span class="pre">:</span> <span class="pre">bool),</span> <span class="pre">(c</span> <span class="pre">:</span> <span class="pre">char),</span> <span class="pre">.</span></code>. Auf der
+rechten Seite des <code class="docutils literal notranslate"><span class="pre">|-</span></code> ersetzen wir wieder <code class="docutils literal notranslate"><span class="pre">x</span></code> mit <code class="docutils literal notranslate"><span class="pre">i</span></code> und <code class="docutils literal notranslate"><span class="pre">t</span></code> mit
+<code class="docutils literal notranslate"><span class="pre">ehm</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>LOOKUP_FOUND -------------------------------------------------
+              (i : int), (b : bool), (c : char), . |- i : ehm
+</pre></div>
+</div>
+<p>Da in diesem Beweisbaum <code class="docutils literal notranslate"><span class="pre">t</span></code> einmal mit <code class="docutils literal notranslate"><span class="pre">int</span></code> und einmal mit <code class="docutils literal notranslate"><span class="pre">ehm</span></code> ersetzt
+ist, haben wir nun herausgefunden, dass der bisher unbekannte Typ <code class="docutils literal notranslate"><span class="pre">ehm</span></code> in
+Wirklichkeit <code class="docutils literal notranslate"><span class="pre">int</span></code> sein muss. Der fertige Beweisbaum lautet also:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>LOOKUP_FOUND -------------------------------------------------
+               (i : int), (b : bool), (c : char), . |- i : int
+</pre></div>
+</div>
+<p>Die Existenz dieses Baumes Beweist, dass in der Typenumgebung <code class="docutils literal notranslate"><span class="pre">(i</span> <span class="pre">:</span> <span class="pre">int),</span> <span class="pre">(b</span> <span class="pre">:</span>
+<span class="pre">bool),</span> <span class="pre">(c</span> <span class="pre">:</span> <span class="pre">char),</span> <span class="pre">.</span></code> das Nachschlagen des Namens <code class="docutils literal notranslate"><span class="pre">i</span></code> den Typen <code class="docutils literal notranslate"><span class="pre">int</span></code>
+ergibt.</p>
+</li>
+<li><p class="first">Versuchen wir <code class="docutils literal notranslate"><span class="pre">b</span></code> in der Typenumgebung <code class="docutils literal notranslate"><span class="pre">(i</span> <span class="pre">:</span> <span class="pre">int),</span> <span class="pre">(b</span> <span class="pre">:</span> <span class="pre">bool),</span> <span class="pre">(c</span> <span class="pre">:</span> <span class="pre">char),</span> <span class="pre">.</span></code>
+nachzuschlagen. Die Wurzel des Baumes lautet:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(i : int), (b : bool), (c : char), . |- b : ehm
+</pre></div>
+</div>
+<p>für einen bisher unbekannten Typen <code class="docutils literal notranslate"><span class="pre">ehm</span></code>.</p>
+<p>Wir können hier (nur) die Regel <code class="docutils literal notranslate"><span class="pre">LOOKUP_NOT_FOUND_YET</span></code> anwenden, wo <code class="docutils literal notranslate"><span class="pre">x'</span></code> mit
+<code class="docutils literal notranslate"><span class="pre">i</span></code> ersetzt wird, <code class="docutils literal notranslate"><span class="pre">t'</span></code> mit <code class="docutils literal notranslate"><span class="pre">int</span></code>, <code class="docutils literal notranslate"><span class="pre">G</span></code> mit <code class="docutils literal notranslate"><span class="pre">(b</span> <span class="pre">:</span> <span class="pre">bool),</span> <span class="pre">(c</span> <span class="pre">:</span> <span class="pre">char),</span> <span class="pre">.</span></code>,
+<code class="docutils literal notranslate"><span class="pre">x</span></code> mit <code class="docutils literal notranslate"><span class="pre">b</span></code> und <code class="docutils literal notranslate"><span class="pre">t</span></code> mit <code class="docutils literal notranslate"><span class="pre">ehm</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>                     (b : bool), (c : char), . |- b : ehm
+LOOKUP_NOT_FOUND_YET -----------------------------------------------
+                     (i : int), (b : bool), (c : char), . |- b : ehm
+</pre></div>
+</div>
+<p>Nun können wir (nur) die Regel <code class="docutils literal notranslate"><span class="pre">LOOKUP_FOUND</span></code> anwenden, wo <code class="docutils literal notranslate"><span class="pre">x</span></code> mit <code class="docutils literal notranslate"><span class="pre">b</span></code>
+ersetzt wird, <code class="docutils literal notranslate"><span class="pre">t</span></code> mit <code class="docutils literal notranslate"><span class="pre">bool</span></code>, <code class="docutils literal notranslate"><span class="pre">G</span></code> mit <code class="docutils literal notranslate"><span class="pre">(c</span> <span class="pre">:</span> <span class="pre">char),</span> <span class="pre">.</span></code>, <code class="docutils literal notranslate"><span class="pre">x</span></code> mit <code class="docutils literal notranslate"><span class="pre">b</span></code> und
+<code class="docutils literal notranslate"><span class="pre">t</span></code> mit <code class="docutils literal notranslate"><span class="pre">ehm</span></code>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>        LOOKUP_FOUND ------------------------------------
+                     (b : bool), (c : char), . |- b : ehm
+LOOKUP_NOT_FOUND_YET -----------------------------------------------
+                     (i : int), (b : bool), (c : char), . |- b : ehm
+</pre></div>
+</div>
+<p>Da wir in der Anwendung von <code class="docutils literal notranslate"><span class="pre">LOOKUP_FOUND</span></code> <code class="docutils literal notranslate"><span class="pre">t</span></code> im einen Fall mit <code class="docutils literal notranslate"><span class="pre">bool</span></code> und
+im anderen Fall mit <code class="docutils literal notranslate"><span class="pre">ehm</span></code> ersetzt haben, wissen wir nun, dass der bisher
+unbekannte Typ <code class="docutils literal notranslate"><span class="pre">ehm</span></code> <code class="docutils literal notranslate"><span class="pre">bool</span></code> sein muss.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>        LOOKUP_FOUND ------------------------------------
+                     (b : bool), (c : char), . |- b : bool
+LOOKUP_NOT_FOUND_YET -----------------------------------------------
+                     (i : int), (b : bool), (c : char), . |- b : bool
+</pre></div>
+</div>
+<p>Die Existenz dieses Baumes Beweist, dass in der Typenumgebung <code class="docutils literal notranslate"><span class="pre">(i</span> <span class="pre">:</span> <span class="pre">int),</span> <span class="pre">(b</span> <span class="pre">:</span>
+<span class="pre">bool),</span> <span class="pre">(c</span> <span class="pre">:</span> <span class="pre">char),</span> <span class="pre">.</span></code> das Nachschlagen des Namens <code class="docutils literal notranslate"><span class="pre">b</span></code> den Typen <code class="docutils literal notranslate"><span class="pre">bool</span></code>
+ergibt.</p>
+</li>
+</ol>
+<p>d.-f. Konstruiere diese Bäume selbst.</p>
+</div>
+<div class="section" id="zwischenspiel-uber-umgebungen-und-zwiebeln">
+<h2>Zwischenspiel über Umgebungen und Zwiebeln<a class="headerlink" href="#zwischenspiel-uber-umgebungen-und-zwiebeln" title="Link zu dieser Überschrift">¶</a></h2>
+<p><strong>Alfrothul:</strong> Erklär mir bitte nochmal, warum jetzt eine Umgebung aufgebaut ist wie
+eine Zwiebel…?</p>
+<p><strong>Brynja:</strong> Eigentlich ganz logisch. Eine Zwiebel können wir auch beschreiben wie
+eine Umgebung:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;zwiebel&gt;  ::= ^ | (&lt;zwiebel&gt;)
+
+&lt;umgebung&gt; ::= . |(&lt;name&gt; : &lt;typ&gt;), &lt;umgebung&gt;
+</pre></div>
+</div>
+<p>Eine leere Umgebung ist wie der Keim, <code class="docutils literal notranslate"><span class="pre">^</span></code> in der Mitte einer Zwiebel: es ist nichts weiter
+innen drin. Und wenn wir eine Zwiebel haben, können wir eine neue Zwiebel
+konstruieren indem wir noch eine Lage drum herum wachsen lassen. Ich habe mir hier
+die Freiheit genommen, jede Schicht mit einem Paar Klammern zu zeigen; sieht ja auch
+aus wie eine Zwiebel. Also wir haben eine Zwiebel, zum Beispiel <code class="docutils literal notranslate"><span class="pre">(((^)))</span></code> und
+können dann eine neue machen: <code class="docutils literal notranslate"><span class="pre">((((^))))</span></code></p>
+<p>Ebenso konstruieren wir eine neue Umgebung indem wir eine bereits vorhandene nehmen
+und noch eine Bindung hinzufügen. Also wenn wir die Umgebung <code class="docutils literal notranslate"><span class="pre">G</span></code> haben, können wir
+eine neue machen, indem wir die Bindung von <code class="docutils literal notranslate"><span class="pre">x</span></code> zum Typen <code class="docutils literal notranslate"><span class="pre">t</span></code> hinzufügen: <code class="docutils literal notranslate"><span class="pre">(x</span> <span class="pre">:</span>
+<span class="pre">t),</span> <span class="pre">G</span></code>.</p>
+<p><strong>Alfrothul:</strong> Ok…</p>
+<p><strong>Brynja:</strong> Jetzt stell dir vor, dass auf jede Schicht der Zwiebel ein Name gedruckt
+ist.</p>
+<p><strong>Alfrothul:</strong> Ok?</p>
+<p><strong>Brynja:</strong> Jetzt gebe ich dir eine Zwiebel und frage dich, ob dein name auf eine der
+Schichten gedruckt ist. Was musst du tun um diese Frage zu beantworten?</p>
+<p><strong>Alfrothul:</strong> Ich schätze, ich muss die Schichten von der Zwiebel eine nach der
+anderen abpulen und drauf gucken.</p>
+<p><strong>Brynja:</strong> Genau. Und was, wenn du keine Schichten mehr hast, sondern nur den Keim?</p>
+<p><strong>Alfrothul:</strong> Dann weiß ich, dass mein Name auf keiner der Schichten gestanden hat.</p>
+<p><strong>Brynja:</strong> Eben. Wie in der leeren Umgebung.</p>
+<p><strong>Sigrid (von der Seite):</strong> Und was, wenn die Zwiebel unendlich ist?</p>
+<p><strong>Alfrothul:</strong> Unendlich? Das wüsste ich aber, wenn es so eine Zwiebel gibt.</p>
+<p><strong>Brynja:</strong> Das kann sie auch gar nicht sein, sie ist schließlich konstruiert
+worden. Beziehungsweise, wenn wir von der Metapher absehen, dann ist sie
+gewachsen. Von innen nach außen. Das heißt, irgendwann müssen wir zum Keim kommen.</p>
+<p><strong>Sigrid:</strong> Hm… und das gilt auch für Umgebungen, nehme ich an?</p>
+<p><strong>Brynja:</strong> Ja, genau. Jedes mal wenn wir einen neuen Namen binden, erweitern wir die
+Umgebung um eine Schicht. Und weil wir wissen, dass wir kein unendliches Programm
+geschrieben haben, wissen wir auch, dass die Umgebung nicht unendlich sein kann.</p>
+<p><strong>Alfrothul:</strong> Ich glaube, jetzt habe ich es kapiert. Aber wie machen wir das denn
+überhaupt mit dem binden? Wir haben doch bisher nur gesehen, dass wir Namen schreiben
+können, aber nicht wie wir Namen in OCaml binden können.</p>
+<p><strong>Brynja:</strong> Vielleicht können wir das ja gar nicht…? Vielleicht haben wir nur die
+schon definierten Namen?</p>
+<p><strong>Sigrid:</strong> Schon definierte Namen?</p>
+<p><strong>Brynja:</strong> Ja. Erinnert ihr euch noch an Woche-01 wo wir über <code class="docutils literal notranslate"><span class="pre">min_int</span></code> und
+<code class="docutils literal notranslate"><span class="pre">max_int</span></code> gelernt haben?</p>
+<p><strong>Sigrid und Alfrothul:</strong> Ja…?</p>
+<p><strong>Brynja:</strong> Das müssen doch Namen sein. Die passen jedenfalls zu keinem anderen
+Ausdruck, den wir bisher gelernt haben.</p>
+<p><strong>Mimer:</strong> Stimmt genau. Und diese vordefinierten Namen können uns noch etwas anderes
+zeigen. Ihr habt ja schon Typenumgebungen gesehen, aber zu jedem Namen gehört ja auch
+ein Wert. Es gibt also auch Wertumgebungen. Die funktionieren genau so wie die
+Typenumgebungen, nur dass sie für jeden Namen einen Wert speichern statt eines
+Typen.</p>
+<p><strong>Brynja:</strong> Das heißt irgendwo in OCaml ist eine Wertumgebung schon definiert, und
+auf einer der Schichten steht:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(min_int : -4611686018427387904), (max_int : 4611686018427387903), G
+</pre></div>
+</div>
+<p>wenn wir die restliche Werteumgebung <code class="docutils literal notranslate"><span class="pre">G</span></code> nennen.</p>
+<p><strong>Mimer:</strong> Gut erkannt. Wir würden in diesem Fall wohl eher ein <code class="docutils literal notranslate"><span class="pre">=</span></code> benutzen statt
+eines <code class="docutils literal notranslate"><span class="pre">:</span></code>, aber das Prinzip ist das gleiche.</p>
+<p><strong>Alfrothul:</strong> Also <code class="docutils literal notranslate"><span class="pre">=</span></code> für Werte und <code class="docutils literal notranslate"><span class="pre">:</span></code> für Typen?</p>
+<p><strong>Mimer:</strong> Genau.</p>
+<p><strong>Sigrid:</strong> Aber was ist denn jetzt mit der Frage von vorhin? Können wir neue Namen
+definieren? Und wenn ja, wie?</p>
+<p><strong>Mimer:</strong> Einfach weiterlesen. Das kommt im nächsten Abschnitt.</p>
+<blockquote class="epigraph">
+<div><div class="line-block">
+<div class="line">Pile on many more layers</div>
+<div class="line">and I’ll be joining you there.</div>
+</div>
+<p class="attribution">&mdash;<a class="reference external" href="https://en.wikipedia.org/wiki/Shine_On_You_Crazy_Diamond">Pink Floyd</a></p>
+</div></blockquote>
+</div>
+<div class="section" id="globale-variablen-deklarieren">
+<h2>Globale Variablen deklarieren<a class="headerlink" href="#globale-variablen-deklarieren" title="Link zu dieser Überschrift">¶</a></h2>
+</div>
+<div class="section" id="version-of-variablen-und-funktionen">
+<h2>Version of „variablen-und-funktionen“<a class="headerlink" href="#version-of-variablen-und-funktionen" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Erstellt [2023-01-29]</p>
 </div>
 </div>
 
@@ -140,6 +346,11 @@ LOOKUP_NOT_FOUND_YET ----------------------- where x and x&#39; differ
   <ul>
 <li><a class="reference internal" href="#">Variablen und Funktionen (der Rest der OCaml-Grammatik)</a><ul>
 <li><a class="reference internal" href="#namen-und-typenumgebungen">Namen und Typenumgebungen</a></li>
+<li><a class="reference internal" href="#ubung-25">Übung 25</a></li>
+<li><a class="reference internal" href="#teilweise-losung-fur-ubung-25">Teilweise Lösung für Übung 25</a></li>
+<li><a class="reference internal" href="#zwischenspiel-uber-umgebungen-und-zwiebeln">Zwischenspiel über Umgebungen und Zwiebeln</a></li>
+<li><a class="reference internal" href="#globale-variablen-deklarieren">Globale Variablen deklarieren</a></li>
+<li><a class="reference internal" href="#version-of-variablen-und-funktionen">Version of „variablen-und-funktionen“</a></li>
 </ul>
 </li>
 </ul>

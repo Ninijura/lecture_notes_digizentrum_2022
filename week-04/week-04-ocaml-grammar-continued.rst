@@ -257,7 +257,7 @@ phonetische?
 
 
 Übung 21, fortgesetzt mit mehr Satzzeichen
-==============================
+===========================================
 
 a. Was ist der Typ von Paaren aus Integern und Booleans? Schreibe einen OCaml
    Ausdruck mit diesem Typen. 
