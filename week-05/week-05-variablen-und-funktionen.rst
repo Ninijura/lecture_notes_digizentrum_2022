@@ -1,6 +1,6 @@
-=======================================================
-Variablen und Funktionen (der Rest der OCaml-Grammatik)
-=======================================================
+===================================================
+Namen und Funktionen (der Rest der OCaml-Grammatik)
+===================================================
 
 In diesem Teil des Lehrmaterials lernen wir endlich das, was unsere Programme
 interessant macht.
@@ -18,7 +18,7 @@ Typenumgebung gespeichert:
 
    <type_environment> ::= . | ( <name> : <type>), <type_environment>
 
-   <type>             ::= int | bool | char | string | <type> * ... * <type>
+   <type>             ::= int | bool | char | string | <type> * ... * <type> | unit 
 
    <expression>       ::= <integer>
                         | <boolean>
@@ -355,10 +355,158 @@ definieren? Und wenn ja, wie?
 Globale Variablen deklarieren
 =============================
 
+Natürlich sind Namen nicht sehr hilfreich, wenn man keine neuen definieren kann. In
+OCaml haben wir die Möglichkeit, namen im Toplevel zu deklarieren und das Ergebnis
+des Evaluierens eines Ausdruckes sowie den dazugehörigen Typen zu diesem Namen zu
+binden:
+
+::
+
+   <toplevel-expression> ::= <expression>
+                           | let <formal> = <definiens>
+
+   <formal>              ::= <name>
+   
+   <definiens>           ::= <expression>
+
+
+Das Binden einer Variablen erweitert OCamls Typenumgebung und Werteumgebung; nach dem
+Binden können wir in folgenden Interaktionen mit der Toplevel-Loop auf die Variable
+zugreifen. Wenn wir das tun, schlägt OCaml in seinen Umgebungen nach um den Typen und
+den Wert zu finden. 
+
+Nehmen wir einen frisch gestarteten OCaml-Prozess.
+
+* zuerst bedeutet ``x`` gar nichts:
+
+  ::
+
+     # x;;
+     Error: Unbound value x
+     #
+
+  daher findet OCaml auch nichts, wenn es in seiner ursprünglichen Typenumgebung
+  (nennen wir sie ``Gt``) und Werteumgebung (``Gw``) nachschaut und druckt einen
+  Fehler;
+
+* also binden wir ``x``:
+
+  ::
+
+     # let x = 42;;
+     val x : int = 42
+     #
+
+  Wer aufgepasst hat, kann sich die neuen Umgebungen herleiten. Die Typenumgebung ist
+  nun ``(x : int), Gt`` und die Werteumgebung ist ``(x : 42), Gw``.
+
+  
+* Jetzt können wir ``x`` benutzen um den unter diesem Namen gespeicherten Wert zurück
+  zu bekommen:
+
+  ::
+
+     # x;;
+     - : int = 42
+     #
+
+  
+Übung 26
+========
+
+Führe die obige Interaktion in OCaml durch.
+
+Danach gib die folgenden Schritte in OCaml ein:
+
+* ``let x = 100;;``
+
+* ``let x = "abracadabra";;``
+
+* ``let say = if 1 then "what" else "?"``
+
+Schriebe für jeden Schritt auf, wie sich die Typenumgebung und die Werteumgebung
+danach verändern.
+
+Der letzte Schritt ruft einen Fehler hervor; finde heraus, ob die Variable ``say``
+trotzdem definiert wurde. Warum glaubst du, ist das der Fall?
+
+
+Mehrere globale Variablen auf einmal deklarieren
+================================================
+
+Wir haben in OCaml auch die Möglichkeit mehrere (verschiedene) Variablen in einer
+einzigen Eingabe zu binden. Die Grammatik dafür ist folgende:
+
+::
+
+   <toplevel-expression> ::= <expression>
+                        | let <formal> = <definiens> {and <formal> = <definiens>}*
+
+wo ``{}*`` bedeutet: wiederhole das in den Klammern gedruckte eine beliebige Anzahl
+Male (null Mal ist auch zulässig).
+
+Zum Beispiel:
+
+::
+
+   # let x = 10 and y = 100;;
+   val x : int = 10
+   val y : int = 100
+   #
+
+Das macht es uns leicht, die Werte von ``x`` und ``y`` zu tauschen:
+
+::
+
+   # let x = y and y = x;;
+   val x : int = 100
+   val y : int = 10
+   #
+
+(Gedankenfutter: Wie würden wir die Werte umtauschen, wenn wir nicht mehrere
+Variablen zugleich binden könnten? Probiere deine Theorie gerne in OCaml aus.)
+
+Wenn wir aber versuchen in einer Interaktion die gleiche Variable zweimal zu
+deklarieren, wirft uns OCaml einen Fehler an den Kopf:
+
+::
+
+   # let same = true and same = false;;
+   Error: Variable same is bound several times in this matching
+   #
+
+Das ergibt auch Sinn. Die eine Bindung würde die andere schließlich überschatten und
+da wir nicht auf halber Strecke durch diesen Befehl den ersten Wert benutzen können,
+zwingt uns OCaml uns für einen Wert zu entscheiden.
+
+(Gedankenfutter: Mit dieser Einschränkung, dass eine Variable nicht im selben Befehl
+mehrmals gebunden werden kann, ist es wichtig in welcher Reihenfolge die Umgebungen
+erweitert werden?)
+
+Zwischenspiel über die Wichtigkeit der Reihenfolge (Lösung zum Gedankenfutter)
+==============================================================================
+
+**Sigrid:** Klar ist die Reihenfolge wichtig, sonst werden mit Pech irgendwelche
+Variablen überschattet.
+
+**Brynja:** Aber wir wissen ja, dass alle Variablen, die wir in einer solchen
+Interaktion binden unterschiedlich sind, sie können sich also gar nicht gegenseitig
+überschatten.
+
+**Alfrothul:** Das heißt wir könnten mehrere verschiedene Umgebungen haben, die
+trotzdem immer die gleichen Resultate haben?
+
+**Brynja:** Ja, genau. Das heißt in diesem Fall ist die Reihenfolge egal.
+
+**Sigrid:** Klingt ganz so wie die Äquivalenz von Funktionen, über die wir neulich
+gesprochen haben. Da ist auch die Reihenfolge egal, solange das Ergebnis das gleiche
+ist.
+
+**Mimer:** Gut bemerkt!
 
 
 
-
+  
 
 
    

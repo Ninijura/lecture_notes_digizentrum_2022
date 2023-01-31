@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Variablen und Funktionen (der Rest der OCaml-Grammatik) &#8212; Einführung ins Programmieren 2022</title>
+    <title>Namen und Funktionen (der Rest der OCaml-Grammatik) &#8212; Einführung ins Programmieren 2022</title>
     <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/extra-styles.css" />
@@ -46,8 +46,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="variablen-und-funktionen-der-rest-der-ocaml-grammatik">
-<h1>Variablen und Funktionen (der Rest der OCaml-Grammatik)<a class="headerlink" href="#variablen-und-funktionen-der-rest-der-ocaml-grammatik" title="Link zu dieser Überschrift">¶</a></h1>
+  <div class="section" id="namen-und-funktionen-der-rest-der-ocaml-grammatik">
+<h1>Namen und Funktionen (der Rest der OCaml-Grammatik)<a class="headerlink" href="#namen-und-funktionen-der-rest-der-ocaml-grammatik" title="Link zu dieser Überschrift">¶</a></h1>
 <p>In diesem Teil des Lehrmaterials lernen wir endlich das, was unsere Programme
 interessant macht.</p>
 <div class="section" id="namen-und-typenumgebungen">
@@ -57,7 +57,7 @@ als „Identifikatoren“ oder „Variablen“ bezeichnet und ihre Typen werden 
 Typenumgebung gespeichert:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;type_environment&gt; ::= . | ( &lt;name&gt; : &lt;type&gt;), &lt;type_environment&gt;
 
-&lt;type&gt;             ::= int | bool | char | string | &lt;type&gt; * ... * &lt;type&gt;
+&lt;type&gt;             ::= int | bool | char | string | &lt;type&gt; * ... * &lt;type&gt; | unit
 
 &lt;expression&gt;       ::= &lt;integer&gt;
                      | &lt;boolean&gt;
@@ -329,6 +329,121 @@ definieren? Und wenn ja, wie?</p>
 </div>
 <div class="section" id="globale-variablen-deklarieren">
 <h2>Globale Variablen deklarieren<a class="headerlink" href="#globale-variablen-deklarieren" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Natürlich sind Namen nicht sehr hilfreich, wenn man keine neuen definieren kann. In
+OCaml haben wir die Möglichkeit, namen im Toplevel zu deklarieren und das Ergebnis
+des Evaluierens eines Ausdruckes sowie den dazugehörigen Typen zu diesem Namen zu
+binden:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;toplevel-expression&gt; ::= &lt;expression&gt;
+                        | let &lt;formal&gt; = &lt;definiens&gt;
+
+&lt;formal&gt;              ::= &lt;name&gt;
+
+&lt;definiens&gt;           ::= &lt;expression&gt;
+</pre></div>
+</div>
+<p>Das Binden einer Variablen erweitert OCamls Typenumgebung und Werteumgebung; nach dem
+Binden können wir in folgenden Interaktionen mit der Toplevel-Loop auf die Variable
+zugreifen. Wenn wir das tun, schlägt OCaml in seinen Umgebungen nach um den Typen und
+den Wert zu finden.</p>
+<p>Nehmen wir einen frisch gestarteten OCaml-Prozess.</p>
+<ul>
+<li><p class="first">zuerst bedeutet <code class="docutils literal notranslate"><span class="pre">x</span></code> gar nichts:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># x;;
+Error: Unbound value x
+#
+</pre></div>
+</div>
+<p>daher findet OCaml auch nichts, wenn es in seiner ursprünglichen Typenumgebung
+(nennen wir sie <code class="docutils literal notranslate"><span class="pre">Gt</span></code>) und Werteumgebung (<code class="docutils literal notranslate"><span class="pre">Gw</span></code>) nachschaut und druckt einen
+Fehler;</p>
+</li>
+<li><p class="first">also binden wir <code class="docutils literal notranslate"><span class="pre">x</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># let x = 42;;
+val x : int = 42
+#
+</pre></div>
+</div>
+<p>Wer aufgepasst hat, kann sich die neuen Umgebungen herleiten. Die Typenumgebung ist
+nun <code class="docutils literal notranslate"><span class="pre">(x</span> <span class="pre">:</span> <span class="pre">int),</span> <span class="pre">Gt</span></code> und die Werteumgebung ist <code class="docutils literal notranslate"><span class="pre">(x</span> <span class="pre">:</span> <span class="pre">42),</span> <span class="pre">Gw</span></code>.</p>
+</li>
+<li><p class="first">Jetzt können wir <code class="docutils literal notranslate"><span class="pre">x</span></code> benutzen um den unter diesem Namen gespeicherten Wert zurück
+zu bekommen:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># x;;
+- : int = 42
+#
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="ubung-26">
+<h2>Übung 26<a class="headerlink" href="#ubung-26" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Führe die obige Interaktion in OCaml durch.</p>
+<p>Danach gib die folgenden Schritte in OCaml ein:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">x</span> <span class="pre">=</span> <span class="pre">100;;</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">x</span> <span class="pre">=</span> <span class="pre">&quot;abracadabra&quot;;;</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">say</span> <span class="pre">=</span> <span class="pre">if</span> <span class="pre">1</span> <span class="pre">then</span> <span class="pre">&quot;what&quot;</span> <span class="pre">else</span> <span class="pre">&quot;?&quot;</span></code></li>
+</ul>
+<p>Schriebe für jeden Schritt auf, wie sich die Typenumgebung und die Werteumgebung
+danach verändern.</p>
+<p>Der letzte Schritt ruft einen Fehler hervor; finde heraus, ob die Variable <code class="docutils literal notranslate"><span class="pre">say</span></code>
+trotzdem definiert wurde. Warum glaubst du, ist das der Fall?</p>
+</div>
+<div class="section" id="mehrere-globale-variablen-auf-einmal-deklarieren">
+<h2>Mehrere globale Variablen auf einmal deklarieren<a class="headerlink" href="#mehrere-globale-variablen-auf-einmal-deklarieren" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Wir haben in OCaml auch die Möglichkeit mehrere (verschiedene) Variablen in einer
+einzigen Eingabe zu binden. Die Grammatik dafür ist folgende:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;toplevel-expression&gt; ::= &lt;expression&gt;
+                     | let &lt;formal&gt; = &lt;definiens&gt; {and &lt;formal&gt; = &lt;definiens&gt;}*
+</pre></div>
+</div>
+<p>wo <code class="docutils literal notranslate"><span class="pre">{}*</span></code> bedeutet: wiederhole das in den Klammern gedruckte eine beliebige Anzahl
+Male (null Mal ist auch zulässig).</p>
+<p>Zum Beispiel:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># let x = 10 and y = 100;;
+val x : int = 10
+val y : int = 100
+#
+</pre></div>
+</div>
+<p>Das macht es uns leicht, die Werte von <code class="docutils literal notranslate"><span class="pre">x</span></code> und <code class="docutils literal notranslate"><span class="pre">y</span></code> zu tauschen:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># let x = y and y = x;;
+val x : int = 100
+val y : int = 10
+#
+</pre></div>
+</div>
+<p>(Gedankenfutter: Wie würden wir die Werte umtauschen, wenn wir nicht mehrere
+Variablen zugleich binden könnten? Probiere deine Theorie gerne in OCaml aus.)</p>
+<p>Wenn wir aber versuchen in einer Interaktion die gleiche Variable zweimal zu
+deklarieren, wirft uns OCaml einen Fehler an den Kopf:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># let same = true and same = false;;
+Error: Variable same is bound several times in this matching
+#
+</pre></div>
+</div>
+<p>Das ergibt auch Sinn. Die eine Bindung würde die andere schließlich überschatten und
+da wir nicht auf halber Strecke durch diesen Befehl den ersten Wert benutzen können,
+zwingt uns OCaml uns für einen Wert zu entscheiden.</p>
+<p>(Gedankenfutter: Mit dieser Einschränkung, dass eine Variable nicht im selben Befehl
+mehrmals gebunden werden kann, ist es wichtig in welcher Reihenfolge die Umgebungen
+erweitert werden?)</p>
+</div>
+<div class="section" id="zwischenspiel-uber-die-wichtigkeit-der-reihenfolge-losung-zum-gedankenfutter">
+<h2>Zwischenspiel über die Wichtigkeit der Reihenfolge (Lösung zum Gedankenfutter)<a class="headerlink" href="#zwischenspiel-uber-die-wichtigkeit-der-reihenfolge-losung-zum-gedankenfutter" title="Link zu dieser Überschrift">¶</a></h2>
+<p><strong>Sigrid:</strong> Klar ist die Reihenfolge wichtig, sonst werden mit Pech irgendwelche
+Variablen überschattet.</p>
+<p><strong>Brynja:</strong> Aber wir wissen ja, dass alle Variablen, die wir in einer solchen
+Interaktion binden unterschiedlich sind, sie können sich also gar nicht gegenseitig
+überschatten.</p>
+<p><strong>Alfrothul:</strong> Das heißt wir könnten mehrere verschiedene Umgebungen haben, die
+trotzdem immer die gleichen Resultate haben?</p>
+<p><strong>Brynja:</strong> Ja, genau. Das heißt in diesem Fall ist die Reihenfolge egal.</p>
+<p><strong>Sigrid:</strong> Klingt ganz so wie die Äquivalenz von Funktionen, über die wir neulich
+gesprochen haben. Da ist auch die Reihenfolge egal, solange das Ergebnis das gleiche
+ist.</p>
+<p><strong>Mimer:</strong> Gut bemerkt!</p>
 </div>
 <div class="section" id="version-of-variablen-und-funktionen">
 <h2>Version of „variablen-und-funktionen“<a class="headerlink" href="#version-of-variablen-und-funktionen" title="Link zu dieser Überschrift">¶</a></h2>
@@ -344,12 +459,15 @@ definieren? Und wenn ja, wie?</p>
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">Variablen und Funktionen (der Rest der OCaml-Grammatik)</a><ul>
+<li><a class="reference internal" href="#">Namen und Funktionen (der Rest der OCaml-Grammatik)</a><ul>
 <li><a class="reference internal" href="#namen-und-typenumgebungen">Namen und Typenumgebungen</a></li>
 <li><a class="reference internal" href="#ubung-25">Übung 25</a></li>
 <li><a class="reference internal" href="#teilweise-losung-fur-ubung-25">Teilweise Lösung für Übung 25</a></li>
 <li><a class="reference internal" href="#zwischenspiel-uber-umgebungen-und-zwiebeln">Zwischenspiel über Umgebungen und Zwiebeln</a></li>
 <li><a class="reference internal" href="#globale-variablen-deklarieren">Globale Variablen deklarieren</a></li>
+<li><a class="reference internal" href="#ubung-26">Übung 26</a></li>
+<li><a class="reference internal" href="#mehrere-globale-variablen-auf-einmal-deklarieren">Mehrere globale Variablen auf einmal deklarieren</a></li>
+<li><a class="reference internal" href="#zwischenspiel-uber-die-wichtigkeit-der-reihenfolge-losung-zum-gedankenfutter">Zwischenspiel über die Wichtigkeit der Reihenfolge (Lösung zum Gedankenfutter)</a></li>
 <li><a class="reference internal" href="#version-of-variablen-und-funktionen">Version of „variablen-und-funktionen“</a></li>
 </ul>
 </li>
