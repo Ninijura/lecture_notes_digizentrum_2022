@@ -505,8 +505,632 @@ ist.
 **Mimer:** Gut bemerkt!
 
 
+Funktionen
+==========
+
+Natürlich hat OCaml auch Funktionen. Ohne funktionen könnten wir nicht viel programmieren:
+
+::
+
+   <type_environment> ::= . | ( <name> : <type>), <type_environment>
+
+   <type>             ::= int | bool | char | string | <type> * ... * <type> | unit | <type> -> <type>
+
+   <expression>       ::= <integer>
+                        | <boolean>
+                        | <character>
+                        | <string>
+                        | if <expression> then <expression> else <expression>
+                        | (<expression>, ..., <expression>)
+                        | <name>
+                        | fun <name> -> <expression>
+                        | <expression> <expression>
+
+   <integer>          ::= 0 | -1 | 1 | -2 | 2 | -3 | 3 | ...
+
+   <boolean>          ::= true | false
+
+   <character>        ::= 'a' | 'b' | 'c'| ...
+
+   <string>           ::= "" | "A" | "hello world" | "42" | ...
+
+   <name>             ::= eine Folge von Zeichen, angefangen mit einem Kleinbuchstaben
 
   
+Die entsprechenden Typenregeln sind die folgenden, wo ``G`` für
+``<type-environment>`` steht, ``x1`` für ``<name>``, ``e0``, ``e1`` und ``e2`` für
+``<expression>``, und ``t1`` und ``t2`` für ``<type>``:
+
+::
+
+       (x1 : t1), G |- e2 : t2
+   FUN ----------------------------
+       G |- fun x1 -> e2 : t1 -> t2
+       
+	   G |- e0 : t1 -> t2	G |- e1 : t1
+   APP ---------------------------------
+       G |- e0 e1 : t2
+
+In Worten:
+
+* in einer beliebigen Typenumgebung ``G`` hat der Ausdruck ``fun x1 -> e2`` den Typen
+  ``t1 -> t2`` unter der Voraussetzung, dass ``e2`` den Typen ``t2`` hat in einer
+  Umgebung wo ``x1`` den Tyepn ``t1`` hat; und
+
+* in einer beliebigen Typenumgebung ``G`` in welcher der Ausdruck ``e0`` den Typen
+  ``t1 -> t2`` und der Ausdruck ``e1`` den Typen ``t1`` hat, hat der Ausdruck ``e0
+  e1`` den Typen ``t2``.
+
+
+Außerdem:
+
+* wenn wir ``fun x1 -> e2`` evaluieren ist das Ergebnis eine Funktion; und
+
+* wenn wir ``e0 e1`` evaluieren, dann evaluieren wir zuerst ``e0`` und ``e1``:
+
+  * wenn das Evaluieren eines der beiden Ausdrücke divergiert (unendlich läuft), dann
+    divergiert auch das Evaluieren von ``e0 e1``;
+
+  * wenn das Evaluieren eines der beiden Ausdrücke einen Fehler hervorruft, ruft das
+    Evaluieren von ``e0 e1`` denselben Fehler hervor; und
+
+  * wenn das Evaluieren von ``e0`` und ``e1`` die Werte w0 und w1 ergibt, dann wissen
+    wir dank OCamls Typensystem, dass w0 eine Funktion ist; ``e0 e1`` zu evaluieren
+    bedeutet dann die Funktion w0 auf den Wert w1 anzuwenden.
+
+Genau wie bedingte Ausdrücke und Tupel sind Funktionen und Funktionsanwendung
+polymorph (können also unterschiedliche Typen als Resultat haben).
+
+
+Vokabular zu Funktionen
+=======================
+
+* Der Ausdruck ``fun x -> e`` wir oftmals als *Lambda-Abstraktion* bezeichnet, und
+  demnach lesen wir das Keyword ``fun`` oftmals einfach als "Lambda".
+
+  * ``e`` bezeichnen wir als den *Funktionskörper* und beschreibt was die Funktion
+    macht, wenn sie auf ein Input angewandt wird.
+
+  * ``x`` nennen wir den *Formalparameter* für die Funktion und ist der Name unter dem das
+    Input der Funktion dem Funktionskörper zugänglich ist.
+
+* Den Ausdruck ``e0 e1`` nennen wir *Funktionsanwendung*.
+
+  * ``e0`` ist die Funktion, die wir anwenden.
+
+  * ``e1`` nennen wir den *tatsächlichen Parameter* oder das *Input* für die
+    Funktion.
+
+
+Wie Funktionen funktionieren
+============================
+
+Wenn eine Lambdaabstraktion wie zum Beispiel die Identitätsfunktion ``fun x -> x``
+auf einen tatsächlichen Parameter angewandt wird, zum Beispiel ``42``, dann
+evaluieren wir den Funktionskörper, also ``x``, in einer Werteumgebung, in der ``x``
+für ``42`` steht:
+
+::
+
+   # (fun x -> x) 42;;
+   - : int = 42
+
+Dass der Ausdruck ``(fun x -> x) 42`` den Typen ``int`` hat zeigt der folgende
+Beweisbaum, wo ``Gv`` für eine Werteumgebung steht:
+
+::
+
+   LOOKUP_FOUND ------------------------
+             (x : int), Gv |- x : int
+         FUN -----------------------------    INT --------------
+             Gv |- fun x -> x : int -> int        Gv |- 42 : int
+         APP ---------------------------------------------------
+             Gv |- (fun x -> x) 42 : int
+
+(Hinweis: Die Klammern hier sind wichtig um OCaml zu zeigen, dass der Funktionskörper
+nur ``x`` ist und nicht ``x 42``. Probiere aus, was passiert wenn du den Ausdruck
+ohne Klammern eingibst. Die Erklärung dazu ist, dass OCaml nun erwartet, dass das
+Input ``x`` einen Funktionstypen hat und der Funktionskörper dieser Lambdaabstraktion
+das Input auf ``42`` anwendet.)
+
+Ein anderes Beispiel ist die Lambdaabstraktion ``fun b -> if b then "joa" else
+"nö"``. Diese Lambdaabstraktion hat den Typen ``bool -> string``, denn ihr Input wird
+als Test in einem bedingten Ausdruck verwendet, dessen Resultat ein String ist. Wenn
+wir die Abstraktion auf ``true`` anwenden, dann evaluieren wir den Funktionskörper
+(also ``if b then "joa" else "nö") in einer Umgebung wo ``b`` für ``true`` steht; wenn
+wir die Abstraktion auf ``false`` anwenden, dann evaluieren wir den Funktionskörper
+(also ``if b then "joa" else "nö") in einer Umgebung wo ``b`` für ``false`` steht:
+
+::
+
+   # fun b -> if b then "joa" else "nö";;
+   - : bool -> string = <fun>
+   # (fun b -> if b then "joa" else "nö") true;;
+   - : string = "joa"
+   # (fun b -> if b then "joa" else "nö") false;;
+   - : string = "nö"
+   #
+
+Im Folgenden ein paar Beweisbäume darüber, wie diese Werte zustande kommen:
+
+* Dass ``fun b -> if b then "joa" else "nö"`` den Typen ``bool -> string`` hat
+  beweisen wir so:
+
+  ::
+
+     LOOKUP_FOUND --------------------------    STRING ----------------------------------    STRING ----------------------------------
+                   (b : bool), Gv |- b : bool           (b : bool), Gv |- "joa" : string           (b : bool), Gv |- "nö" : string
+          IF ---------------------------------------------------------------------------------------------------------------------
+             (b : bool), Gv |- if b then "joa" else "nö" : string
+         FUN --------------------------------------------------------------
+             Gv |- fun b -> if b then "joa" else "nö" : bool -> string
+
+* Dass ``(fun b -> if b then "joa" else "nö") true`` den Typen ``string`` hat
+  beweisen wir so:
+
+  ::
+
+          ...siehe oben...
+     FUN --------------------------------------------------------------    BOOL_TRUE -----------------
+         Gv |- fun b -> if b then "joa" else "nö" : bool -> string              Gv |- true : bool
+     APP ---------------------------------------------------------------------------------------------
+         Gv |- (fun b -> if b then "joa" else "nö") true : string
+
+* Dass ``(fun b -> if b then "joa" else "nö") false`` den Tyepn ``string`` hat
+  beweisen wir so:
+
+  ::
+
+          ...siehe oben...
+     FUN --------------------------------------------------------------    BOOL_FALSE -----------------
+         Gv |- fun b -> if b then "joa" else "nö" : bool -> string              Gv |- false : bool
+     APP ---------------------------------------------------------------------------------------------
+         Gv |- (fun b -> if b then "joa" else "nö") false : string
+
+
+Vordefinierte Funktionen
+========================
+
+Genauso wie OCaml vordefinierte Werte von anderen Typen hat (z.B. ``max_int``), gibt
+es auch vordefinierte Werte mit Funktionstypen. Hier sind ein paar Beispiele.
+
+* ``not`` hat den Typen ``bool -> bool`` und gibt das Gegenteil seines Inputs als
+  Output:
+
+  ::
+
+     # not;;
+     - : bool -> bool = <fun>
+     # not true;;
+     - : bool = false
+     # not false;;
+     - : bool = true
+     # not (not true);;
+     - : bool = true
+     # not (not false);;
+     - : bool = false
+     #
+
+Viele vordefinierte Funktionen in OCaml sind in sogenannten Bibliotheken (libraries)
+definiert. Wenn wir zum Beispiel eine Funktion aus der Bibliothek für Strings
+benutzen möchten, erzählen wir OCaml erst, dass wir diese Bibliothek benutzen wollen
+indem wir ``String`` schreiben, dann dass wir aus dieser Bibliothek zum Beispiel die
+Funktion ``length`` bentuzen wollen indem wir es mit einem ``.`` dazwischen anhängen:
+
+* ``String.length`` hat den Typen ``string -> int`` ist in der Bibliothek für
+  Strings deklariert. Wenn wir ``String.length`` einen String als Input geben, ist
+  das Ergebnis der Funktionsanwendung ein Integer, der angibt wie viele Zeichen
+  dieser String hat:
+
+  ::
+
+     # String.length;;
+     - : string -> int = <fun>
+     # String.length "";;
+     - : int = 0
+     # String.length "a";;
+     - : int = 1
+     # String.length "ab";;
+     - : int = 2
+     # String.length "abc";;
+     - : int = 3
+     #
+
+
+Kurzes Zwischenspiel über die Länge eines Backslash
+===================================================
+
+**Alfrothul:** Ich muss mal was überprüfen:
+
+::
+
+   # String.length "\"";;
+   - : int = 1
+   #
+
+**Alfrothul:** Yup! Ein Zeichen, genau wie es sein soll. Der Backslash ist nur eine
+Notation.
+
+**Brynja:** Ich muss auch was ausprobieren:
+
+::
+
+   # String.length "\\\\\\";;
+   - : int = 3
+   #
+
+**Brynja:** Stimmt. Drei Zeichen. Prima!
+
+
+Funktionen, deren Resultate Funktionen sind
+===========================================
+
+Im Prinzip hält uns nichts davon ab, Funktionen zu schreiben, deren Resultate
+ebenfalls Funktionen sind. Wir können dann so einer Funktion ein erstes Argument
+geben und dem Resultat ein zweites:
+
+
+::
+
+   # fun x -> (fun y -> x);;
+   - : 'a -> 'b -> 'a = <fun>
+   # (fun x -> (fun y -> x)) 42;;
+   - : '_weak1 -> int = <fun>
+   # ((fun x -> (fun y -> x)) 42) "gib mir meine 42 zurück!";;
+   - : int = 42
+   #
+   
+(Kommentar: der Typ ``'_weak1`` ist einfach ein Platzhalter für einen beliebigen
+Typen, ebenso wie die Typen ``'a`` und ``'b`` Platzhalter für beliebige Typen
+sind. Warum OCaml im zweiten Ausdruck jedoch ``'weak_1`` schreibt geht über den
+Umfang dieses Kurses hinaus.)
+
+Einige von den Klammern sind unnötig. Funktionsanwendung ist links-assoziativ und
+Lambdaabstraktionen sind rechts-assoziativ. Daher können das ganze auch so schreiben:
+
+::
+
+   # fun x -> fun y -> x;;
+   - : 'a -> 'b -> 'a = <fun>
+   # (fun x -> fun y -> x) 42;;
+   - : '_weak2 -> int = <fun>
+   # (fun x -> fun y -> x) 42 "gib mir meine 42 zurück!";;
+   - : int = 42
+   #
+
+Wenn wir diese Lambdaabstraktion ``fun x -> fun y -> x`` beschreiben sollten, wäre
+das wie folgt:
+
+* das Ergebnis der Funktionsanwendung von ``fun x -> fun y -> x`` mit einem Wert
+  ``e`` als tatsächlichen Parameter ist eine Funktion, die für ein beliebiges Input
+  ``e2`` als Ergebnis ``e`` hat.
+
+Oder, wenn wir das Ergebnis als Lambdaabstraktion darstellen sollten:
+
+* Für einen beliebigen Ausdruck ``e`` ist das Ergebnis der Funktionsanwendung von
+  ``(fun x -> fun y -> x) e`` die Lambdaabstraktion ``fun y -> e``.
+
+Was bei der Funktionsanwendung also faktisch passiert ist, dass alle Stellen, an
+denen im Funktionskörper der formelle Parameter ``x`` verwendet wird nun der
+tatsächliche Parameter ``e`` eingesetzt wird.
+
+Ein anderes Beispiel wäre eine Funktion, die für ein beliebiges Input immer die
+Idenitätsfunktion (also eine Funktion, die immer ihr Input unverändert als Output
+gibt) zurück gibt:
+
+::
+
+   # fun x -> fun y -> y;;
+   - : 'a -> 'b -> 'b = <fun>
+   # (fun x -> fun y -> y) 1 2;;
+   - : int = 2
+   # (fun x -> fun y -> y) "druck mich!" "nö";;
+   - : string = "nö"
+   #
+
+
+Beweisbäume für Interessierte
+=============================
+
+Für wen das mit den Funktionen noch nicht einleuchtend ist, sind hier ein paar
+Beweisbäume:
+
+::
+
+           LOOKUP_FOUND ------------------------
+                        (x : int), Gv |- x : int
+   LOOKUP_NOT_FOUND_YET -----------------------------------
+                        (y : int), (x : int), Gv |- x : int
+                 FUN ----------------------------------------
+                     (x : int), Gv |- fun y -> x : int -> int
+                 FUN -----------------------------------------------    INT -------------
+                     Gv |- fun x -> fun y -> x : int -> (int -> int)        Gv |- 1 : int
+                 APP --------------------------------------------------------------------    INT -------------
+                     Gv |- (fun x -> fun y -> x) 1 : int -> int                                  Gv |- 2 : int
+                 APP -----------------------------------------------------------------------------------------
+                     Gv |- ((fun x -> fun y -> x) 1) 2 : int
+
+Und für die Funktion, die die Identitätsfunktion als Output gibt:
+
+::
+
+   LOOKUP_FOUND -----------------------------------
+               (y : int), (x : int), Gv |- y : int
+         FUN ----------------------------------------
+             (x : int), Gv |- fun y -> y : int -> int
+         FUN -----------------------------------------------    INT -------------
+             Gv |- fun x -> fun y -> y : int -> (int -> int)        Gv |- 1 : int
+         APP --------------------------------------------------------------------    INT -------------
+             Gv |- (fun x -> fun y -> y) 1 : int -> int                                  Gv |- 2 : int
+         APP -----------------------------------------------------------------------------------------
+             Gv |- ((fun x -> fun y -> y) 1) 2 : int
+
+   
+
+Syntaktischer Zucker für Funktionen, die Funktionen zurück geben
+================================================================
+
+Im Alltag wäre es echt nervig, wenn wir für solche Lambdaabstraktionen immer
+``fun -> fun y -> ...`` schreiben müssten. Daher gibt es eine Kurzform:
+
+::
+
+   # (fun x -> fun y -> x) 1 10;;
+   - : int = 1
+   # (fun x y -> x) 1 10;;
+   - : int = 1
+   # (fun x -> fun y -> y) 1 10;;
+   - : int = 10
+   # (fun x y -> y) 1 10;;
+   - : int = 10
+   #
+
+Solche Abkürzungen, die praktische Erweiterungen zur Syntax sind, nennen wir syntaktischen
+Zucker; danke für diesen Ausdruck, `Peter Landin <https://de.wikipedia.org/wiki/Peter_J._Landin>`_.
+
+
+Vordefinierte Funktionen, deren Outputs Funktionen sind: Integer Addition
+=========================================================================
+
+In OCaml ist die normale Art Addition zu schreiben der Infix-Operator ``+``:
+
+::
+
+   # 2 + 40;;
+   - : int = 42
+   #
+
+Dieses ``+`` ist aber in wirklichkeit nichts anderes als Syntaktischer Zucker für die
+Funktion ``add`` in der Bibliothek ``Int``:
+
+::
+
+   # Int.add 2 40;;
+   - : int = 42
+   #
+
+Wenn wir ``Int.add`` auf diese Art schreiben wollen, wie die Funktionen die wir
+bisher gesehen haben, dann gibt es auch dafür syntaktischen Zucker:
+
+::
+
+   # (+) 1 10;;
+   - : int = 11
+   #
+
+Der Typ von ``Int.add`` ist ein Funktionstyp, der wiederup einen Funktionstypen auf
+der rechten Seite des Pfeils hat:
+
+::
+   
+  # (+);;
+  - : int -> int -> int = <fun>
+  #
+
+Wir können nun also auch damit herumspielen, dieser Funktion nur ein Input zu
+geben. Wenn wir zum Beispiel ``(+) 1`` nehmen, bekommen wir als Resultat eine neue
+Funktion, die einen Integer als Input nimmt (z.B. 10) und als Output diesen Integer
+plus 1 gibt (z.B. 11):
+
+::
+
+   # (+) 1;;
+   - : int -> int = <fun>
+   # ((+) 1) 10;;
+   - : int = 11
+   #
+
+
+Funktionen als Variablen
+========================
+
+Wir können nun auch die Konstrukte, die wir diese Woche gelernt haben zusammensetzen:
+Wir können Funktionen als globale Variablen speichern. Nehmen wir das Beispiel von
+der Funktion, die immer 1 zu ihrem Input hinzufügt:
+
+::
+
+   # let nachfolger = (+) 1;;
+   val nachfolger : int -> int = <fun>
+   # nachfolger;;
+   - : int -> int = <fun>
+   #
+
+Wenn wir also diese Funktion nun anwenden wollen, können wir sie über ihren neu
+definierten Namen aufrufen:
+
+::
+
+   # nachfolger 10;;
+   - : int = 11
+   # nachfolger 41;;
+   - : int = 42
+   #
+
+Übung 27
+========
+
+Die Funktion ``Int.sub``, oder ``(-)`` ist die Subtraktionsfunktion für Integer in
+OCaml.
+
+* Definiere eine Vorgänger-Funktion, die von ihrem Input immer 1 abzieht.
+
+* Definiere eine Funktion ``minus_10``, die von ihrem Input 10 abzieht.
+
+
+Noch mehr vordefinierte Funktionen, die Funktionen als Output geben
+===================================================================
+
+* Multiplikation (``Int.mul``):
+
+  ::
+
+     # 2 * 3;;
+     - : int = 6
+     #
+
+* Quotient (Division ohne Komma oder Rest):
+
+  ::
+
+     # (/);;
+     - : int -> int -> int = <fun>
+     # 16 / 2;;
+     - : int = 8
+     # 3 / 2;;
+     - : int = 1
+     # 1 / 0;;
+     Exception: Division_by_zero.
+     #
+
+* Modulo (der Rest bei einer Integer-Division): 
+
+  ::
+
+     # (mod);;
+     - : int -> int -> int = <fun>
+     # Int.rem 10 3;;
+     - : int = 1
+     # 12 mod 5;;
+     - : int = 2
+     #
+
+* Vergleich von zwei Werten: 
+
+  ::
+
+     # (<);;
+     - : 'a -> 'a -> bool = <fun>
+     # 'a'<'b';;
+     - : bool = true
+     # 1 < 0;;
+     - : bool = false
+     # (>);;
+     - : 'a -> 'a -> bool = <fun>
+     # 3 > 1;;
+     - : bool = true
+     # 4 > 29;;
+     - : bool = false
+     #
+
+
+* Boolsche Konjunktion (und):
+
+  ::
+     
+     # (&&);;
+     - : bool -> bool -> bool = <fun>
+     # false && true;;
+     - : bool = false
+     # true && true;;
+     - : bool = true
+     # true && false;;
+     - : bool = false
+     # false && false;;
+     - : bool = false
+     #
+
+* Boolsche Disjunktion (oder):
+
+  ::
+
+     # (||);;
+     - : bool -> bool -> bool = <fun>
+     # true || true;;
+     - : bool = true
+     # true || false;;
+     - : bool = true
+     #
+
+* String-Konkatenation (Zusammensetzung):
+
+  ::
+     
+     # (^);;
+     - : string -> string -> string = <fun>
+     # "hello" ^ " world";;
+     - : string = "hello world"
+     #
+
+* Minimum von zwei Werten:
+
+  ::
+
+     # min;;
+     - : 'a -> 'a -> 'a = <fun>
+     # min 2 4;;
+     - : int = 2
+     # min 9 230;;
+     - : int = 9
+     #
+
+* Maximum von zwei Werten:
+
+  ::
+
+     # max;;
+     - : 'a -> 'a -> 'a = <fun>
+     # max 3 5;;
+     - : int = 5
+     # max 42 11;;
+     - : int = 42
+     #
+
+* Eine Funktion, die ein bestimmtes Zeichen aus einem String isoliert:
+
+  ::
+
+     # String.get;;
+     - : string -> int -> char = <fun>
+     # String.get "hello world" 4;;
+     - : char = 'o'
+     # String.get "0123456" 6;;
+     - : char = '6'
+     # String.get "1234567" 5;;
+     - : char = '6'
+     #
+
+  Achtung bei dieser Funktion. Bei den meisten Programmiersprachen fangen wir das
+  Zählen bei Null an; so auch in OCaml. 
+     
+     
+
+
+Übung 28
+========
+
+Probiere die Funktionen aus dem vorigen Abschnitt an unterschiedlichen Inputs aus bis
+du sie verstanden hast.
+
+Definiere auch gerne neue Funktionen, indem du den Funktionen aus dem vorigen
+Abschnitt nur ein Input gibst. Mach dir vorher klar, was du von der neuen Funktion
+erwartest und probiere sie an unterschiedlichen Inputs aus um sicher zu gehen, dass
+du richtig gelegen hast. 
+
+
+   
+  
+   
 
 
    

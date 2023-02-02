@@ -445,6 +445,546 @@ gesprochen haben. Da ist auch die Reihenfolge egal, solange das Ergebnis das gle
 ist.</p>
 <p><strong>Mimer:</strong> Gut bemerkt!</p>
 </div>
+<div class="section" id="funktionen">
+<h2>Funktionen<a class="headerlink" href="#funktionen" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Natürlich hat OCaml auch Funktionen. Ohne funktionen könnten wir nicht viel programmieren:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;type_environment&gt; ::= . | ( &lt;name&gt; : &lt;type&gt;), &lt;type_environment&gt;
+
+&lt;type&gt;             ::= int | bool | char | string | &lt;type&gt; * ... * &lt;type&gt; | unit | &lt;type&gt; -&gt; &lt;type&gt;
+
+&lt;expression&gt;       ::= &lt;integer&gt;
+                     | &lt;boolean&gt;
+                     | &lt;character&gt;
+                     | &lt;string&gt;
+                     | if &lt;expression&gt; then &lt;expression&gt; else &lt;expression&gt;
+                     | (&lt;expression&gt;, ..., &lt;expression&gt;)
+                     | &lt;name&gt;
+                     | fun &lt;name&gt; -&gt; &lt;expression&gt;
+                     | &lt;expression&gt; &lt;expression&gt;
+
+&lt;integer&gt;          ::= 0 | -1 | 1 | -2 | 2 | -3 | 3 | ...
+
+&lt;boolean&gt;          ::= true | false
+
+&lt;character&gt;        ::= &#39;a&#39; | &#39;b&#39; | &#39;c&#39;| ...
+
+&lt;string&gt;           ::= &quot;&quot; | &quot;A&quot; | &quot;hello world&quot; | &quot;42&quot; | ...
+
+&lt;name&gt;             ::= eine Folge von Zeichen, angefangen mit einem Kleinbuchstaben
+</pre></div>
+</div>
+<p>Die entsprechenden Typenregeln sind die folgenden, wo <code class="docutils literal notranslate"><span class="pre">G</span></code> für
+<code class="docutils literal notranslate"><span class="pre">&lt;type-environment&gt;</span></code> steht, <code class="docutils literal notranslate"><span class="pre">x1</span></code> für <code class="docutils literal notranslate"><span class="pre">&lt;name&gt;</span></code>, <code class="docutils literal notranslate"><span class="pre">e0</span></code>, <code class="docutils literal notranslate"><span class="pre">e1</span></code> und <code class="docutils literal notranslate"><span class="pre">e2</span></code> für
+<code class="docutils literal notranslate"><span class="pre">&lt;expression&gt;</span></code>, und <code class="docutils literal notranslate"><span class="pre">t1</span></code> und <code class="docutils literal notranslate"><span class="pre">t2</span></code> für <code class="docutils literal notranslate"><span class="pre">&lt;type&gt;</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>    (x1 : t1), G |- e2 : t2
+FUN ----------------------------
+    G |- fun x1 -&gt; e2 : t1 -&gt; t2
+
+        G |- e0 : t1 -&gt; t2   G |- e1 : t1
+APP ---------------------------------
+    G |- e0 e1 : t2
+</pre></div>
+</div>
+<p>In Worten:</p>
+<ul class="simple">
+<li>in einer beliebigen Typenumgebung <code class="docutils literal notranslate"><span class="pre">G</span></code> hat der Ausdruck <code class="docutils literal notranslate"><span class="pre">fun</span> <span class="pre">x1</span> <span class="pre">-&gt;</span> <span class="pre">e2</span></code> den Typen
+<code class="docutils literal notranslate"><span class="pre">t1</span> <span class="pre">-&gt;</span> <span class="pre">t2</span></code> unter der Voraussetzung, dass <code class="docutils literal notranslate"><span class="pre">e2</span></code> den Typen <code class="docutils literal notranslate"><span class="pre">t2</span></code> hat in einer
+Umgebung wo <code class="docutils literal notranslate"><span class="pre">x1</span></code> den Tyepn <code class="docutils literal notranslate"><span class="pre">t1</span></code> hat; und</li>
+<li>in einer beliebigen Typenumgebung <code class="docutils literal notranslate"><span class="pre">G</span></code> in welcher der Ausdruck <code class="docutils literal notranslate"><span class="pre">e0</span></code> den Typen
+<code class="docutils literal notranslate"><span class="pre">t1</span> <span class="pre">-&gt;</span> <span class="pre">t2</span></code> und der Ausdruck <code class="docutils literal notranslate"><span class="pre">e1</span></code> den Typen <code class="docutils literal notranslate"><span class="pre">t1</span></code> hat, hat der Ausdruck <code class="docutils literal notranslate"><span class="pre">e0</span>
+<span class="pre">e1</span></code> den Typen <code class="docutils literal notranslate"><span class="pre">t2</span></code>.</li>
+</ul>
+<p>Außerdem:</p>
+<ul class="simple">
+<li>wenn wir <code class="docutils literal notranslate"><span class="pre">fun</span> <span class="pre">x1</span> <span class="pre">-&gt;</span> <span class="pre">e2</span></code> evaluieren ist das Ergebnis eine Funktion; und</li>
+<li>wenn wir <code class="docutils literal notranslate"><span class="pre">e0</span> <span class="pre">e1</span></code> evaluieren, dann evaluieren wir zuerst <code class="docutils literal notranslate"><span class="pre">e0</span></code> und <code class="docutils literal notranslate"><span class="pre">e1</span></code>:<ul>
+<li>wenn das Evaluieren eines der beiden Ausdrücke divergiert (unendlich läuft), dann
+divergiert auch das Evaluieren von <code class="docutils literal notranslate"><span class="pre">e0</span> <span class="pre">e1</span></code>;</li>
+<li>wenn das Evaluieren eines der beiden Ausdrücke einen Fehler hervorruft, ruft das
+Evaluieren von <code class="docutils literal notranslate"><span class="pre">e0</span> <span class="pre">e1</span></code> denselben Fehler hervor; und</li>
+<li>wenn das Evaluieren von <code class="docutils literal notranslate"><span class="pre">e0</span></code> und <code class="docutils literal notranslate"><span class="pre">e1</span></code> die Werte w0 und w1 ergibt, dann wissen
+wir dank OCamls Typensystem, dass w0 eine Funktion ist; <code class="docutils literal notranslate"><span class="pre">e0</span> <span class="pre">e1</span></code> zu evaluieren
+bedeutet dann die Funktion w0 auf den Wert w1 anzuwenden.</li>
+</ul>
+</li>
+</ul>
+<p>Genau wie bedingte Ausdrücke und Tupel sind Funktionen und Funktionsanwendung
+polymorph (können also unterschiedliche Typen als Resultat haben).</p>
+</div>
+<div class="section" id="vokabular-zu-funktionen">
+<h2>Vokabular zu Funktionen<a class="headerlink" href="#vokabular-zu-funktionen" title="Link zu dieser Überschrift">¶</a></h2>
+<ul class="simple">
+<li>Der Ausdruck <code class="docutils literal notranslate"><span class="pre">fun</span> <span class="pre">x</span> <span class="pre">-&gt;</span> <span class="pre">e</span></code> wir oftmals als <em>Lambda-Abstraktion</em> bezeichnet, und
+demnach lesen wir das Keyword <code class="docutils literal notranslate"><span class="pre">fun</span></code> oftmals einfach als „Lambda“.<ul>
+<li><code class="docutils literal notranslate"><span class="pre">e</span></code> bezeichnen wir als den <em>Funktionskörper</em> und beschreibt was die Funktion
+macht, wenn sie auf ein Input angewandt wird.</li>
+<li><code class="docutils literal notranslate"><span class="pre">x</span></code> nennen wir den <em>Formalparameter</em> für die Funktion und ist der Name unter dem das
+Input der Funktion dem Funktionskörper zugänglich ist.</li>
+</ul>
+</li>
+<li>Den Ausdruck <code class="docutils literal notranslate"><span class="pre">e0</span> <span class="pre">e1</span></code> nennen wir <em>Funktionsanwendung</em>.<ul>
+<li><code class="docutils literal notranslate"><span class="pre">e0</span></code> ist die Funktion, die wir anwenden.</li>
+<li><code class="docutils literal notranslate"><span class="pre">e1</span></code> nennen wir den <em>tatsächlichen Parameter</em> oder das <em>Input</em> für die
+Funktion.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="wie-funktionen-funktionieren">
+<h2>Wie Funktionen funktionieren<a class="headerlink" href="#wie-funktionen-funktionieren" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Wenn eine Lambdaabstraktion wie zum Beispiel die Identitätsfunktion <code class="docutils literal notranslate"><span class="pre">fun</span> <span class="pre">x</span> <span class="pre">-&gt;</span> <span class="pre">x</span></code>
+auf einen tatsächlichen Parameter angewandt wird, zum Beispiel <code class="docutils literal notranslate"><span class="pre">42</span></code>, dann
+evaluieren wir den Funktionskörper, also <code class="docutils literal notranslate"><span class="pre">x</span></code>, in einer Werteumgebung, in der <code class="docutils literal notranslate"><span class="pre">x</span></code>
+für <code class="docutils literal notranslate"><span class="pre">42</span></code> steht:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># (fun x -&gt; x) 42;;
+- : int = 42
+</pre></div>
+</div>
+<p>Dass der Ausdruck <code class="docutils literal notranslate"><span class="pre">(fun</span> <span class="pre">x</span> <span class="pre">-&gt;</span> <span class="pre">x)</span> <span class="pre">42</span></code> den Typen <code class="docutils literal notranslate"><span class="pre">int</span></code> hat zeigt der folgende
+Beweisbaum, wo <code class="docutils literal notranslate"><span class="pre">Gv</span></code> für eine Werteumgebung steht:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>LOOKUP_FOUND ------------------------
+          (x : int), Gv |- x : int
+      FUN -----------------------------    INT --------------
+          Gv |- fun x -&gt; x : int -&gt; int        Gv |- 42 : int
+      APP ---------------------------------------------------
+          Gv |- (fun x -&gt; x) 42 : int
+</pre></div>
+</div>
+<p>(Hinweis: Die Klammern hier sind wichtig um OCaml zu zeigen, dass der Funktionskörper
+nur <code class="docutils literal notranslate"><span class="pre">x</span></code> ist und nicht <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">42</span></code>. Probiere aus, was passiert wenn du den Ausdruck
+ohne Klammern eingibst. Die Erklärung dazu ist, dass OCaml nun erwartet, dass das
+Input <code class="docutils literal notranslate"><span class="pre">x</span></code> einen Funktionstypen hat und der Funktionskörper dieser Lambdaabstraktion
+das Input auf <code class="docutils literal notranslate"><span class="pre">42</span></code> anwendet.)</p>
+<p>Ein anderes Beispiel ist die Lambdaabstraktion <code class="docutils literal notranslate"><span class="pre">fun</span> <span class="pre">b</span> <span class="pre">-&gt;</span> <span class="pre">if</span> <span class="pre">b</span> <span class="pre">then</span> <span class="pre">&quot;joa&quot;</span> <span class="pre">else</span>
+<span class="pre">&quot;nö&quot;</span></code>. Diese Lambdaabstraktion hat den Typen <code class="docutils literal notranslate"><span class="pre">bool</span> <span class="pre">-&gt;</span> <span class="pre">string</span></code>, denn ihr Input wird
+als Test in einem bedingten Ausdruck verwendet, dessen Resultat ein String ist. Wenn
+wir die Abstraktion auf <code class="docutils literal notranslate"><span class="pre">true</span></code> anwenden, dann evaluieren wir den Funktionskörper
+(also <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">b</span> <span class="pre">then</span> <span class="pre">&quot;joa&quot;</span> <span class="pre">else</span> <span class="pre">&quot;nö&quot;)</span> <span class="pre">in</span> <span class="pre">einer</span> <span class="pre">Umgebung</span> <span class="pre">wo</span> <span class="pre">``b</span></code> für <code class="docutils literal notranslate"><span class="pre">true</span></code> steht; wenn
+wir die Abstraktion auf <code class="docutils literal notranslate"><span class="pre">false</span></code> anwenden, dann evaluieren wir den Funktionskörper
+(also <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">b</span> <span class="pre">then</span> <span class="pre">&quot;joa&quot;</span> <span class="pre">else</span> <span class="pre">&quot;nö&quot;)</span> <span class="pre">in</span> <span class="pre">einer</span> <span class="pre">Umgebung</span> <span class="pre">wo</span> <span class="pre">``b</span></code> für <code class="docutils literal notranslate"><span class="pre">false</span></code> steht:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># fun b -&gt; if b then &quot;joa&quot; else &quot;nö&quot;;;
+- : bool -&gt; string = &lt;fun&gt;
+# (fun b -&gt; if b then &quot;joa&quot; else &quot;nö&quot;) true;;
+- : string = &quot;joa&quot;
+# (fun b -&gt; if b then &quot;joa&quot; else &quot;nö&quot;) false;;
+- : string = &quot;nö&quot;
+#
+</pre></div>
+</div>
+<p>Im Folgenden ein paar Beweisbäume darüber, wie diese Werte zustande kommen:</p>
+<ul>
+<li><p class="first">Dass <code class="docutils literal notranslate"><span class="pre">fun</span> <span class="pre">b</span> <span class="pre">-&gt;</span> <span class="pre">if</span> <span class="pre">b</span> <span class="pre">then</span> <span class="pre">&quot;joa&quot;</span> <span class="pre">else</span> <span class="pre">&quot;nö&quot;</span></code> den Typen <code class="docutils literal notranslate"><span class="pre">bool</span> <span class="pre">-&gt;</span> <span class="pre">string</span></code> hat
+beweisen wir so:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>LOOKUP_FOUND --------------------------    STRING ----------------------------------    STRING ----------------------------------
+              (b : bool), Gv |- b : bool           (b : bool), Gv |- &quot;joa&quot; : string           (b : bool), Gv |- &quot;nö&quot; : string
+     IF ---------------------------------------------------------------------------------------------------------------------
+        (b : bool), Gv |- if b then &quot;joa&quot; else &quot;nö&quot; : string
+    FUN --------------------------------------------------------------
+        Gv |- fun b -&gt; if b then &quot;joa&quot; else &quot;nö&quot; : bool -&gt; string
+</pre></div>
+</div>
+</li>
+<li><p class="first">Dass <code class="docutils literal notranslate"><span class="pre">(fun</span> <span class="pre">b</span> <span class="pre">-&gt;</span> <span class="pre">if</span> <span class="pre">b</span> <span class="pre">then</span> <span class="pre">&quot;joa&quot;</span> <span class="pre">else</span> <span class="pre">&quot;nö&quot;)</span> <span class="pre">true</span></code> den Typen <code class="docutils literal notranslate"><span class="pre">string</span></code> hat
+beweisen wir so:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>     ...siehe oben...
+FUN --------------------------------------------------------------    BOOL_TRUE -----------------
+    Gv |- fun b -&gt; if b then &quot;joa&quot; else &quot;nö&quot; : bool -&gt; string              Gv |- true : bool
+APP ---------------------------------------------------------------------------------------------
+    Gv |- (fun b -&gt; if b then &quot;joa&quot; else &quot;nö&quot;) true : string
+</pre></div>
+</div>
+</li>
+<li><p class="first">Dass <code class="docutils literal notranslate"><span class="pre">(fun</span> <span class="pre">b</span> <span class="pre">-&gt;</span> <span class="pre">if</span> <span class="pre">b</span> <span class="pre">then</span> <span class="pre">&quot;joa&quot;</span> <span class="pre">else</span> <span class="pre">&quot;nö&quot;)</span> <span class="pre">false</span></code> den Tyepn <code class="docutils literal notranslate"><span class="pre">string</span></code> hat
+beweisen wir so:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>     ...siehe oben...
+FUN --------------------------------------------------------------    BOOL_FALSE -----------------
+    Gv |- fun b -&gt; if b then &quot;joa&quot; else &quot;nö&quot; : bool -&gt; string              Gv |- false : bool
+APP ---------------------------------------------------------------------------------------------
+    Gv |- (fun b -&gt; if b then &quot;joa&quot; else &quot;nö&quot;) false : string
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="vordefinierte-funktionen">
+<h2>Vordefinierte Funktionen<a class="headerlink" href="#vordefinierte-funktionen" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Genauso wie OCaml vordefinierte Werte von anderen Typen hat (z.B. <code class="docutils literal notranslate"><span class="pre">max_int</span></code>), gibt
+es auch vordefinierte Werte mit Funktionstypen. Hier sind ein paar Beispiele.</p>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">not</span></code> hat den Typen <code class="docutils literal notranslate"><span class="pre">bool</span> <span class="pre">-&gt;</span> <span class="pre">bool</span></code> und gibt das Gegenteil seines Inputs als
+Output:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># not;;
+- : bool -&gt; bool = &lt;fun&gt;
+# not true;;
+- : bool = false
+# not false;;
+- : bool = true
+# not (not true);;
+- : bool = true
+# not (not false);;
+- : bool = false
+#
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Viele vordefinierte Funktionen in OCaml sind in sogenannten Bibliotheken (libraries)
+definiert. Wenn wir zum Beispiel eine Funktion aus der Bibliothek für Strings
+benutzen möchten, erzählen wir OCaml erst, dass wir diese Bibliothek benutzen wollen
+indem wir <code class="docutils literal notranslate"><span class="pre">String</span></code> schreiben, dann dass wir aus dieser Bibliothek zum Beispiel die
+Funktion <code class="docutils literal notranslate"><span class="pre">length</span></code> bentuzen wollen indem wir es mit einem <code class="docutils literal notranslate"><span class="pre">.</span></code> dazwischen anhängen:</p>
+<ul>
+<li><p class="first"><code class="docutils literal notranslate"><span class="pre">String.length</span></code> hat den Typen <code class="docutils literal notranslate"><span class="pre">string</span> <span class="pre">-&gt;</span> <span class="pre">int</span></code> ist in der Bibliothek für
+Strings deklariert. Wenn wir <code class="docutils literal notranslate"><span class="pre">String.length</span></code> einen String als Input geben, ist
+das Ergebnis der Funktionsanwendung ein Integer, der angibt wie viele Zeichen
+dieser String hat:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># String.length;;
+- : string -&gt; int = &lt;fun&gt;
+# String.length &quot;&quot;;;
+- : int = 0
+# String.length &quot;a&quot;;;
+- : int = 1
+# String.length &quot;ab&quot;;;
+- : int = 2
+# String.length &quot;abc&quot;;;
+- : int = 3
+#
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="kurzes-zwischenspiel-uber-die-lange-eines-backslash">
+<h2>Kurzes Zwischenspiel über die Länge eines Backslash<a class="headerlink" href="#kurzes-zwischenspiel-uber-die-lange-eines-backslash" title="Link zu dieser Überschrift">¶</a></h2>
+<p><strong>Alfrothul:</strong> Ich muss mal was überprüfen:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># String.length &quot;\&quot;&quot;;;
+- : int = 1
+#
+</pre></div>
+</div>
+<p><strong>Alfrothul:</strong> Yup! Ein Zeichen, genau wie es sein soll. Der Backslash ist nur eine
+Notation.</p>
+<p><strong>Brynja:</strong> Ich muss auch was ausprobieren:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># String.length &quot;\\\\\\&quot;;;
+- : int = 3
+#
+</pre></div>
+</div>
+<p><strong>Brynja:</strong> Stimmt. Drei Zeichen. Prima!</p>
+</div>
+<div class="section" id="funktionen-deren-resultate-funktionen-sind">
+<h2>Funktionen, deren Resultate Funktionen sind<a class="headerlink" href="#funktionen-deren-resultate-funktionen-sind" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Im Prinzip hält uns nichts davon ab, Funktionen zu schreiben, deren Resultate
+ebenfalls Funktionen sind. Wir können dann so einer Funktion ein erstes Argument
+geben und dem Resultat ein zweites:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># fun x -&gt; (fun y -&gt; x);;
+- : &#39;a -&gt; &#39;b -&gt; &#39;a = &lt;fun&gt;
+# (fun x -&gt; (fun y -&gt; x)) 42;;
+- : &#39;_weak1 -&gt; int = &lt;fun&gt;
+# ((fun x -&gt; (fun y -&gt; x)) 42) &quot;gib mir meine 42 zurück!&quot;;;
+- : int = 42
+#
+</pre></div>
+</div>
+<p>(Kommentar: der Typ <code class="docutils literal notranslate"><span class="pre">'_weak1</span></code> ist einfach ein Platzhalter für einen beliebigen
+Typen, ebenso wie die Typen <code class="docutils literal notranslate"><span class="pre">'a</span></code> und <code class="docutils literal notranslate"><span class="pre">'b</span></code> Platzhalter für beliebige Typen
+sind. Warum OCaml im zweiten Ausdruck jedoch <code class="docutils literal notranslate"><span class="pre">'weak_1</span></code> schreibt geht über den
+Umfang dieses Kurses hinaus.)</p>
+<p>Einige von den Klammern sind unnötig. Funktionsanwendung ist links-assoziativ und
+Lambdaabstraktionen sind rechts-assoziativ. Daher können das ganze auch so schreiben:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># fun x -&gt; fun y -&gt; x;;
+- : &#39;a -&gt; &#39;b -&gt; &#39;a = &lt;fun&gt;
+# (fun x -&gt; fun y -&gt; x) 42;;
+- : &#39;_weak2 -&gt; int = &lt;fun&gt;
+# (fun x -&gt; fun y -&gt; x) 42 &quot;gib mir meine 42 zurück!&quot;;;
+- : int = 42
+#
+</pre></div>
+</div>
+<p>Wenn wir diese Lambdaabstraktion <code class="docutils literal notranslate"><span class="pre">fun</span> <span class="pre">x</span> <span class="pre">-&gt;</span> <span class="pre">fun</span> <span class="pre">y</span> <span class="pre">-&gt;</span> <span class="pre">x</span></code> beschreiben sollten, wäre
+das wie folgt:</p>
+<ul class="simple">
+<li>das Ergebnis der Funktionsanwendung von <code class="docutils literal notranslate"><span class="pre">fun</span> <span class="pre">x</span> <span class="pre">-&gt;</span> <span class="pre">fun</span> <span class="pre">y</span> <span class="pre">-&gt;</span> <span class="pre">x</span></code> mit einem Wert
+<code class="docutils literal notranslate"><span class="pre">e</span></code> als tatsächlichen Parameter ist eine Funktion, die für ein beliebiges Input
+<code class="docutils literal notranslate"><span class="pre">e2</span></code> als Ergebnis <code class="docutils literal notranslate"><span class="pre">e</span></code> hat.</li>
+</ul>
+<p>Oder, wenn wir das Ergebnis als Lambdaabstraktion darstellen sollten:</p>
+<ul class="simple">
+<li>Für einen beliebigen Ausdruck <code class="docutils literal notranslate"><span class="pre">e</span></code> ist das Ergebnis der Funktionsanwendung von
+<code class="docutils literal notranslate"><span class="pre">(fun</span> <span class="pre">x</span> <span class="pre">-&gt;</span> <span class="pre">fun</span> <span class="pre">y</span> <span class="pre">-&gt;</span> <span class="pre">x)</span> <span class="pre">e</span></code> die Lambdaabstraktion <code class="docutils literal notranslate"><span class="pre">fun</span> <span class="pre">y</span> <span class="pre">-&gt;</span> <span class="pre">e</span></code>.</li>
+</ul>
+<p>Was bei der Funktionsanwendung also faktisch passiert ist, dass alle Stellen, an
+denen im Funktionskörper der formelle Parameter <code class="docutils literal notranslate"><span class="pre">x</span></code> verwendet wird nun der
+tatsächliche Parameter <code class="docutils literal notranslate"><span class="pre">e</span></code> eingesetzt wird.</p>
+<p>Ein anderes Beispiel wäre eine Funktion, die für ein beliebiges Input immer die
+Idenitätsfunktion (also eine Funktion, die immer ihr Input unverändert als Output
+gibt) zurück gibt:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># fun x -&gt; fun y -&gt; y;;
+- : &#39;a -&gt; &#39;b -&gt; &#39;b = &lt;fun&gt;
+# (fun x -&gt; fun y -&gt; y) 1 2;;
+- : int = 2
+# (fun x -&gt; fun y -&gt; y) &quot;druck mich!&quot; &quot;nö&quot;;;
+- : string = &quot;nö&quot;
+#
+</pre></div>
+</div>
+</div>
+<div class="section" id="beweisbaume-fur-interessierte">
+<h2>Beweisbäume für Interessierte<a class="headerlink" href="#beweisbaume-fur-interessierte" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Für wen das mit den Funktionen noch nicht einleuchtend ist, sind hier ein paar
+Beweisbäume:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>        LOOKUP_FOUND ------------------------
+                     (x : int), Gv |- x : int
+LOOKUP_NOT_FOUND_YET -----------------------------------
+                     (y : int), (x : int), Gv |- x : int
+              FUN ----------------------------------------
+                  (x : int), Gv |- fun y -&gt; x : int -&gt; int
+              FUN -----------------------------------------------    INT -------------
+                  Gv |- fun x -&gt; fun y -&gt; x : int -&gt; (int -&gt; int)        Gv |- 1 : int
+              APP --------------------------------------------------------------------    INT -------------
+                  Gv |- (fun x -&gt; fun y -&gt; x) 1 : int -&gt; int                                  Gv |- 2 : int
+              APP -----------------------------------------------------------------------------------------
+                  Gv |- ((fun x -&gt; fun y -&gt; x) 1) 2 : int
+</pre></div>
+</div>
+<p>Und für die Funktion, die die Identitätsfunktion als Output gibt:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>LOOKUP_FOUND -----------------------------------
+            (y : int), (x : int), Gv |- y : int
+      FUN ----------------------------------------
+          (x : int), Gv |- fun y -&gt; y : int -&gt; int
+      FUN -----------------------------------------------    INT -------------
+          Gv |- fun x -&gt; fun y -&gt; y : int -&gt; (int -&gt; int)        Gv |- 1 : int
+      APP --------------------------------------------------------------------    INT -------------
+          Gv |- (fun x -&gt; fun y -&gt; y) 1 : int -&gt; int                                  Gv |- 2 : int
+      APP -----------------------------------------------------------------------------------------
+          Gv |- ((fun x -&gt; fun y -&gt; y) 1) 2 : int
+</pre></div>
+</div>
+</div>
+<div class="section" id="syntaktischer-zucker-fur-funktionen-die-funktionen-zuruck-geben">
+<h2>Syntaktischer Zucker für Funktionen, die Funktionen zurück geben<a class="headerlink" href="#syntaktischer-zucker-fur-funktionen-die-funktionen-zuruck-geben" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Im Alltag wäre es echt nervig, wenn wir für solche Lambdaabstraktionen immer
+<code class="docutils literal notranslate"><span class="pre">fun</span> <span class="pre">-&gt;</span> <span class="pre">fun</span> <span class="pre">y</span> <span class="pre">-&gt;</span> <span class="pre">...</span></code> schreiben müssten. Daher gibt es eine Kurzform:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># (fun x -&gt; fun y -&gt; x) 1 10;;
+- : int = 1
+# (fun x y -&gt; x) 1 10;;
+- : int = 1
+# (fun x -&gt; fun y -&gt; y) 1 10;;
+- : int = 10
+# (fun x y -&gt; y) 1 10;;
+- : int = 10
+#
+</pre></div>
+</div>
+<p>Solche Abkürzungen, die praktische Erweiterungen zur Syntax sind, nennen wir syntaktischen
+Zucker; danke für diesen Ausdruck, <a class="reference external" href="https://de.wikipedia.org/wiki/Peter_J._Landin">Peter Landin</a>.</p>
+</div>
+<div class="section" id="vordefinierte-funktionen-deren-outputs-funktionen-sind-integer-addition">
+<h2>Vordefinierte Funktionen, deren Outputs Funktionen sind: Integer Addition<a class="headerlink" href="#vordefinierte-funktionen-deren-outputs-funktionen-sind-integer-addition" title="Link zu dieser Überschrift">¶</a></h2>
+<p>In OCaml ist die normale Art Addition zu schreiben der Infix-Operator <code class="docutils literal notranslate"><span class="pre">+</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># 2 + 40;;
+- : int = 42
+#
+</pre></div>
+</div>
+<p>Dieses <code class="docutils literal notranslate"><span class="pre">+</span></code> ist aber in wirklichkeit nichts anderes als Syntaktischer Zucker für die
+Funktion <code class="docutils literal notranslate"><span class="pre">add</span></code> in der Bibliothek <code class="docutils literal notranslate"><span class="pre">Int</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># Int.add 2 40;;
+- : int = 42
+#
+</pre></div>
+</div>
+<p>Wenn wir <code class="docutils literal notranslate"><span class="pre">Int.add</span></code> auf diese Art schreiben wollen, wie die Funktionen die wir
+bisher gesehen haben, dann gibt es auch dafür syntaktischen Zucker:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># (+) 1 10;;
+- : int = 11
+#
+</pre></div>
+</div>
+<p>Der Typ von <code class="docutils literal notranslate"><span class="pre">Int.add</span></code> ist ein Funktionstyp, der wiederup einen Funktionstypen auf
+der rechten Seite des Pfeils hat:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># (+);;
+- : int -&gt; int -&gt; int = &lt;fun&gt;
+#
+</pre></div>
+</div>
+<p>Wir können nun also auch damit herumspielen, dieser Funktion nur ein Input zu
+geben. Wenn wir zum Beispiel <code class="docutils literal notranslate"><span class="pre">(+)</span> <span class="pre">1</span></code> nehmen, bekommen wir als Resultat eine neue
+Funktion, die einen Integer als Input nimmt (z.B. 10) und als Output diesen Integer
+plus 1 gibt (z.B. 11):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># (+) 1;;
+- : int -&gt; int = &lt;fun&gt;
+# ((+) 1) 10;;
+- : int = 11
+#
+</pre></div>
+</div>
+</div>
+<div class="section" id="funktionen-als-variablen">
+<h2>Funktionen als Variablen<a class="headerlink" href="#funktionen-als-variablen" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Wir können nun auch die Konstrukte, die wir diese Woche gelernt haben zusammensetzen:
+Wir können Funktionen als globale Variablen speichern. Nehmen wir das Beispiel von
+der Funktion, die immer 1 zu ihrem Input hinzufügt:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># let nachfolger = (+) 1;;
+val nachfolger : int -&gt; int = &lt;fun&gt;
+# nachfolger;;
+- : int -&gt; int = &lt;fun&gt;
+#
+</pre></div>
+</div>
+<p>Wenn wir also diese Funktion nun anwenden wollen, können wir sie über ihren neu
+definierten Namen aufrufen:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># nachfolger 10;;
+- : int = 11
+# nachfolger 41;;
+- : int = 42
+#
+</pre></div>
+</div>
+</div>
+<div class="section" id="ubung-27">
+<h2>Übung 27<a class="headerlink" href="#ubung-27" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Die Funktion <code class="docutils literal notranslate"><span class="pre">Int.sub</span></code>, oder <code class="docutils literal notranslate"><span class="pre">(-)</span></code> ist die Subtraktionsfunktion für Integer in
+OCaml.</p>
+<ul class="simple">
+<li>Definiere eine Vorgänger-Funktion, die von ihrem Input immer 1 abzieht.</li>
+<li>Definiere eine Funktion <code class="docutils literal notranslate"><span class="pre">minus_10</span></code>, die von ihrem Input 10 abzieht.</li>
+</ul>
+</div>
+<div class="section" id="noch-mehr-vordefinierte-funktionen-die-funktionen-als-output-geben">
+<h2>Noch mehr vordefinierte Funktionen, die Funktionen als Output geben<a class="headerlink" href="#noch-mehr-vordefinierte-funktionen-die-funktionen-als-output-geben" title="Link zu dieser Überschrift">¶</a></h2>
+<ul>
+<li><p class="first">Multiplikation (<code class="docutils literal notranslate"><span class="pre">Int.mul</span></code>):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># 2 * 3;;
+- : int = 6
+#
+</pre></div>
+</div>
+</li>
+<li><p class="first">Quotient (Division ohne Komma oder Rest):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># (/);;
+- : int -&gt; int -&gt; int = &lt;fun&gt;
+# 16 / 2;;
+- : int = 8
+# 3 / 2;;
+- : int = 1
+# 1 / 0;;
+Exception: Division_by_zero.
+#
+</pre></div>
+</div>
+</li>
+<li><p class="first">Modulo (der Rest bei einer Integer-Division):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># (mod);;
+- : int -&gt; int -&gt; int = &lt;fun&gt;
+# Int.rem 10 3;;
+- : int = 1
+# 12 mod 5;;
+- : int = 2
+#
+</pre></div>
+</div>
+</li>
+<li><p class="first">Vergleich von zwei Werten:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># (&lt;);;
+- : &#39;a -&gt; &#39;a -&gt; bool = &lt;fun&gt;
+# &#39;a&#39;&lt;&#39;b&#39;;;
+- : bool = true
+# 1 &lt; 0;;
+- : bool = false
+# (&gt;);;
+- : &#39;a -&gt; &#39;a -&gt; bool = &lt;fun&gt;
+# 3 &gt; 1;;
+- : bool = true
+# 4 &gt; 29;;
+- : bool = false
+#
+</pre></div>
+</div>
+</li>
+<li><p class="first">Boolsche Konjunktion (und):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># (&amp;&amp;);;
+- : bool -&gt; bool -&gt; bool = &lt;fun&gt;
+# false &amp;&amp; true;;
+- : bool = false
+# true &amp;&amp; true;;
+- : bool = true
+# true &amp;&amp; false;;
+- : bool = false
+# false &amp;&amp; false;;
+- : bool = false
+#
+</pre></div>
+</div>
+</li>
+<li><p class="first">Boolsche Disjunktion (oder):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># (||);;
+- : bool -&gt; bool -&gt; bool = &lt;fun&gt;
+# true || true;;
+- : bool = true
+# true || false;;
+- : bool = true
+#
+</pre></div>
+</div>
+</li>
+<li><p class="first">String-Konkatenation (Zusammensetzung):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># (^);;
+- : string -&gt; string -&gt; string = &lt;fun&gt;
+# &quot;hello&quot; ^ &quot; world&quot;;;
+- : string = &quot;hello world&quot;
+#
+</pre></div>
+</div>
+</li>
+<li><p class="first">Minimum von zwei Werten:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># min;;
+- : &#39;a -&gt; &#39;a -&gt; &#39;a = &lt;fun&gt;
+# min 2 4;;
+- : int = 2
+# min 9 230;;
+- : int = 9
+#
+</pre></div>
+</div>
+</li>
+<li><p class="first">Maximum von zwei Werten:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># max;;
+- : &#39;a -&gt; &#39;a -&gt; &#39;a = &lt;fun&gt;
+# max 3 5;;
+- : int = 5
+# max 42 11;;
+- : int = 42
+#
+</pre></div>
+</div>
+</li>
+<li><p class="first">Eine Funktion, die ein bestimmtes Zeichen aus einem String isoliert:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># String.get;;
+- : string -&gt; int -&gt; char = &lt;fun&gt;
+# String.get &quot;hello world&quot; 4;;
+- : char = &#39;o&#39;
+# String.get &quot;0123456&quot; 6;;
+- : char = &#39;6&#39;
+# String.get &quot;1234567&quot; 5;;
+- : char = &#39;6&#39;
+#
+</pre></div>
+</div>
+<p>Achtung bei dieser Funktion. Bei den meisten Programmiersprachen fangen wir das
+Zählen bei Null an; so auch in OCaml.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="ubung-28">
+<h2>Übung 28<a class="headerlink" href="#ubung-28" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Probiere die Funktionen aus dem vorigen Abschnitt an unterschiedlichen Inputs aus bis
+du sie verstanden hast.</p>
+<p>Definiere auch gerne neue Funktionen, indem du den Funktionen aus dem vorigen
+Abschnitt nur ein Input gibst. Mach dir vorher klar, was du von der neuen Funktion
+erwartest und probiere sie an unterschiedlichen Inputs aus um sicher zu gehen, dass
+du richtig gelegen hast.</p>
+</div>
 <div class="section" id="version-of-variablen-und-funktionen">
 <h2>Version of „variablen-und-funktionen“<a class="headerlink" href="#version-of-variablen-und-funktionen" title="Link zu dieser Überschrift">¶</a></h2>
 <p>Erstellt [2023-01-29]</p>
@@ -468,6 +1008,19 @@ ist.</p>
 <li><a class="reference internal" href="#ubung-26">Übung 26</a></li>
 <li><a class="reference internal" href="#mehrere-globale-variablen-auf-einmal-deklarieren">Mehrere globale Variablen auf einmal deklarieren</a></li>
 <li><a class="reference internal" href="#zwischenspiel-uber-die-wichtigkeit-der-reihenfolge-losung-zum-gedankenfutter">Zwischenspiel über die Wichtigkeit der Reihenfolge (Lösung zum Gedankenfutter)</a></li>
+<li><a class="reference internal" href="#funktionen">Funktionen</a></li>
+<li><a class="reference internal" href="#vokabular-zu-funktionen">Vokabular zu Funktionen</a></li>
+<li><a class="reference internal" href="#wie-funktionen-funktionieren">Wie Funktionen funktionieren</a></li>
+<li><a class="reference internal" href="#vordefinierte-funktionen">Vordefinierte Funktionen</a></li>
+<li><a class="reference internal" href="#kurzes-zwischenspiel-uber-die-lange-eines-backslash">Kurzes Zwischenspiel über die Länge eines Backslash</a></li>
+<li><a class="reference internal" href="#funktionen-deren-resultate-funktionen-sind">Funktionen, deren Resultate Funktionen sind</a></li>
+<li><a class="reference internal" href="#beweisbaume-fur-interessierte">Beweisbäume für Interessierte</a></li>
+<li><a class="reference internal" href="#syntaktischer-zucker-fur-funktionen-die-funktionen-zuruck-geben">Syntaktischer Zucker für Funktionen, die Funktionen zurück geben</a></li>
+<li><a class="reference internal" href="#vordefinierte-funktionen-deren-outputs-funktionen-sind-integer-addition">Vordefinierte Funktionen, deren Outputs Funktionen sind: Integer Addition</a></li>
+<li><a class="reference internal" href="#funktionen-als-variablen">Funktionen als Variablen</a></li>
+<li><a class="reference internal" href="#ubung-27">Übung 27</a></li>
+<li><a class="reference internal" href="#noch-mehr-vordefinierte-funktionen-die-funktionen-als-output-geben">Noch mehr vordefinierte Funktionen, die Funktionen als Output geben</a></li>
+<li><a class="reference internal" href="#ubung-28">Übung 28</a></li>
 <li><a class="reference internal" href="#version-of-variablen-und-funktionen">Version of „variablen-und-funktionen“</a></li>
 </ul>
 </li>
