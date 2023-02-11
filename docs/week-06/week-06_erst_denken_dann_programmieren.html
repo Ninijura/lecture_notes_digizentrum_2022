@@ -1,0 +1,305 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Zehn Minuten denken spart zehn Stunden programmieren &#8212; Einführung ins Programmieren 2022</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/extra-styles.css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Stichwortverzeichnis" href="../genindex.html" />
+    <link rel="search" title="Suche" href="../search.html" />
+    <link rel="next" title="Rekursion: Zwiebeldenken" href="week-06_rekursion.html" />
+    <link rel="prev" title="Lehrmaterial für Woche 06" href="week-06_index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Stichwortverzeichnis"
+             accesskey="I">Index</a></li>
+        <li class="right" >
+          <a href="week-06_rekursion.html" title="Rekursion: Zwiebeldenken"
+             accesskey="N">weiter</a> |</li>
+        <li class="right" >
+          <a href="week-06_index.html" title="Lehrmaterial für Woche 06"
+             accesskey="P">zurück</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Einführung ins Programmieren 2022</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="week-06_index.html" accesskey="U">Lehrmaterial für Woche 06</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="zehn-minuten-denken-spart-zehn-stunden-programmieren">
+<h1>Zehn Minuten denken spart zehn Stunden programmieren<a class="headerlink" href="#zehn-minuten-denken-spart-zehn-stunden-programmieren" title="Link zu dieser Überschrift">¶</a></h1>
+<p>Die einfachste Art eine Funktion zu durchdenken bevor wir sie schreiben ist indem wir
+einen Test schreiben.</p>
+<p>Wir haben letze Wochen Funktionen gesehen, die andere Funktionen als Output
+haben. Diese Woche arbeiten wir mit Funktionen, die andere Funktionen als Parameter
+haben.</p>
+<div class="section" id="die-nachfolger-funktion">
+<h2>Die Nachfolger-Funktion<a class="headerlink" href="#die-nachfolger-funktion" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Die Nachfolger-Funktion ist die Funktion, die für einen <code class="docutils literal notranslate"><span class="pre">int</span></code> x als Input den
+<code class="docutils literal notranslate"><span class="pre">int</span></code> x+1 als Output gibt.</p>
+<p>Wenn wir einen Test für die Nachfolger-Funktion schreiben möchten, dann können wir
+nicht die gesamte Funktion testen, sondern müssen uns ein paar Zahlen aussuchen, für
+die wir testen.</p>
+<p>Zum Beispiel:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>let test_nachfolger kandidat =
+    (kandidat 0 = 1)
+ &amp;&amp; (kandidat 1 = 2)
+ &amp;&amp; (kandidat 41 = 42)
+ &amp;&amp; (kandidat (-4) = (-3))
+ (* etc *) ;;
+</pre></div>
+</div>
+<p>Wenn wir diese funktion auf eine Funktion anwenden, die ein Kandidat für die
+Nachfolger-Funktion ist, dann passiert folgendes:</p>
+<ul class="simple">
+<li>der Kandidat wird auf 0 angewendet und es wird überprüft ob das Ergebnis 1 ist;
+falls ja, dann wird</li>
+<li>der Kandidat auf 1 angewendet und überprüft ob das Ergebnis 2 ist, falls ja, dann
+wird</li>
+<li>der Kandidat auf 41 angewendet und überprüft ob das Ergebnis 42 ist, falls ja, dann
+wird</li>
+<li>der Kandidat auf -4 angewendet und überprüft ob das Ergebnis -3 ist, falls ja,</li>
+<li>dann wird <code class="docutils literal notranslate"><span class="pre">true</span></code> als Ergebnis des Tests ausgedruckt.</li>
+</ul>
+<p>Falls in einem der obigen Schritte das Ergebnis des Kandidaten nicht das erwartete
+ist, ist das Ergebnis des Tests <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<p>Die Logik hinter dem ganzen ist, dass wir den Kandidaten mit verschiedenen Inputs
+überprüfen. Jeders Resultat wird mit dem Boolschen Test <code class="docutils literal notranslate"><span class="pre">=</span></code> überprüft und das
+Ergebnis ist ein Boolean, der angibt, ob das Resultat so ist wie erwartet.</p>
+<p>Die <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code> zwischen den einzelnen Tests sind eine weitere Boolsche Funktion, die wir
+am Ende von Woche 05 kurz gesehen haben: das Ergebnis ist nur <code class="docutils literal notranslate"><span class="pre">true</span></code>, wenn ALLE
+Inputs <code class="docutils literal notranslate"><span class="pre">true</span></code> sind. Wenn die Kandidatenfunktion also eine einzige Falsche antwort
+gibt, ist das Resultat des gesamten Tests, dass die Funktion nicht korrekt ist.</p>
+<p>Nehmen wir die folgende Funktion:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>fun x -&gt; 1;;
+</pre></div>
+</div>
+<p>Diese Funktion würde den ersten Testfall korrekt bestehen, weil sie <code class="docutils literal notranslate"><span class="pre">1</span></code> als
+Ergebnis gibt. In den anderen Fällen hätte sie jedoch weniger Glück. Zum Beweis:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># test_nachfolger (fun x -&gt; 1);;
+- : bool = false
+#
+</pre></div>
+</div>
+<p>Nehmen wir die folgende Funktion:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>fun x -&gt; x+1;;
+</pre></div>
+</div>
+<p>Hier erwarten wir, dass diese Funktion den Test besteht, denn nach
+unserem besten Wissen sieht sie richtig aus. Der Beweis:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># test_nachfolger (fun x -&gt; x+1);;
+- : bool = true
+#
+</pre></div>
+</div>
+<p>Wir können der Funktion auch einen Namen zuweisen und den Test mit
+diesem Namen wiederholen:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># let nachfolger x =
+  x + 1;;
+val nachfolger : int -&gt; int = &lt;fun&gt;
+# test_nachfolger nachfolger;;
+- : bool = true
+#
+</pre></div>
+</div>
+</div>
+<div class="section" id="noch-mehr-syntaktischer-zucker">
+<h2>Noch mehr syntaktischer Zucker<a class="headerlink" href="#noch-mehr-syntaktischer-zucker" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Wir haben letzte Woche gesehen, dass wir Variablen definieren können, indem wir
+schreiben <code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">&lt;name&gt;</span> <span class="pre">=</span> <span class="pre">&lt;value&gt;</span></code>.</p>
+<p>Wir haben auch gesehen, dass wir funktionen schreiben können mit <code class="docutils literal notranslate"><span class="pre">fun</span> <span class="pre">&lt;parameter&gt;</span> <span class="pre">-&gt;</span>
+<span class="pre">&lt;expression&gt;</span></code>.</p>
+<p>Wir können das ganze abkürzen indem wir schreiben <code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">&lt;name&gt;</span> <span class="pre">&lt;parameter&gt;</span> <span class="pre">=</span>
+<span class="pre">&lt;expression&gt;</span></code> statt <code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">&lt;name&gt;</span> <span class="pre">=</span> <span class="pre">fun</span> <span class="pre">&lt;parameter&gt;</span> <span class="pre">-&gt;</span> <span class="pre">&lt;expression&gt;</span></code>.</p>
+</div>
+<div class="section" id="ubung-29">
+<h2>Übung 29<a class="headerlink" href="#ubung-29" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Lies den <a class="reference download internal" download="" href="../_downloads/1e13e3002669281e4224ed6137dc428e/exercises_for_week-06.ml"><code class="xref download docutils literal notranslate"><span class="pre">OCaml-Code</span></code></a> für
+diese Woche in OCaml ein. (Benutze hierzu den <code class="docutils literal notranslate"><span class="pre">#use</span> <span class="pre">&lt;datei&gt;</span></code>-Befehl in der
+OCaml-Toploop.</p>
+<p>OCaml druckt nun, welche Werte aus der Datei ausgelesen wurden.</p>
+<p>Die ersten drei sind die folgenden:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># #use &quot;exercises_for_week-06.ml&quot;;;
+val test_nachfolger : (int -&gt; int) -&gt; bool = &lt;fun&gt;
+val nachfolger_v1 : int -&gt; int = &lt;fun&gt;
+val nachfolger_v1_korrekt : bool = true
+#
+</pre></div>
+</div>
+<p>Öffne nun die Datei um sie zu bearbeiten.</p>
+<p>(In Emacs drücke <code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">C-f</span></code>, gib den Pfad zu deiner Datei an und drücke <code class="docutils literal notranslate"><span class="pre">&lt;RET&gt;</span></code>
+(die Enter-Taste). Emacs zeigt dir nun die Datei an. Um die Datei und die
+OCaml-Toploop nebeneinander anzuzeigen drücke <code class="docutils literal notranslate"><span class="pre">C-x</span> <span class="pre">3</span></code>.)</p>
+<ul class="simple">
+<li>Füge noch ein paar Testfälle zu der Funktion <code class="docutils literal notranslate"><span class="pre">test_nachfolger</span></code> hinzu.</li>
+<li>Lies die Datei neu in OCaml ein und überprüfe, ob der Wert
+<code class="docutils literal notranslate"><span class="pre">nachfolger_v1_korrekt</span></code> noch immer <code class="docutils literal notranslate"><span class="pre">true</span></code> ist.</li>
+</ul>
+<p>(Anmerkung: In diesem Fall ist die Funktion, die wir testen, sehr einfach
+gestrickt. Das ist in der Realität selten der Fall und auch der Grund dafür, dass wir
+immer zuerst Tests schreiben. In diesem Fall können wir uns daher ziemlich sicher
+sein, dass der Wert <code class="docutils literal notranslate"><span class="pre">nachfolger_v1_korrekt</span></code> <code class="docutils literal notranslate"><span class="pre">true</span></code> sein sollte, sonst stimmt mit
+dem Test etwas nicht. Wenn man kompliziertere Funktionen schreibt, die den Test nicht
+bestehen, sollte man daher immer sowohl die Testfälle als auch die Funktion selbst
+überprüfen.)</p>
+</div>
+<div class="section" id="ubung-30-vorganger">
+<h2>Übung 30: Vorgänger<a class="headerlink" href="#ubung-30-vorganger" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Bearbeite den OCaml-Code für diese Woche.</p>
+<ol class="loweralpha simple">
+<li>Schreibe eine Test-Funktion für die Vorgänger-Funktion.</li>
+<li>Schreibe eine Vorgänger-Funktion und teste sie.</li>
+</ol>
+<p>Genauere Anweisungen sind in den Kommentaren der OCaml-Datei zu finden.</p>
+</div>
+<div class="section" id="ubung-31-groszer-und-kleiner">
+<h2>Übung 31: Größer und kleiner<a class="headerlink" href="#ubung-31-groszer-und-kleiner" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Bearbeite den OCaml-Code für diese Woche.</p>
+<p>Das Ziel dieser Übung ist es, zwei neue Tests und die dazu gehörenden Funktionen zu
+schreiben.</p>
+<p>Die erste Funktion nimmt zwei Integer als Input und gibt den größeren als Output
+zurück.</p>
+<p>Die zweite Funktion nimmt zwei Integer als Input und gibt den kleineren als Output
+zurück.</p>
+<ul class="simple">
+<li>Schreibe für jede der beiden Funktionen erst einen Test.</li>
+<li>Schreibe dann die Funktion.</li>
+<li>Lies dann die Datei neu in deinem OCaml-Prozess ein und überprüfe, ob die Funktion.</li>
+</ul>
+</div>
+<div class="section" id="testdeckung">
+<h2>Testdeckung<a class="headerlink" href="#testdeckung" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Wenn man Tests schreibt, ist es wichtig, dass man sich überlegt, was für
+unterschiedliche Arten von Input man haben kann.</p>
+<p>Nehmen wir zum Beispiel die <code class="docutils literal notranslate"><span class="pre">groessere_von_zweien</span></code>-Funktion. Hier haben wir drei
+Möglichkeiten dafür welche von den beiden Zahlen größer ist:</p>
+<ul class="simple">
+<li>das erste Input ist größer,</li>
+<li>das zweite Input ist größer, oder</li>
+<li>beide sind gleich groß.</li>
+</ul>
+<p>Für jeden dieser drei Fälle sollte ein Test vorhanden sein. Wenn das nicht so ist,
+kann man eine falsche Funktion schreiben, die trotzdem den Test besteht.</p>
+<p>Im OCaml-Code für diese Woche liegt ein Beispiel dafür, welchen Fehler man machen
+könnte, wenn man die <code class="docutils literal notranslate"><span class="pre">groessere_von_zweien</span></code>-Funktion nicht ausreichend testet.</p>
+<p>Der Test sieht wie folgt aus:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>let test_groessere_von_zweien_falsch kandidat =
+(kandidat 1 2 = 2)
+&amp;&amp; (kandidat 4 19 = 19)
+&amp;&amp; (kandidat (-1) 4 = 4)
+&amp;&amp; (kandidat 0 42 = 42)
+&amp;&amp; (kandidat 3 3 = 3);;
+</pre></div>
+</div>
+<p>und die falsche Funktion so:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>let groessere_von_zweien_falsch m n = n;;
+</pre></div>
+</div>
+<p>Da im Test immer das zweite Input größer ist als das erste, fällt es nicht auf, dass
+die Funktion gar nicht das größere Input zurück gibt, sondern einfach immer nur das
+zweite Input.</p>
+</div>
+<div class="section" id="ubung-32-testdeckung">
+<h2>Übung 32: Testdeckung<a class="headerlink" href="#ubung-32-testdeckung" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Schreibe eine falsche Testfunktion für <code class="docutils literal notranslate"><span class="pre">kleinere_von_zweien</span></code> und eine falsche
+Funktion, die der Test nicht als falsch deklariert.</p>
+</div>
+<div class="section" id="version-of-erst-denken-dann-programmieren">
+<h2>Version of „erst_denken_dann_programmieren“<a class="headerlink" href="#version-of-erst-denken-dann-programmieren" title="Link zu dieser Überschrift">¶</a></h2>
+<p>[2023-02-08] Erstellt</p>
+<p>[2023-02-11] Fertiggestellt</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Zehn Minuten denken spart zehn Stunden programmieren</a><ul>
+<li><a class="reference internal" href="#die-nachfolger-funktion">Die Nachfolger-Funktion</a></li>
+<li><a class="reference internal" href="#noch-mehr-syntaktischer-zucker">Noch mehr syntaktischer Zucker</a></li>
+<li><a class="reference internal" href="#ubung-29">Übung 29</a></li>
+<li><a class="reference internal" href="#ubung-30-vorganger">Übung 30: Vorgänger</a></li>
+<li><a class="reference internal" href="#ubung-31-groszer-und-kleiner">Übung 31: Größer und kleiner</a></li>
+<li><a class="reference internal" href="#testdeckung">Testdeckung</a></li>
+<li><a class="reference internal" href="#ubung-32-testdeckung">Übung 32: Testdeckung</a></li>
+<li><a class="reference internal" href="#version-of-erst-denken-dann-programmieren">Version of „erst_denken_dann_programmieren“</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Vorheriges Thema</h4>
+  <p class="topless"><a href="week-06_index.html"
+                        title="vorheriges Kapitel">Lehrmaterial für Woche 06</a></p>
+  <h4>Nächstes Thema</h4>
+  <p class="topless"><a href="week-06_rekursion.html"
+                        title="nächstes Kapitel">Rekursion: Zwiebeldenken</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Diese Seite</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/week-06/week-06_erst_denken_dann_programmieren.rst.txt"
+            rel="nofollow">Quellcode anzeigen</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Schnellsuche</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Los" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Stichwortverzeichnis"
+             >Index</a></li>
+        <li class="right" >
+          <a href="week-06_rekursion.html" title="Rekursion: Zwiebeldenken"
+             >weiter</a> |</li>
+        <li class="right" >
+          <a href="week-06_index.html" title="Lehrmaterial für Woche 06"
+             >zurück</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Einführung ins Programmieren 2022</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="week-06_index.html" >Lehrmaterial für Woche 06</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Kira Kutscher.
+      Mit <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5 erstellt.
+    </div>
+  </body>
+</html>
