@@ -1,0 +1,310 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Rekursion: Zwiebeldenken &#8212; Einführung ins Programmieren 2022</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/extra-styles.css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Stichwortverzeichnis" href="../genindex.html" />
+    <link rel="search" title="Suche" href="../search.html" />
+    <link rel="next" title="Dramatis Personae" href="../resources/dramatis_personae.html" />
+    <link rel="prev" title="Lehrmaterial für Woche 07" href="week-07_index.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Stichwortverzeichnis"
+             accesskey="I">Index</a></li>
+        <li class="right" >
+          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+             accesskey="N">weiter</a> |</li>
+        <li class="right" >
+          <a href="week-07_index.html" title="Lehrmaterial für Woche 07"
+             accesskey="P">zurück</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Einführung ins Programmieren 2022</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="week-07_index.html" accesskey="U">Lehrmaterial für Woche 07</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="rekursion-zwiebeldenken">
+<h1>Rekursion: Zwiebeldenken<a class="headerlink" href="#rekursion-zwiebeldenken" title="Link zu dieser Überschrift">¶</a></h1>
+<p>Wir haben
+<a class="reference external" href="../week-05/week-05-variablen-und-funktionen.html#zwischenspiel-uber-umgebungen-und-zwiebeln">letzte Woche</a>
+schon Gesehen wie Zwiebeln aufgebaut sind.</p>
+<p>Wir haben Zwiebeln beschrieben mit einem Basisfall und einem Induktionsfall:</p>
+<ul class="simple">
+<li><strong>Basisfall:</strong> ein Keim</li>
+<li><strong>Induktionsfall:</strong> eine Schicht um eine andere Zwiebel herum</li>
+</ul>
+<p>Wir sagen dann, dass eine Zwiebel <em>induktiv</em> aufgebaut ist: erst kommt ein Keim und
+dann wird eine Schicht nach der anderen aufgetragen, bis wir eine dicke fette Zwiebel
+haben.</p>
+<p>Wenn wir die Zwiebel von außern nach innen auseinanderpulen, dann sagen wir, dass wir
+sie <em>rekursiv</em> bearbeiten.</p>
+<div class="section" id="peano-zahlen">
+<h2>Peano-Zahlen<a class="headerlink" href="#peano-zahlen" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Die natürlichen Zahlen können wir auch induktiv beschreiben.</p>
+<ul class="simple">
+<li><strong>Basisfall:</strong> 0</li>
+<li><strong>Induktionsfall:</strong> N n</li>
+</ul>
+<p>wo n eine beliebige Zahl ist und N die Nachfolger-Funktion.</p>
+<p>In Worten:</p>
+<ul class="simple">
+<li>Null ist die kleinste natürliche Zahl</li>
+<li>Eine natürliche Zahl plus 1 ist eine neue naturliche Zahl</li>
+</ul>
+<p>Mit diesen zwei Regeln können wir alle natürlichen Zahlen beschreiben.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>0 = 0
+1 = N 0
+2 = N N 0
+3 = N N N 0
+4 = N N N N 0
+etc.
+</pre></div>
+</div>
+<p>Diese Art Zahlen zu schreiben nennt sich <a class="reference external" href="https://en.wikipedia.org/wiki/Giuseppe_Peano">Peano</a> Zahlen.</p>
+<p>Wenn wir zurück zur Zwiebel wollen, können wir uns vorstellen, dass auf dem Keim eine
+Null geschrieben ist. Auf jeder weiteren Schicht der Zwiebel steht +1.</p>
+<p>Wenn wir nun wissen wollen, welche Zahl die Zwiebel repräsentiert, dann müssen wir
+die Schichten eine nach der anderen abziehen. Wenn wir zum Keim kommen gucken wir
+drauf und sehen dort eine Null. Nun gehen wir die Schichten wieder zurück und rechnen
+0 + 1 + 1 + … + 1, bis wir zurück zur äußeren Schicht kommen.</p>
+<p>So funktionieren rekursive Funktionen.</p>
+</div>
+<div class="section" id="zwischenspiel-uber-endrekursion">
+<h2>Zwischenspiel über Endrekursion<a class="headerlink" href="#zwischenspiel-uber-endrekursion" title="Link zu dieser Überschrift">¶</a></h2>
+<p><strong>Sigrid:</strong> Das kommt mir aber ganz schön uneffektiv vor. Warum zählen wir nicht
+gleich die Schichten, wenn wir sie das erste Mal abziehen? Das macht doch gar keinen
+Sinn.</p>
+<p><strong>Brynja:</strong> Ich glaube, das hat was damit zu tun, dass auf jeder der Schichten immer
+nur + 1 steht und nicht welche Zahl wir plus eins rechnen müssen.</p>
+<p><strong>Alfrothul:</strong> Aber dann könnten wir doch einfach zählen wie viele wir am Ende plus
+rechnen müssen.</p>
+<p><strong>Brynja:</strong> <em>(ratlos)</em> Hm… ich weiß auch nicht. Mimer, kannst du uns helfen?</p>
+<p><strong>Mimer:</strong> Ihr habt alle ein Bisschen Recht. Nehmen wir wieder die
+Nachfolger-Funktion als Beispiel. Was braucht die als Input?</p>
+<p><strong>Sigrid:</strong> Eine andere Zahl. Also die Null vom Ende.</p>
+<p><strong>Brynja:</strong> Naja, aber wir müssen sie ja genau so oft benutzen wie wir Schichten
+haben. Und für jede neue Schicht bekommt sie dann ein neues Input.</p>
+<p><strong>Mimer:</strong> Stimmt genau. Wie könnten wir das jetzt ändern, dass wir bis zur Null
+runter zählen?</p>
+<p><strong>Alfrothul:</strong> Wir müssen uns bei jedem Aufruf der Nachfolger-Funktion merken, wie
+viele Schichten wir schon hatten?</p>
+<p><strong>Brynja:</strong> Das geht nicht ganz auf, wir haben ja die Null in der Mitte noch nicht
+gefunden. Aber wir könnten für jede Schicht eine neue Funktion schreiben:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>let nachfolger x = x + 1;;
+
+let zweiter_nachfolger x = (nachfolger x) + 1;;
+
+let dritter_nachfolger x = (zweiter_nachfolger x) + 1;;
+
+let vierter_nachfolger x = (dritter_nachfolger x) + 1;;
+
+let fünfter_nachfolger x = (vierter_nachfolger x) + 1;;
+
+(* etc. *)
+</pre></div>
+</div>
+<p><strong>Alfrothul:</strong> Stimmt, dann können wir für jede Schicht immer die nächste Funktion
+aufrufen.</p>
+<p><strong>Sigrid:</strong> <em>(aufgeregt)</em> Oh ja! Und wenn wir bei der Null angekommen sind, müssen
+wir nur noch die Null in die richtige Nachfogler-Funktion füttern. Das heißt, dass
+wir für jede Schicht eine Nachfolger-Funktion weiter gehen.</p>
+<p><strong>Brynja:</strong> Dann sind wir wieder am Anfang. Erst Schälen wir die Zwiebel und dann
+füttern wir die Null in die richtige Nachfolger-Funktion, die dann von Null hoch
+zählt.</p>
+<p><strong>Sigrid:</strong> Hm… stimmt. Mimer…?</p>
+<p><strong>Mimer:</strong> Ihr könntet der Funktion noch einen zusätzlichen Parameter geben, der
+beschreibt wie viele Schichten ihr von der Zwiebel bisher abgeschält habt.</p>
+<p><strong>Sigrid:</strong> Okay, lasst mich mal ran!</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>let nter_nachfolger n x = x + n;;
+</pre></div>
+</div>
+<p><strong>Sigrid:</strong> So hier?</p>
+<p><strong>Alfrothul:</strong> Das ist ja nur ganz normale Addition.</p>
+<p><strong>Brynja:</strong> Aber wartet mal, das stimmt doch auch. Wir müssen schließlich am Ende nur
+null plus die Anzahl der Schichten rechnen.</p>
+<p><strong>Mimer:</strong> Genau, der zusätzliche Parameter macht’s möglich. Das nennen wir
+Endrekursion, wo wir nur einmal bis zur Mitte der Zwiebel gehen und nicht wieder
+zurück. Das wirkt einfacher, ist aber beim Programmieren komplizierter, weil wir eben
+diesen extra Parameter brauchen. Daher lasst uns jetzt erstmal die einfache Rekursion
+anschauen, die ihr gerade so schön beschrieben habt.</p>
+</div>
+<div class="section" id="rekursive-funktionen-in-ocaml">
+<h2>Rekursive Funktionen in OCaml<a class="headerlink" href="#rekursive-funktionen-in-ocaml" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Die Folge von Nachfolger-Funktionen, die wir gerade gesehen haben, ist der Vorläufer
+von Rekursiven Funktionen. Jede Funktion ruft die Funktion vor ihr auf und legt eins
+zum Resultat dazu.</p>
+<p>Viel schlauer wäre es, wenn wir eine Funktion hätten, die wir einfach immer wieder
+aufrufen könnten:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>let nter_nachfolger zwiebel =
+  if zwiebel = keim
+  then keim
+  else 1 + (nter_nachfolger (zwiebel - äußere schicht));;
+</pre></div>
+</div>
+<p>Oder, wenn wir statt einer Zwiebel eine Zahl haben:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>let nter_nachfolger x =
+  if x = 0
+  then 0
+  else 1 + (nter_nachfolger (x - 1));;
+</pre></div>
+</div>
+<p>Wenn wir das allerdings in OCaml eingeben, dann bekommen wir folgende Fehlermeldung:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>Error: Unbound value nter_nachfolger
+Hint: If this is a recursive definition,
+you should add the &#39;rec&#39; keyword on line 1
+</pre></div>
+</div>
+<p>OCaml ist hier sehr hilfreich und erkennt, dass wir eine rekursive Funktion
+definieren wollen. Die Art wie wir das tun ist mit dem Keywort <code class="docutils literal notranslate"><span class="pre">rec</span></code>:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>let rec nter_nachfolger x =
+  if x = 0
+  then 0
+  else 1 + (nter_nachfolger (x - 1));;
+</pre></div>
+</div>
+<p>Und tatsächlich, OCaml erlaubt uns die Funktion zu definieren.</p>
+<p>Wenn wir nun richtig liegen mit unserer Theorie, bekommen wir jedes Mal wenn wir eine
+natürliche Zahl in diese Funktion werfen auch genau diese Zahl als Resultat.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># nter_nachfolger 1;;
+- : int = 1
+# nter_nachfolger 30;;
+- : int = 30
+#
+</pre></div>
+</div>
+<p>Sieht ganz so aus. Achtung: Wir haben nur mit natürlichen (also nicht-negativen)
+Zahlen gearbeitet. Da wir immer weiter runter zählen, bis wir zu 0 kommen, würde
+OCaml beim Input einer negativen Zahl unendlich laufen. Probiere es gerne aus.</p>
+<p>(Okay, OCaml läuft nicht ewig, sondern gibt uns eine Fehlermeldung zurück. Das liegt
+daran, dass der Computer nicht unendlich viel Speicherplatz hat. Hätte OCaml
+unendlich viel Platz, könnte es auch ewig laufen.)</p>
+</div>
+<div class="section" id="multiplikation-als-rekursive-funktion">
+<h2>Multiplikation als rekursive Funktion<a class="headerlink" href="#multiplikation-als-rekursive-funktion" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Eine Funktion, die bis zu ihrem Input zählt ist allerdings nicht gerade spannend.</p>
+<p>Spannender wird es, wenn wir nicht mehr jedes Mal 1 dazu legen, sondern zum
+Beispiel 2. Wenn wir das tun, bekommen wir eine Funktion, die ihr Input verdoppelt:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>let rec verdoppel x =
+  if x = 0
+  then 0
+  else 2 + (verdoppel (x - 1));;
+</pre></div>
+</div>
+<p>In dieser Funktion pulen wir die Zahl auseinander und legen jedes Mal 2 dazu. Damit
+verdoppeln wir am Ende das Input.</p>
+</div>
+<div class="section" id="ubung-33">
+<h2>Übung 33<a class="headerlink" href="#ubung-33" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Bearbeite den <a class="reference external" href="../exercises/week-06/exercises_for_week-06.ml">Ocaml-Code für diese Woche</a> und füge einen Test für eine
+<code class="docutils literal notranslate"><span class="pre">verdreifache</span></code>-Funktion hinzu. Schreibe danach die Funktion so wie die beiden
+obigen Funktionen.</p>
+</div>
+<div class="section" id="fazit-fur-diese-woche">
+<h2>Fazit für diese Woche<a class="headerlink" href="#fazit-fur-diese-woche" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Wenn das mit der Rekursion noch nicht ganz klar ist, dann mach dir keine Sorgen. Das
+wird das Thema der übrigen beiden Wochen werden. In der kommenden Woche werden wir
+unter anderem auch sehen, wie wir Funktionsaufrufe nachverfolgen können, das wird die
+Rekursiven Aufrufe um einiges anschaulicher machen.</p>
+<p>Wir werden außerdem mit anderen induktiven Datentypen arbeiten als nur mit
+natürlichen Zahlen. Sogar mit welchen, die wir selbst definieren.</p>
+</div>
+<div class="section" id="version-of-rekursion">
+<h2>Version of „rekursion“<a class="headerlink" href="#version-of-rekursion" title="Link zu dieser Überschrift">¶</a></h2>
+<p>[2023-02-11] Erstellt und fertiggestellt</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Rekursion: Zwiebeldenken</a><ul>
+<li><a class="reference internal" href="#peano-zahlen">Peano-Zahlen</a></li>
+<li><a class="reference internal" href="#zwischenspiel-uber-endrekursion">Zwischenspiel über Endrekursion</a></li>
+<li><a class="reference internal" href="#rekursive-funktionen-in-ocaml">Rekursive Funktionen in OCaml</a></li>
+<li><a class="reference internal" href="#multiplikation-als-rekursive-funktion">Multiplikation als rekursive Funktion</a></li>
+<li><a class="reference internal" href="#ubung-33">Übung 33</a></li>
+<li><a class="reference internal" href="#fazit-fur-diese-woche">Fazit für diese Woche</a></li>
+<li><a class="reference internal" href="#version-of-rekursion">Version of „rekursion“</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Vorheriges Thema</h4>
+  <p class="topless"><a href="week-07_index.html"
+                        title="vorheriges Kapitel">Lehrmaterial für Woche 07</a></p>
+  <h4>Nächstes Thema</h4>
+  <p class="topless"><a href="../resources/dramatis_personae.html"
+                        title="nächstes Kapitel">Dramatis Personae</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Diese Seite</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/week-07/week-07_rekursion.rst.txt"
+            rel="nofollow">Quellcode anzeigen</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Schnellsuche</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Los" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Stichwortverzeichnis"
+             >Index</a></li>
+        <li class="right" >
+          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+             >weiter</a> |</li>
+        <li class="right" >
+          <a href="week-07_index.html" title="Lehrmaterial für Woche 07"
+             >zurück</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Einführung ins Programmieren 2022</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="week-07_index.html" >Lehrmaterial für Woche 07</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Kira Kutscher.
+      Mit <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5 erstellt.
+    </div>
+  </body>
+</html>

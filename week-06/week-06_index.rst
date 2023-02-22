@@ -6,4 +6,4 @@ Lehrmaterial für Woche 06
    :maxdepth: 2
 
    week-06_erst_denken_dann_programmieren
-   week-06_rekursion
+

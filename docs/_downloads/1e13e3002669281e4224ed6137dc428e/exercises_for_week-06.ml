@@ -19,7 +19,7 @@ let test_nachfolger kandidat =
 let nachfolger_v1 x =
   x + 1;;
 
-let nachfolger_v1_korrekt = test_nachfolger nachfolger;;
+let nachfolger_v1_korrekt = test_nachfolger nachfolger_v1;;
 
 
 
@@ -128,7 +128,7 @@ let rec verdoppel x =
 
 
 (* Übung 33 *)
-(* Schreibe einen Test für eine verdreifachungs-Funktion für natürliche Zahlen. *))
+(* Schreibe einen Test für eine verdreifachungs-Funktion für natürliche Zahlen. *)
 
 
 (* Schreibe eine Verdreifachungs-Funktion für natürliche Zahlen nach den obigen *)
