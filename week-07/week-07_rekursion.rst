@@ -3,7 +3,7 @@
 ==========================
 
 Wir haben
-`letzte Woche <../week-05/week-05-variablen-und-funktionen.html#zwischenspiel-uber-umgebungen-und-zwiebeln>`_
+`vorletzte Woche <../week-05/week-05-variablen-und-funktionen.html#zwischenspiel-uber-umgebungen-und-zwiebeln>`_
 schon Gesehen wie Zwiebeln aufgebaut sind.
 
 Wir haben Zwiebeln beschrieben mit einem Basisfall und einem Induktionsfall:
@@ -138,9 +138,9 @@ null plus die Anzahl der Schichten rechnen.
 
 **Mimer:** Genau, der zusätzliche Parameter macht's möglich. Das nennen wir
 Endrekursion, wo wir nur einmal bis zur Mitte der Zwiebel gehen und nicht wieder
-zurück. Das wirkt einfacher, ist aber beim Programmieren komplizierter, weil wir eben
-diesen extra Parameter brauchen. Daher lasst uns jetzt erstmal die einfache Rekursion
-anschauen, die ihr gerade so schön beschrieben habt.
+zurück. Das wirkt einfacher, ist aber beim Programmieren komplizierter. Daher lasst
+uns jetzt erstmal die einfache Rekursionanschauen, die ihr gerade so wunderbar
+beschrieben habt.
 
 
 Rekursive Funktionen in OCaml
@@ -233,22 +233,9 @@ verdoppeln wir am Ende das Input.
 ========
 
 Bearbeite den `Ocaml-Code für diese Woche
-<../exercises/week-06/exercises_for_week-06.ml>`_ und füge einen Test für eine
+<../exercises/week-07/exercises_for_week-07.ml>`_ und füge einen Test für eine
 ``verdreifache``-Funktion hinzu. Schreibe danach die Funktion so wie die beiden
 obigen Funktionen. 
-
-
-Fazit für diese Woche
-=====================
-
-Wenn das mit der Rekursion noch nicht ganz klar ist, dann mach dir keine Sorgen. Das
-wird das Thema der übrigen beiden Wochen werden. In der kommenden Woche werden wir
-unter anderem auch sehen, wie wir Funktionsaufrufe nachverfolgen können, das wird die
-Rekursiven Aufrufe um einiges anschaulicher machen.
-
-Wir werden außerdem mit anderen induktiven Datentypen arbeiten als nur mit
-natürlichen Zahlen. Sogar mit welchen, die wir selbst definieren.
-
 
 
 
@@ -256,4 +243,6 @@ natürlichen Zahlen. Sogar mit welchen, die wir selbst definieren.
 Version of "rekursion"
 ======================
 
-[2023-02-11] Erstellt und fertiggestellt
+[2023-02-11] Erstellt
+
+[2023-02-22] Fertiggestellt

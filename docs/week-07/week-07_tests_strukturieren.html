@@ -1,0 +1,173 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Sturkturiertere Tests &#8212; Einführung ins Programmieren 2022</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/extra-styles.css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Stichwortverzeichnis" href="../genindex.html" />
+    <link rel="search" title="Suche" href="../search.html" />
+    <link rel="next" title="Dramatis Personae" href="../resources/dramatis_personae.html" />
+    <link rel="prev" title="Rekursion: Zwiebeldenken" href="week-07_rekursion.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Stichwortverzeichnis"
+             accesskey="I">Index</a></li>
+        <li class="right" >
+          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+             accesskey="N">weiter</a> |</li>
+        <li class="right" >
+          <a href="week-07_rekursion.html" title="Rekursion: Zwiebeldenken"
+             accesskey="P">zurück</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Einführung ins Programmieren 2022</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="week-07_index.html" accesskey="U">Lehrmaterial für Woche 07</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="sturkturiertere-tests">
+<h1>Sturkturiertere Tests<a class="headerlink" href="#sturkturiertere-tests" title="Link zu dieser Überschrift">¶</a></h1>
+<p>In diesem Kapitel schauen wir uns an, wie wir Tests besser strukturieren
+können. Außerdem lernen wir die neue grammatikalische Form <code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">&lt;name&gt;</span> <span class="pre">=</span>
+<span class="pre">&lt;expression&gt;</span> <span class="pre">in</span> <span class="pre">&lt;expression&gt;</span></code>.</p>
+<div class="section" id="lokale-variablen">
+<h2>Lokale Variablen<a class="headerlink" href="#lokale-variablen" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Wir haben schon gesehen, wie wir globale Variablen definieren:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>let &lt;name&gt; = &lt;expression&gt; {and &lt;name&gt; = &lt;expression&gt;}*
+</pre></div>
+</div>
+<p>Manches mal brauchen wir aber in einer Funktion Variablen, die wir nicht vorher
+definieren können und die wir nach Abschluss der Funktion nie wieder benutzen
+wollen. Dafür brauchen wir eine andere grammatikalische Variante des <code class="docutils literal notranslate"><span class="pre">let</span></code>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>let &lt;name&gt; = &lt;expression&gt; in &lt;expression&gt;
+</pre></div>
+</div>
+<p>Für diesen Ausdruck gilt die folgende Typenregel:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>     G |- e1 : t1     (x1 : t1), G |- e0 : t0
+LET ------------------------------------------
+     G |- let x1 = e1 in e0 : t0
+</pre></div>
+</div>
+<p>In Worten:</p>
+<ul class="simple">
+<li>in einer beliebigen Typenumgebung <code class="docutils literal notranslate"><span class="pre">G</span></code> hat der Ausdruck <code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">x1</span> <span class="pre">=</span> <span class="pre">e1</span> <span class="pre">in</span> <span class="pre">e0</span></code> den
+Typen <code class="docutils literal notranslate"><span class="pre">t0</span></code>, wenn (1) in disere Umgebung der Ausdruck <code class="docutils literal notranslate"><span class="pre">e1</span></code> den Typen <code class="docutils literal notranslate"><span class="pre">t1</span></code> hat
+und (2) der Ausdruck <code class="docutils literal notranslate"><span class="pre">e0</span></code> den Typen <code class="docutils literal notranslate"><span class="pre">t0</span></code> hat, wenn die Umgebung erweitert wird
+mit der Bindung von <code class="docutils literal notranslate"><span class="pre">x1</span></code> zum Typen <code class="docutils literal notranslate"><span class="pre">t1</span></code>.</li>
+</ul>
+<p>Außerdem:</p>
+<ul>
+<li><p class="first">Wenn wir den Ausdruck <code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">x1</span> <span class="pre">=</span> <span class="pre">e1</span> <span class="pre">in</span> <span class="pre">e0</span></code> evaluieren, dann evaluieren wir zuerst
+<code class="docutils literal notranslate"><span class="pre">e1</span></code> in der aktuellen Typenumgebung.</p>
+<ul>
+<li><p class="first">Wenn die Evaluieren nicht terminiert, dann terminiert die Evaluierung von <code class="docutils literal notranslate"><span class="pre">let</span>
+<span class="pre">x1</span> <span class="pre">=</span> <span class="pre">e1</span> <span class="pre">in</span> <span class="pre">e0</span></code> auch nicht.</p>
+</li>
+<li><p class="first">Wenn die Evaluierung einen Fehler hervorruft, ruft die Evaluierung von <code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">x1</span> <span class="pre">=</span>
+<span class="pre">e1</span> <span class="pre">in</span> <span class="pre">e0</span></code> denselben Fehler hervor.</p>
+</li>
+<li><p class="first">Wenn <code class="docutils literal notranslate"><span class="pre">e1</span></code> zum Wert w1 evaluiert wird, dann vereinfacht sich die Evaluierung von
+<code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">x1</span> <span class="pre">=</span> <span class="pre">e1</span> <span class="pre">in</span> <span class="pre">e0</span></code>  dazu, dass wir <code class="docutils literal notranslate"><span class="pre">e0</span></code> in einere Umgebung evaluieren, wo
+der Name <code class="docutils literal notranslate"><span class="pre">x1</span></code> den Wert w1 repräsentiert.</p>
+<p>Wir können das auch graphisch darstellen:</p>
+<img alt="../_images/ditaa-a0c996f1f4bd7b82dc2155244a5b032d605ffa1b.png" src="../_images/ditaa-a0c996f1f4bd7b82dc2155244a5b032d605ffa1b.png" />
+<p>Die Bindung von <code class="docutils literal notranslate"><span class="pre">x1</span></code> ist lokal. Das bedeutet, dass sie aus der Umgebung
+gelöscht wird sobald wir <code class="docutils literal notranslate"><span class="pre">e0</span></code> evaluiert haben.</p>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="version-of-tests-strukturieren">
+<h2>Version of „tests_strukturieren“<a class="headerlink" href="#version-of-tests-strukturieren" title="Link zu dieser Überschrift">¶</a></h2>
+<p>[2022-02-22] Erstellt</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Sturkturiertere Tests</a><ul>
+<li><a class="reference internal" href="#lokale-variablen">Lokale Variablen</a></li>
+<li><a class="reference internal" href="#version-of-tests-strukturieren">Version of „tests_strukturieren“</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Vorheriges Thema</h4>
+  <p class="topless"><a href="week-07_rekursion.html"
+                        title="vorheriges Kapitel">Rekursion: Zwiebeldenken</a></p>
+  <h4>Nächstes Thema</h4>
+  <p class="topless"><a href="../resources/dramatis_personae.html"
+                        title="nächstes Kapitel">Dramatis Personae</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Diese Seite</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/week-07/week-07_tests_strukturieren.rst.txt"
+            rel="nofollow">Quellcode anzeigen</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Schnellsuche</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Los" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Stichwortverzeichnis"
+             >Index</a></li>
+        <li class="right" >
+          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+             >weiter</a> |</li>
+        <li class="right" >
+          <a href="week-07_rekursion.html" title="Rekursion: Zwiebeldenken"
+             >zurück</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Einführung ins Programmieren 2022</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="week-07_index.html" >Lehrmaterial für Woche 07</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Kira Kutscher.
+      Mit <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5 erstellt.
+    </div>
+  </body>
+</html>

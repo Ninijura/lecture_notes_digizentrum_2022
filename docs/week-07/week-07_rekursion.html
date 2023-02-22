@@ -21,7 +21,7 @@
     
     <link rel="index" title="Stichwortverzeichnis" href="../genindex.html" />
     <link rel="search" title="Suche" href="../search.html" />
-    <link rel="next" title="Dramatis Personae" href="../resources/dramatis_personae.html" />
+    <link rel="next" title="Sturkturiertere Tests" href="week-07_tests_strukturieren.html" />
     <link rel="prev" title="Lehrmaterial für Woche 07" href="week-07_index.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -31,7 +31,7 @@
           <a href="../genindex.html" title="Stichwortverzeichnis"
              accesskey="I">Index</a></li>
         <li class="right" >
-          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+          <a href="week-07_tests_strukturieren.html" title="Sturkturiertere Tests"
              accesskey="N">weiter</a> |</li>
         <li class="right" >
           <a href="week-07_index.html" title="Lehrmaterial für Woche 07"
@@ -49,7 +49,7 @@
   <div class="section" id="rekursion-zwiebeldenken">
 <h1>Rekursion: Zwiebeldenken<a class="headerlink" href="#rekursion-zwiebeldenken" title="Link zu dieser Überschrift">¶</a></h1>
 <p>Wir haben
-<a class="reference external" href="../week-05/week-05-variablen-und-funktionen.html#zwischenspiel-uber-umgebungen-und-zwiebeln">letzte Woche</a>
+<a class="reference external" href="../week-05/week-05-variablen-und-funktionen.html#zwischenspiel-uber-umgebungen-und-zwiebeln">vorletzte Woche</a>
 schon Gesehen wie Zwiebeln aufgebaut sind.</p>
 <p>Wir haben Zwiebeln beschrieben mit einem Basisfall und einem Induktionsfall:</p>
 <ul class="simple">
@@ -147,9 +147,9 @@ beschreibt wie viele Schichten ihr von der Zwiebel bisher abgeschält habt.</p>
 null plus die Anzahl der Schichten rechnen.</p>
 <p><strong>Mimer:</strong> Genau, der zusätzliche Parameter macht’s möglich. Das nennen wir
 Endrekursion, wo wir nur einmal bis zur Mitte der Zwiebel gehen und nicht wieder
-zurück. Das wirkt einfacher, ist aber beim Programmieren komplizierter, weil wir eben
-diesen extra Parameter brauchen. Daher lasst uns jetzt erstmal die einfache Rekursion
-anschauen, die ihr gerade so schön beschrieben habt.</p>
+zurück. Das wirkt einfacher, ist aber beim Programmieren komplizierter. Daher lasst
+uns jetzt erstmal die einfache Rekursionanschauen, die ihr gerade so wunderbar
+beschrieben habt.</p>
 </div>
 <div class="section" id="rekursive-funktionen-in-ocaml">
 <h2>Rekursive Funktionen in OCaml<a class="headerlink" href="#rekursive-funktionen-in-ocaml" title="Link zu dieser Überschrift">¶</a></h2>
@@ -218,22 +218,14 @@ verdoppeln wir am Ende das Input.</p>
 </div>
 <div class="section" id="ubung-33">
 <h2>Übung 33<a class="headerlink" href="#ubung-33" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Bearbeite den <a class="reference external" href="../exercises/week-06/exercises_for_week-06.ml">Ocaml-Code für diese Woche</a> und füge einen Test für eine
+<p>Bearbeite den <a class="reference external" href="../exercises/week-07/exercises_for_week-07.ml">Ocaml-Code für diese Woche</a> und füge einen Test für eine
 <code class="docutils literal notranslate"><span class="pre">verdreifache</span></code>-Funktion hinzu. Schreibe danach die Funktion so wie die beiden
 obigen Funktionen.</p>
 </div>
-<div class="section" id="fazit-fur-diese-woche">
-<h2>Fazit für diese Woche<a class="headerlink" href="#fazit-fur-diese-woche" title="Link zu dieser Überschrift">¶</a></h2>
-<p>Wenn das mit der Rekursion noch nicht ganz klar ist, dann mach dir keine Sorgen. Das
-wird das Thema der übrigen beiden Wochen werden. In der kommenden Woche werden wir
-unter anderem auch sehen, wie wir Funktionsaufrufe nachverfolgen können, das wird die
-Rekursiven Aufrufe um einiges anschaulicher machen.</p>
-<p>Wir werden außerdem mit anderen induktiven Datentypen arbeiten als nur mit
-natürlichen Zahlen. Sogar mit welchen, die wir selbst definieren.</p>
-</div>
 <div class="section" id="version-of-rekursion">
 <h2>Version of „rekursion“<a class="headerlink" href="#version-of-rekursion" title="Link zu dieser Überschrift">¶</a></h2>
-<p>[2023-02-11] Erstellt und fertiggestellt</p>
+<p>[2023-02-11] Erstellt</p>
+<p>[2023-02-22] Fertiggestellt</p>
 </div>
 </div>
 
@@ -251,7 +243,6 @@ natürlichen Zahlen. Sogar mit welchen, die wir selbst definieren.</p>
 <li><a class="reference internal" href="#rekursive-funktionen-in-ocaml">Rekursive Funktionen in OCaml</a></li>
 <li><a class="reference internal" href="#multiplikation-als-rekursive-funktion">Multiplikation als rekursive Funktion</a></li>
 <li><a class="reference internal" href="#ubung-33">Übung 33</a></li>
-<li><a class="reference internal" href="#fazit-fur-diese-woche">Fazit für diese Woche</a></li>
 <li><a class="reference internal" href="#version-of-rekursion">Version of „rekursion“</a></li>
 </ul>
 </li>
@@ -261,8 +252,8 @@ natürlichen Zahlen. Sogar mit welchen, die wir selbst definieren.</p>
   <p class="topless"><a href="week-07_index.html"
                         title="vorheriges Kapitel">Lehrmaterial für Woche 07</a></p>
   <h4>Nächstes Thema</h4>
-  <p class="topless"><a href="../resources/dramatis_personae.html"
-                        title="nächstes Kapitel">Dramatis Personae</a></p>
+  <p class="topless"><a href="week-07_tests_strukturieren.html"
+                        title="nächstes Kapitel">Sturkturiertere Tests</a></p>
   <div role="note" aria-label="source link">
     <h3>Diese Seite</h3>
     <ul class="this-page-menu">
@@ -293,7 +284,7 @@ natürlichen Zahlen. Sogar mit welchen, die wir selbst definieren.</p>
           <a href="../genindex.html" title="Stichwortverzeichnis"
              >Index</a></li>
         <li class="right" >
-          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+          <a href="week-07_tests_strukturieren.html" title="Sturkturiertere Tests"
              >weiter</a> |</li>
         <li class="right" >
           <a href="week-07_index.html" title="Lehrmaterial für Woche 07"
