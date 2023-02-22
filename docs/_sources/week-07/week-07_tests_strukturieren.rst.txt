@@ -56,7 +56,7 @@ Außerdem:
     ``let x1 = e1 in e0``  dazu, dass wir ``e0`` in einere Umgebung evaluieren, wo
     der Name ``x1`` den Wert w1 repräsentiert.
 
-    Wir können das auch graphisch darstellen:
+    Wir können das auch grafisch darstellen:
 
     .. ditaa::
 
@@ -72,11 +72,87 @@ Außerdem:
     gelöscht wird sobald wir ``e0`` evaluiert haben.
 
 
+Wo ein toplevel Let-Ausdruck, ``let x = d`` den Namen ``x`` global bindet, bindet
+ein Let-Ausdruck ``let x = d in e`` den Namen ``x`` nur lokal in der Evaluierung von
+``e``.
 
-    
+Hier ein Beispiel:
+
+::
+
+   # let x = 1;;
+   val x : int = 1
+   # x + 100;;
+   - : int = 101
+   # let x = 10 in x + 100;;
+   - : int = 110
+   # x;;
+   - : int = 1
+   #
+
+
+Grafisch können wir das Ganze wie folg darstellen:
+
+.. ditaa::
+
+   x steht für 1
+
+   x + 100 -> 101
+
+   +----------------+
+   | x steht für 10 |
+   |                |
+   | x + 100 -> 110 |
+   +----------------+
+
+Wir können diese Let-Ausdrücke auch beliebig verschachteln:
+
+::
+
+   # let a = 1 in let b = 2 in let c = 3 in a + b + c;;
+   - : int = 6
+   #
+
+Wieder einmal ist die grafische Darstellung für das Verständnis hilfreicher:
+
+.. ditaa::
+
+   globale Bindungen
+
+   +-----------------------+
+   | a steht für 1         |
+   |                       |
+   | +-------------------+ |
+   | | b steht für 2     | |
+   | |                   | |
+   | | +---------------+ | |
+   | | | c steht für 3 | | |
+   | | |               | | |
+   | | | 1 + 2 + 3 -> 6| | |
+   | | +---------------+ | |
+   | +-------------------+ |
+   +-----------------------+
+
+   
+
+Übung 34
+========
+
+Probiere selbst mit den lokalen und globalen Variablen herum. Definiere ein paar
+globale Variablen und schreibe hinterher ein paar Let-Ausdrücke, in die sowohl
+globale als auch lokale Variablen eingehen.
+
+Spiele auch gerne mit dem Überschatten von globalen Bindungen durch lokale Bindungen
+herum, wie wir es im ersten Beispiel oben gesehen haben.
+
+
+Let-Ausdrücke für Tests benutzen
+================================
 
 
 
+
+   
 
 Version of "tests_strukturieren"
 ================================

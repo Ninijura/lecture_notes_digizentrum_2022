@@ -90,7 +90,7 @@ mit der Bindung von <code class="docutils literal notranslate"><span class="pre"
 <li><p class="first">Wenn <code class="docutils literal notranslate"><span class="pre">e1</span></code> zum Wert w1 evaluiert wird, dann vereinfacht sich die Evaluierung von
 <code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">x1</span> <span class="pre">=</span> <span class="pre">e1</span> <span class="pre">in</span> <span class="pre">e0</span></code>  dazu, dass wir <code class="docutils literal notranslate"><span class="pre">e0</span></code> in einere Umgebung evaluieren, wo
 der Name <code class="docutils literal notranslate"><span class="pre">x1</span></code> den Wert w1 repräsentiert.</p>
-<p>Wir können das auch graphisch darstellen:</p>
+<p>Wir können das auch grafisch darstellen:</p>
 <img alt="../_images/ditaa-a0c996f1f4bd7b82dc2155244a5b032d605ffa1b.png" src="../_images/ditaa-a0c996f1f4bd7b82dc2155244a5b032d605ffa1b.png" />
 <p>Die Bindung von <code class="docutils literal notranslate"><span class="pre">x1</span></code> ist lokal. Das bedeutet, dass sie aus der Umgebung
 gelöscht wird sobald wir <code class="docutils literal notranslate"><span class="pre">e0</span></code> evaluiert haben.</p>
@@ -98,6 +98,42 @@ gelöscht wird sobald wir <code class="docutils literal notranslate"><span class
 </ul>
 </li>
 </ul>
+<p>Wo ein toplevel Let-Ausdruck, <code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">x</span> <span class="pre">=</span> <span class="pre">d</span></code> den Namen <code class="docutils literal notranslate"><span class="pre">x</span></code> global bindet, bindet
+ein Let-Ausdruck <code class="docutils literal notranslate"><span class="pre">let</span> <span class="pre">x</span> <span class="pre">=</span> <span class="pre">d</span> <span class="pre">in</span> <span class="pre">e</span></code> den Namen <code class="docutils literal notranslate"><span class="pre">x</span></code> nur lokal in der Evaluierung von
+<code class="docutils literal notranslate"><span class="pre">e</span></code>.</p>
+<p>Hier ein Beispiel:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># let x = 1;;
+val x : int = 1
+# x + 100;;
+- : int = 101
+# let x = 10 in x + 100;;
+- : int = 110
+# x;;
+- : int = 1
+#
+</pre></div>
+</div>
+<p>Grafisch können wir das Ganze wie folg darstellen:</p>
+<img alt="../_images/ditaa-144c8b2826bf279149909d57b8866af599875d3f.png" src="../_images/ditaa-144c8b2826bf279149909d57b8866af599875d3f.png" />
+<p>Wir können diese Let-Ausdrücke auch beliebig verschachteln:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># let a = 1 in let b = 2 in let c = 3 in a + b + c;;
+- : int = 6
+#
+</pre></div>
+</div>
+<p>Wieder einmal ist die grafische Darstellung für das Verständnis hilfreicher:</p>
+<img alt="../_images/ditaa-f7a6945577dc5c0c358c7aadcc898a25bc41685e.png" src="../_images/ditaa-f7a6945577dc5c0c358c7aadcc898a25bc41685e.png" />
+</div>
+<div class="section" id="ubung-34">
+<h2>Übung 34<a class="headerlink" href="#ubung-34" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Probiere selbst mit den lokalen und globalen Variablen herum. Definiere ein paar
+globale Variablen und schreibe hinterher ein paar Let-Ausdrücke, in die sowohl
+globale als auch lokale Variablen eingehen.</p>
+<p>Spiele auch gerne mit dem Überschatten von globalen Bindungen durch lokale Bindungen
+herum, wie wir es im ersten Beispiel oben gesehen haben.</p>
+</div>
+<div class="section" id="let-ausdrucke-fur-tests-benutzen">
+<h2>Let-Ausdrücke für Tests benutzen<a class="headerlink" href="#let-ausdrucke-fur-tests-benutzen" title="Link zu dieser Überschrift">¶</a></h2>
 </div>
 <div class="section" id="version-of-tests-strukturieren">
 <h2>Version of „tests_strukturieren“<a class="headerlink" href="#version-of-tests-strukturieren" title="Link zu dieser Überschrift">¶</a></h2>
@@ -115,6 +151,8 @@ gelöscht wird sobald wir <code class="docutils literal notranslate"><span class
   <ul>
 <li><a class="reference internal" href="#">Sturkturiertere Tests</a><ul>
 <li><a class="reference internal" href="#lokale-variablen">Lokale Variablen</a></li>
+<li><a class="reference internal" href="#ubung-34">Übung 34</a></li>
+<li><a class="reference internal" href="#let-ausdrucke-fur-tests-benutzen">Let-Ausdrücke für Tests benutzen</a></li>
 <li><a class="reference internal" href="#version-of-tests-strukturieren">Version of „tests_strukturieren“</a></li>
 </ul>
 </li>
