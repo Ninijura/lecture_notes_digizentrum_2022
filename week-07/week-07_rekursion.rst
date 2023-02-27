@@ -242,10 +242,12 @@ In dieser Verdoppelungs-Funktion ist also:
 Übung 33
 ========
 
-Bearbeite den `Ocaml-Code für diese Woche
-<../exercises/week-07/exercises_for_week-07.ml>`_ und füge einen Test für eine
-``verdreifache``-Funktion hinzu. Schreibe danach die Funktion so wie die beiden
-obigen Funktionen. 
+* Bearbeite den `Ocaml-Code für diese Woche
+  <../exercises/week-07/exercises_for_week-07.ml>`_ und füge einen Test für eine
+  ``verdreifache``-Funktion hinzu. Schreibe danach die Funktion so wie die beiden
+  obigen Funktionen.
+
+* Beschreibe den Basisfall und den Induktionsfall für deine Funktion.
 
 
 
