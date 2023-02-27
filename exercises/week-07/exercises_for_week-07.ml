@@ -1,5 +1,5 @@
 (* exercises for week-07 of Einführung ins Programmieren *)
-(* Version of 2023-02-22 *)
+(* Version of 2023-02-27 *)
 (* kira@tailorsoft.de *)
 
 
@@ -53,6 +53,55 @@ let verdoppel_korrekt = test_verdoppel verdoppel;;
 
 
 (* Wende deinen Test auf deine verdreifaungs-Funktion an. *)
+
+
+(* Übung 34 *)
+
+(* Probiere Kombinationen wie: *)
+(* let x = 1;; *)
+(* let y = "hi";; *)
+(* let z = 15 and y = 26 in x + y + z;; *)
+(* etc... *)
+
+
+(* Übung 35 *)
+
+(* Schreibe deinen Test für die Verdreifachungs-Funktion um, so dass du für jeden *)
+(* Testfall eine Lokale Variable definierst und hinterher nur noch die Variablen *)
+(* zusammensetzen musst.  *)
+
+
+
+(* Übung 36 *)
+
+(* Faktorialfunktion: *)
+(* Basisfall:      0! = ...
+   Induktionsfall: n! = ... *)
+
+(* let test_faktorial kandidat = ... *)
+
+
+(* let rec fak n = ... *)
+
+
+(* let fak_korrekt = test_faktorial fak;; *)
+
+
+(* Übung 37 *)
+
+(* Fibonacci-Funktion: *)
+(* Basisfall:        fib 0 = ... *)
+(* Induktionsfall:   fib n = ... *)
+
+
+(* let test_fib kandidat = ... *)
+
+
+(* let rec fib x = ... *)
+
+
+(* let fib_korrekt = test_fib fib;; *)
+
 
 
 (* end of file *)

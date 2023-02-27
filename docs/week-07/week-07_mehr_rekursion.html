@@ -1,0 +1,205 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Mehr Rekursion &#8212; Einführung ins Programmieren 2022</title>
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/extra-styles.css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <link rel="index" title="Stichwortverzeichnis" href="../genindex.html" />
+    <link rel="search" title="Suche" href="../search.html" />
+    <link rel="next" title="Dramatis Personae" href="../resources/dramatis_personae.html" />
+    <link rel="prev" title="Sturkturiertere Tests" href="week-07_tests_strukturieren.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Stichwortverzeichnis"
+             accesskey="I">Index</a></li>
+        <li class="right" >
+          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+             accesskey="N">weiter</a> |</li>
+        <li class="right" >
+          <a href="week-07_tests_strukturieren.html" title="Sturkturiertere Tests"
+             accesskey="P">zurück</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Einführung ins Programmieren 2022</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="week-07_index.html" accesskey="U">Lehrmaterial für Woche 07</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="mehr-rekursion">
+<h1>Mehr Rekursion<a class="headerlink" href="#mehr-rekursion" title="Link zu dieser Überschrift">¶</a></h1>
+<p>Der Sinn dieses Kapitels ist es, das Prinzip der Rekursion an einem gängigen Beispiel
+zu üben:</p>
+<div class="section" id="die-faktorialfunktion">
+<h2>Die Faktorialfunktion<a class="headerlink" href="#die-faktorialfunktion" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Das Ergebnis Faktorialfunktion angewandt auf eine natürliche Zahl x ist
+x*x-1*x-2*…*2*1. Oder in Worten: Das Produkt von allen natürlichen Zahlen von 1
+bis x. Wir schreiben das Faktorial von x auch x!.</p>
+<p>Zur Veranschaulichung hier ein paar Beispiele:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>0! = 1 (per Definition, lässt sich also nicht berechnen)
+1! = 1
+2! = 2 * 1 = 2
+3! = 3 * 2 * 1 = 6
+4! = 4 * 3 * 2 * 1 = 24
+5! = 5 * 4 * 3 * 2 * 1 = 120
+etc.
+</pre></div>
+</div>
+<p>Hier lässt sich schon ein Muster erkennen, das eine rekursive Struktur hat:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>n! = n * (n-1)!
+</pre></div>
+</div>
+<p>Oder wieder mit Beispielen:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>0! = 1 (hier ist 0 unser Basisfall)
+1! = 1 * 0! = 1
+2! = 2 * 1! = 2
+3! = 3 * 2! = 6
+4! = 4 * 3! = 24
+5! = 5 * 4! = 120
+etc.
+</pre></div>
+</div>
+</div>
+<div class="section" id="ubung-36">
+<h2>Übung 36<a class="headerlink" href="#ubung-36" title="Link zu dieser Überschrift">¶</a></h2>
+<ul class="simple">
+<li>Beschreibe den Basisfall und den Induktionsfall für die Faktorial-Funktion.
+(Tipp: Die Lösung steht schon fast fertig in diesem Abschnitt.)</li>
+<li>Schreibe eine Testfunktion für die Faktorialfunktion.</li>
+<li>Schreibe die Faktorialfunktion in OCaml.</li>
+<li>Benutze deinen Test um zu überprüfen, ob du die Faktorialfunktion richtig
+geschrieben hast.</li>
+</ul>
+</div>
+<div class="section" id="bonus-fur-schnelle-die-fibonacci-funktion">
+<h2>Bonus für Schnelle: Die Fibonacci-Funktion<a class="headerlink" href="#bonus-fur-schnelle-die-fibonacci-funktion" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Die Fibonacci-Funktion ist eine induktiv definierte Zahlenreihe (das heißt jede neue
+Zahl ist an ihren Vorgängern definiert). Anders als die Funktionen, die wir bisher
+gesehen haben, hat die Fibonacci-Funktion zwei Basisfälle.</p>
+<p>Hier ist der Anfang der Reihe:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>    n =  0  1  2  3  4  5  6  7   8   9   10
+fib n =  0  1  1  2  3  5  8  13  21  34  55
+</pre></div>
+</div>
+<p>Die beiden Basisfälle sind definiert als:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>fib 0 = 0
+fib 1 = 1
+</pre></div>
+</div>
+<p>Der Induktionsfall nimmt immer die beiden vorhergegangenen Zahlen und addiert
+sie. Hier ein paar Beispiele:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>fib 2 = fib 1 + fib 0
+fib 3 = fib 2 + fib 1
+fib 4 = fib 3 + fib 2
+...
+</pre></div>
+</div>
+</div>
+<div class="section" id="ubung-37">
+<h2>Übung 37<a class="headerlink" href="#ubung-37" title="Link zu dieser Überschrift">¶</a></h2>
+<ul class="simple">
+<li>Schreibe Basisfall und Induktionsfall für die Fibonacci-Funktion auf.
+(Tipp: Der Basisfall steht schon im obigen Abschnitt.)</li>
+<li>Schreibe eine Testfunktion für die Fibonacci-Funktion.</li>
+<li>Schreibe die Fibonacci-Funktion in OCaml.
+(Tipp: mit zwei Basisfällen brauchst du natürlich auch zwei bedingte Ausdrücke
+(if-statements).)</li>
+<li>Benutze deinen Test zum zu überprüfen, ob du die Fibonacci-Funktion richtig
+geschrieben hast.</li>
+</ul>
+</div>
+<div class="section" id="version-of-mehr-rekursion">
+<h2>Version of „mehr_rekursion“<a class="headerlink" href="#version-of-mehr-rekursion" title="Link zu dieser Überschrift">¶</a></h2>
+<p>[2022-02-27] Erstellt</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Mehr Rekursion</a><ul>
+<li><a class="reference internal" href="#die-faktorialfunktion">Die Faktorialfunktion</a></li>
+<li><a class="reference internal" href="#ubung-36">Übung 36</a></li>
+<li><a class="reference internal" href="#bonus-fur-schnelle-die-fibonacci-funktion">Bonus für Schnelle: Die Fibonacci-Funktion</a></li>
+<li><a class="reference internal" href="#ubung-37">Übung 37</a></li>
+<li><a class="reference internal" href="#version-of-mehr-rekursion">Version of „mehr_rekursion“</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Vorheriges Thema</h4>
+  <p class="topless"><a href="week-07_tests_strukturieren.html"
+                        title="vorheriges Kapitel">Sturkturiertere Tests</a></p>
+  <h4>Nächstes Thema</h4>
+  <p class="topless"><a href="../resources/dramatis_personae.html"
+                        title="nächstes Kapitel">Dramatis Personae</a></p>
+  <div role="note" aria-label="source link">
+    <h3>Diese Seite</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/week-07/week-07_mehr_rekursion.rst.txt"
+            rel="nofollow">Quellcode anzeigen</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Schnellsuche</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Los" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Stichwortverzeichnis"
+             >Index</a></li>
+        <li class="right" >
+          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+             >weiter</a> |</li>
+        <li class="right" >
+          <a href="week-07_tests_strukturieren.html" title="Sturkturiertere Tests"
+             >zurück</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Einführung ins Programmieren 2022</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="week-07_index.html" >Lehrmaterial für Woche 07</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2022, Kira Kutscher.
+      Mit <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5 erstellt.
+    </div>
+  </body>
+</html>

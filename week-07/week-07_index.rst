@@ -7,3 +7,4 @@ Lehrmaterial für Woche 07
 
    week-07_rekursion
    week-07_tests_strukturieren
+   week-07_mehr_rekursion

@@ -228,6 +228,16 @@ Beispiel 2. Wenn wir das tun, bekommen wir eine Funktion, die ihr Input verdoppe
 In dieser Funktion pulen wir die Zahl auseinander und legen jedes Mal 2 dazu. Damit
 verdoppeln wir am Ende das Input.
 
+Bemerke: Wir können auch hier wieder Basisfall und Induktionsfall verwenden um die
+Funktion zu verstehen. Bei natürlichen Zahlen, wie wir sie definiert haben, ist der
+Basisfall 0 und der Induktionsfall gilt für jede Zahl, die größer als null ist.
+
+In dieser Verdoppelungs-Funktion ist also:
+
+**Basisfall:** 0 * 2 = 0
+
+**Induktionsfall** n * 2 = 2 + (n-1) * 2
+
 
 Übung 33
 ========

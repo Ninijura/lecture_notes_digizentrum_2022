@@ -149,7 +149,72 @@ herum, wie wir es im ersten Beispiel oben gesehen haben.
 Let-Ausdrücke für Tests benutzen
 ================================
 
+Wir können nun unsere Tests übersichtlicher machen, indem wir jedem Teil des Tests
+einen Namen zuweisen und hinterher alle Ergebnisse mit ``&&`` zusammensetzen. Hier
+als Beispiel ein verbesserter Test für die Nachfolger-Funktion:
 
+::
+
+   let test_nachfolger_leserlich kandidat =
+       let b1 = (kandidat 0 = 1)
+       and b2 = (kandidat 4 = 5)
+       and b3 = (kandidat (-3) = (-2))
+       and b4 = (kandidat 17 = 18)
+       (* and etc. *)
+       in b1 && b2 && b3 && b4;;
+
+
+Der Sinn dieses Umschreiben ist, dass das Hinzufügen neuer Testfälle um einiges
+praktischer wird.
+
+
+Übung 35
+========
+
+* Schreibe die Testfunktion, die du für eine Verdreifachungsfunktion geschrieben hast,
+  zu der neuen Form um (gerne als neue Funktion). Überprüfe, dass deine
+  Verdreifachungs-Funktion den umgeschriebenen Test weiterhin besteht.
+
+* Bonus: Um deinem inneren `Positive Bias
+  <https://www.lesswrong.com/posts/rmAbiEKQDpDnZzcRf/positive-bias-look-into-the-dark>`_
+  entgegen zu wirken, überprüfe, dass die Funktion ``verdoppel`` deinen Test nicht
+  besteht.
+
+* Gedankenfutter: Was passiert, wenn du eine der lokal definierten Variablen nicht in
+  dem Ausdruck nach dem ``in`` benutzt? Warum glaubst du, passiert das?
+
+
+Zwischenspiel zum Gedankenfutter
+================================
+
+**Alfrothul:** Das muss ich gleich ausprobieren. Also mit dem Beispiel vom
+Nachfolger-Test könnte das so aussehen:
+
+::
+
+   #  let test_nachfolger_leserlich kandidat =
+         let b1 = (kandidat 0 = 1)
+         and b2 = (kandidat 4 = 5)
+         and b3 = (kandidat (-3) = (-2))
+         and b4 = (kandidat 17 = 18)
+         (* and etc. *)
+         in b1 && b2 && b3;;
+   Warning 26 [unused-var]: unused variable b4.
+   val test_nachfolger_leserlich : (int -> int) -> bool = <fun>
+   #
+
+**Sigrid:** Eine Warnung, dass du eine Variable nicht benutzt.
+
+**Alfrothul:** Aber wie weiß OCaml denn, dass ich sie nicht später noch benutze.
+
+**Brynja:** Ich glaube, das müsste was mit der lokalen Bindung zu tun haben.
+
+**Sigrid:** Ja, das macht Sinn. Nachdem OCaml das ``in b1 && b2 && b3`` evaluiert
+hat, vergisst es doch die lokalen Bindungen wieder.
+
+**Alfrothul:** Stimmt! Dann macht es Sinn, dass da eine Warnung ist. 
+     
+  
 
 
    
@@ -158,3 +223,5 @@ Version of "tests_strukturieren"
 ================================
 
 [2022-02-22] Erstellt
+
+[2022-02-27] Fertiggestellt

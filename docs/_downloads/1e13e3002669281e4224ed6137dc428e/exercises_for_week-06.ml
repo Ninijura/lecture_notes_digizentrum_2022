@@ -115,28 +115,6 @@ let kleinere_von_zweien_falsch_tatsaechlich_korrekt =
 
 
 
-let rec nter_nachfolger x =
-  if x = 0
-  then 0
-  else 1 + (nter_nachfolger (x - 1));;
-
-
-let rec verdoppel x =
-  if x = 0
-  then 0
-  else 2 + (verdoppel (x - 1));;
-
-
-(* Übung 33 *)
-(* Schreibe einen Test für eine verdreifachungs-Funktion für natürliche Zahlen. *)
-
-
-(* Schreibe eine Verdreifachungs-Funktion für natürliche Zahlen nach den obigen *)
-(* Beispielen. *)
-
-
-(* Wende deinen Test auf deine verdreifaungs-Funktion an. *)
-
 
 
 

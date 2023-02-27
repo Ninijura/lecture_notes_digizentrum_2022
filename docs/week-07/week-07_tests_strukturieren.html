@@ -21,7 +21,7 @@
     
     <link rel="index" title="Stichwortverzeichnis" href="../genindex.html" />
     <link rel="search" title="Suche" href="../search.html" />
-    <link rel="next" title="Dramatis Personae" href="../resources/dramatis_personae.html" />
+    <link rel="next" title="Mehr Rekursion" href="week-07_mehr_rekursion.html" />
     <link rel="prev" title="Rekursion: Zwiebeldenken" href="week-07_rekursion.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -31,7 +31,7 @@
           <a href="../genindex.html" title="Stichwortverzeichnis"
              accesskey="I">Index</a></li>
         <li class="right" >
-          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+          <a href="week-07_mehr_rekursion.html" title="Mehr Rekursion"
              accesskey="N">weiter</a> |</li>
         <li class="right" >
           <a href="week-07_rekursion.html" title="Rekursion: Zwiebeldenken"
@@ -134,10 +134,61 @@ herum, wie wir es im ersten Beispiel oben gesehen haben.</p>
 </div>
 <div class="section" id="let-ausdrucke-fur-tests-benutzen">
 <h2>Let-Ausdrücke für Tests benutzen<a class="headerlink" href="#let-ausdrucke-fur-tests-benutzen" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Wir können nun unsere Tests übersichtlicher machen, indem wir jedem Teil des Tests
+einen Namen zuweisen und hinterher alle Ergebnisse mit <code class="docutils literal notranslate"><span class="pre">&amp;&amp;</span></code> zusammensetzen. Hier
+als Beispiel ein verbesserter Test für die Nachfolger-Funktion:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>let test_nachfolger_leserlich kandidat =
+    let b1 = (kandidat 0 = 1)
+    and b2 = (kandidat 4 = 5)
+    and b3 = (kandidat (-3) = (-2))
+    and b4 = (kandidat 17 = 18)
+    (* and etc. *)
+    in b1 &amp;&amp; b2 &amp;&amp; b3 &amp;&amp; b4;;
+</pre></div>
+</div>
+<p>Der Sinn dieses Umschreiben ist, dass das Hinzufügen neuer Testfälle um einiges
+praktischer wird.</p>
+</div>
+<div class="section" id="ubung-35">
+<h2>Übung 35<a class="headerlink" href="#ubung-35" title="Link zu dieser Überschrift">¶</a></h2>
+<ul class="simple">
+<li>Schreibe die Testfunktion, die du für eine Verdreifachungsfunktion geschrieben hast,
+zu der neuen Form um (gerne als neue Funktion). Überprüfe, dass deine
+Verdreifachungs-Funktion den umgeschriebenen Test weiterhin besteht.</li>
+<li>Bonus: Um deinem inneren <a class="reference external" href="https://www.lesswrong.com/posts/rmAbiEKQDpDnZzcRf/positive-bias-look-into-the-dark">Positive Bias</a>
+entgegen zu wirken, überprüfe, dass die Funktion <code class="docutils literal notranslate"><span class="pre">verdoppel</span></code> deinen Test nicht
+besteht.</li>
+<li>Gedankenfutter: Was passiert, wenn du eine der lokal definierten Variablen nicht in
+dem Ausdruck nach dem <code class="docutils literal notranslate"><span class="pre">in</span></code> benutzt? Warum glaubst du, passiert das?</li>
+</ul>
+</div>
+<div class="section" id="zwischenspiel-zum-gedankenfutter">
+<h2>Zwischenspiel zum Gedankenfutter<a class="headerlink" href="#zwischenspiel-zum-gedankenfutter" title="Link zu dieser Überschrift">¶</a></h2>
+<p><strong>Alfrothul:</strong> Das muss ich gleich ausprobieren. Also mit dem Beispiel vom
+Nachfolger-Test könnte das so aussehen:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>#  let test_nachfolger_leserlich kandidat =
+      let b1 = (kandidat 0 = 1)
+      and b2 = (kandidat 4 = 5)
+      and b3 = (kandidat (-3) = (-2))
+      and b4 = (kandidat 17 = 18)
+      (* and etc. *)
+      in b1 &amp;&amp; b2 &amp;&amp; b3;;
+Warning 26 [unused-var]: unused variable b4.
+val test_nachfolger_leserlich : (int -&gt; int) -&gt; bool = &lt;fun&gt;
+#
+</pre></div>
+</div>
+<p><strong>Sigrid:</strong> Eine Warnung, dass du eine Variable nicht benutzt.</p>
+<p><strong>Alfrothul:</strong> Aber wie weiß OCaml denn, dass ich sie nicht später noch benutze.</p>
+<p><strong>Brynja:</strong> Ich glaube, das müsste was mit der lokalen Bindung zu tun haben.</p>
+<p><strong>Sigrid:</strong> Ja, das macht Sinn. Nachdem OCaml das <code class="docutils literal notranslate"><span class="pre">in</span> <span class="pre">b1</span> <span class="pre">&amp;&amp;</span> <span class="pre">b2</span> <span class="pre">&amp;&amp;</span> <span class="pre">b3</span></code> evaluiert
+hat, vergisst es doch die lokalen Bindungen wieder.</p>
+<p><strong>Alfrothul:</strong> Stimmt! Dann macht es Sinn, dass da eine Warnung ist.</p>
 </div>
 <div class="section" id="version-of-tests-strukturieren">
 <h2>Version of „tests_strukturieren“<a class="headerlink" href="#version-of-tests-strukturieren" title="Link zu dieser Überschrift">¶</a></h2>
 <p>[2022-02-22] Erstellt</p>
+<p>[2022-02-27] Fertiggestellt</p>
 </div>
 </div>
 
@@ -153,6 +204,8 @@ herum, wie wir es im ersten Beispiel oben gesehen haben.</p>
 <li><a class="reference internal" href="#lokale-variablen">Lokale Variablen</a></li>
 <li><a class="reference internal" href="#ubung-34">Übung 34</a></li>
 <li><a class="reference internal" href="#let-ausdrucke-fur-tests-benutzen">Let-Ausdrücke für Tests benutzen</a></li>
+<li><a class="reference internal" href="#ubung-35">Übung 35</a></li>
+<li><a class="reference internal" href="#zwischenspiel-zum-gedankenfutter">Zwischenspiel zum Gedankenfutter</a></li>
 <li><a class="reference internal" href="#version-of-tests-strukturieren">Version of „tests_strukturieren“</a></li>
 </ul>
 </li>
@@ -162,8 +215,8 @@ herum, wie wir es im ersten Beispiel oben gesehen haben.</p>
   <p class="topless"><a href="week-07_rekursion.html"
                         title="vorheriges Kapitel">Rekursion: Zwiebeldenken</a></p>
   <h4>Nächstes Thema</h4>
-  <p class="topless"><a href="../resources/dramatis_personae.html"
-                        title="nächstes Kapitel">Dramatis Personae</a></p>
+  <p class="topless"><a href="week-07_mehr_rekursion.html"
+                        title="nächstes Kapitel">Mehr Rekursion</a></p>
   <div role="note" aria-label="source link">
     <h3>Diese Seite</h3>
     <ul class="this-page-menu">
@@ -194,7 +247,7 @@ herum, wie wir es im ersten Beispiel oben gesehen haben.</p>
           <a href="../genindex.html" title="Stichwortverzeichnis"
              >Index</a></li>
         <li class="right" >
-          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+          <a href="week-07_mehr_rekursion.html" title="Mehr Rekursion"
              >weiter</a> |</li>
         <li class="right" >
           <a href="week-07_rekursion.html" title="Rekursion: Zwiebeldenken"
