@@ -21,7 +21,7 @@
     
     <link rel="index" title="Stichwortverzeichnis" href="../genindex.html" />
     <link rel="search" title="Suche" href="../search.html" />
-    <link rel="next" title="Dramatis Personae" href="../resources/dramatis_personae.html" />
+    <link rel="next" title="Bonusübungen" href="week-08_bonus.html" />
     <link rel="prev" title="Lehrmaterial für Woche 08" href="week-08_index.html" /> 
   </head><body>
     <div class="related" role="navigation" aria-label="related navigation">
@@ -31,7 +31,7 @@
           <a href="../genindex.html" title="Stichwortverzeichnis"
              accesskey="I">Index</a></li>
         <li class="right" >
-          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+          <a href="week-08_bonus.html" title="Bonusübungen"
              accesskey="N">weiter</a> |</li>
         <li class="right" >
           <a href="week-08_index.html" title="Lehrmaterial für Woche 08"
@@ -87,9 +87,9 @@ dem Keyword <code class="docutils literal notranslate"><span class="pre">type</s
 </pre></div>
 </div>
 <p>Wenn wir also natürliche Zahlen definieren wollen, dann können wir das wie folgt tun:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>type nat_v1 =
-| Null
-| Nachfolger of nat_v1;;
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># type nat_v1 =
+  | Null
+  | Nachfolger of nat_v1;;
 type nat_v1 = Null | Nachfolger of nat_v1
 </pre></div>
 </div>
@@ -101,9 +101,9 @@ type nat_v1 = Null | Nachfolger of nat_v1
 </div>
 <p>Das ist ziemlich viel zu tippen und auch nicht gut zu lesen. Daher kürzen wir das
 ganze ab und benutzen <code class="docutils literal notranslate"><span class="pre">O</span></code> (großes o) als Null und <code class="docutils literal notranslate"><span class="pre">S</span></code> anstelle von Nachfolger:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>type nat =
-| O
-| S of nat;;
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># type nat =
+  | O
+  | S of nat;;
 type nat = O | S of nat
 </pre></div>
 </div>
@@ -147,6 +147,7 @@ in b1 &amp;&amp; b2 &amp;&amp; b3 &amp;&amp; b4;;
 </div>
 <div class="section" id="ubung-38">
 <h2>Übung 38<a class="headerlink" href="#ubung-38" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Nimm dir den <a class="reference download internal" download="" href="../_downloads/afda361990b309905114885d5d30d5c8/exercises_for_week-08.ml"><code class="xref download docutils literal notranslate"><span class="pre">OCaml-Code</span></code></a> für diese Woche zur Hand.</p>
 <p>Schreibe mindestens fünf weitere Tests in die Testfunktion. Achte gerne darauf, dass
 alle möglichen Kombinationen von positiven Zahlen, negativen Zahlen und Null
 überprüfst.</p>
@@ -166,8 +167,8 @@ in (b1, b2 &amp;&amp; b3, b4);;
 die Testergebnisse für beide Einzelfunktionen sowie die für beide Funktionen zusammen
 sehen kannst.</p>
 </div>
-<div class="section" id="konvertieren-zwischen-int-und-nat-fortgesetzt">
-<h2>Konvertieren zwischen <code class="docutils literal notranslate"><span class="pre">int</span></code> und <code class="docutils literal notranslate"><span class="pre">nat</span></code> (fortgesetzt)<a class="headerlink" href="#konvertieren-zwischen-int-und-nat-fortgesetzt" title="Link zu dieser Überschrift">¶</a></h2>
+<div class="section" id="konvertieren-von-int-zu-nat">
+<h2>Konvertieren von <code class="docutils literal notranslate"><span class="pre">int</span></code> zu <code class="docutils literal notranslate"><span class="pre">nat</span></code><a class="headerlink" href="#konvertieren-von-int-zu-nat" title="Link zu dieser Überschrift">¶</a></h2>
 <p>Fangen wir unsere Arbeit mit etwas an, was wir kennen: rekursive Funktionen über
 Integer. Das bedeutet, dass wir als erstes die Funktion <code class="docutils literal notranslate"><span class="pre">int_to_nat</span></code> schreiben.</p>
 <p>Wir haben uns schon beim Test überlegt, dass es drei Möglichkeiten für das Input
@@ -192,6 +193,196 @@ und eine neue Lage zum <code class="docutils literal notranslate"><span class="p
 noch konvertieren und dann erst die nächste Lage <code class="docutils literal notranslate"><span class="pre">nat</span></code> hinzufügen. Das ganze könnte
 also ungefähr so aussehen: <code class="docutils literal notranslate"><span class="pre">S</span> <span class="pre">(int_to_nat</span> <span class="pre">(n-1))</span></code></p>
 </div>
+<div class="section" id="ubung-39">
+<h2>Übung 39<a class="headerlink" href="#ubung-39" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Nutze das, was du letzte Woche gelernt hast und oben genannten Basis- und
+Induktivfall um die Konvertierungsfunktion <code class="docutils literal notranslate"><span class="pre">int_to_nat</span></code> zu schreiben.</p>
+</div>
+<div class="section" id="konvertieren-von-nat-zu-int">
+<h2>Konvertieren von <code class="docutils literal notranslate"><span class="pre">nat</span></code> zu <code class="docutils literal notranslate"><span class="pre">int</span></code><a class="headerlink" href="#konvertieren-von-nat-zu-int" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Für die Konvertierung von <code class="docutils literal notranslate"><span class="pre">nat</span></code> zu <code class="docutils literal notranslate"><span class="pre">int</span></code> haben wir von Anfang an nur zwei
+mögliche Bereiche für das Input:</p>
+<ul class="simple">
+<li>= O</li>
+<li>&lt; O</li>
+</ul>
+<p>Das lässt sich auch anders schreiben:</p>
+<ul class="simple">
+<li>= O</li>
+<li>= S n, wo n ein Wert ist.</li>
+</ul>
+<p>Das ergibt sich ganz logisch aus unserer Typendefinition. Guck dir gerne die
+Typendefinition noch einmal an und sieh die zwei Fälle dort.</p>
+<p>Wir könnten jetzt also die Funktion ganz einfach schreiben wie wir gerade die andere
+geschrieben haben:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>let rec nat_to_int_v1 n =
+  if n = O
+  then 0
+  else 1 + (nat_to_int_v1 (n - 1));;
+</pre></div>
+</div>
+<p>Doof nur, dass das <code class="docutils literal notranslate"><span class="pre">(-)</span></code> nur für Integer definiert ist und nicht für <code class="docutils literal notranslate"><span class="pre">nat</span></code> s. Wir
+könnten nun natürlich eine Vorgänger-Funktion für die natürlichen Zahlen definieren,
+aber es geht auch einfacher.</p>
+</div>
+<div class="section" id="zwischenspiel-uber-match">
+<h2>Zwischenspiel über <code class="docutils literal notranslate"><span class="pre">match</span></code><a class="headerlink" href="#zwischenspiel-uber-match" title="Link zu dieser Überschrift">¶</a></h2>
+<p><strong>Mimer:</strong> In OCaml können wir einen Wert auf seine Struktur überprüfen und je nachdem, wie
+dieser Wert konsturiert ist eine andere Berechnung ausführen.</p>
+<p><strong>Alfrothul:</strong> Das verstehe ich nicht.</p>
+<p><strong>Brynja:</strong> Ich schon, glaube ich. Wir haben zum Beispiel bei <code class="docutils literal notranslate"><span class="pre">nat</span></code> zwei
+Konstruktoren: <code class="docutils literal notranslate"><span class="pre">O</span></code> und <code class="docutils literal notranslate"><span class="pre">S</span> <span class="pre">n</span></code>, wo <code class="docutils literal notranslate"><span class="pre">n</span></code> eine andere <code class="docutils literal notranslate"><span class="pre">nat</span></code> ist.</p>
+<p><strong>Alfrothul:</strong> Okay… wenn wir also Booleans nehmen, haben wir auch wieder zwei
+Konstruktoren, <code class="docutils literal notranslate"><span class="pre">true</span></code> und <code class="docutils literal notranslate"><span class="pre">false</span></code>, stimmt das?</p>
+<p><strong>Mimer:</strong> Genau, du bist auf dem richtigen Wege.</p>
+<p><strong>Sigrid:</strong> Ich muss das ausprobieren, sonst verstehe ich das nicht. Also Mimer, wie
+schreibe ich das?</p>
+<p><strong>Mimer:</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>match w with
+| ... -&gt; ...
+| ... -&gt; ...
+| etc.
+</pre></div>
+</div>
+<p>wo w ein Wert ist. Links von den <code class="docutils literal notranslate"><span class="pre">-&gt;</span></code> steht die Struktur, mit der w verglichen wird
+und rechts davon die Berechnung, die dann ausgeührt werden soll.</p>
+<p><strong>Sigrid:</strong> Okay. Wenn ich jetzt also zum Beispiel die <code class="docutils literal notranslate"><span class="pre">not</span></code>-Funktion für Booleans
+schreiben wollte, wäre das so:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># let not_v1 b =
+  match b with
+  | true -&gt; false
+  | false -&gt; true ;;
+val not_v1 : bool -&gt; bool = &lt;fun&gt;
+#
+</pre></div>
+</div>
+<p><strong>Brynja:</strong> Ich glaube schon, aber lass es uns lieber testen:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># not_v1 true;;
+- : bool = false
+# not_v1 false;;
+- : bool = true
+#
+</pre></div>
+</div>
+<p><strong>Alfrothul:</strong> Dann kann ich mir ja auch bei Integern das ganze <code class="docutils literal notranslate"><span class="pre">if</span></code> schenken. Ich
+schreibe einfach:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># let rec int_to_nat_v2 i =
+   match i with
+   | &lt;= 0 -&gt; O
+   | &gt; 0 -&gt; S (int_to_nat_v2 (i-1));;
+Error: Syntax error
+#
+</pre></div>
+</div>
+<p>Hm… oder auch nicht?</p>
+<p><strong>Mimer:</strong> Nein, <code class="docutils literal notranslate"><span class="pre">&lt;=</span></code> und <code class="docutils literal notranslate"><span class="pre">&gt;</span></code> sind Operatoren, keine Struktur.</p>
+<p><strong>Brynja:</strong> Ich glaube, wir könnten da aber die Struktur von Booleans benutzen.</p>
+<p><strong>Alfrothul:</strong> Wieso denn Booleans? Die haben hiermit doch gar nichts zu tun.</p>
+<p><strong>Brynja:</strong> Nicht direkt. Aber in einem <code class="docutils literal notranslate"><span class="pre">if</span></code> hast du ja immer einen Boolean als
+Test. Warum nicht auch hier?</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># let rec int_to_nat_v2 i =
+  match (i &lt;= 0) with
+  | true -&gt; O
+  | false -&gt; S (int_to_nat_v2 (i-1));;
+val int_to_nat_v2 : int -&gt; nat = &lt;fun&gt;
+#
+</pre></div>
+</div>
+<p><strong>Alfrothul:</strong> Hm! Cool!</p>
+<p><strong>Sigrid:</strong> Ich glaube ich sehe, wie das mit <code class="docutils literal notranslate"><span class="pre">nat</span></code> Sinnvoll ist:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># let n = S (S O);;
+val n : nat = S (S O)
+# match n with
+  | O -&gt; &quot;n ist null&quot;
+  | S
+</pre></div>
+</div>
+<p>Uhm… ich brauche hier mal Hilfe. Der Konstruktor <code class="docutils literal notranslate"><span class="pre">S</span></code> nimmt ja ein Argument, wie
+schreibe ich denn das?</p>
+<p><strong>Mimer:</strong> Gut bemerkt! Wenn du einen Konstruktor hast, der Argumente nimmt, kannst
+du den Argumenten Namen geben indem du Namen an ihre Stelle schreibst. Du kannst sie
+auch anonym sein lassen, indem du einfach einen Unterstrich schreibst.</p>
+<p><strong>Alfrothul:</strong> Ich will! Darf ich?</p>
+<p><strong>Sigrid:</strong> Klar.</p>
+<p><strong>Alfrothul:</strong></p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>  | S m -&gt; &quot;n ist nicht null&quot;;;
+- : string = &quot;n ist nicht null&quot;
+#
+</pre></div>
+</div>
+<p><strong>Brynja:</strong> Sieht gut aus, aber warum hast du denn dem Argument einen Namen gegeben,
+wenn du es dann gar nicht benutzt. Das könnte man doch bestimmt anders machen…</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># match n with
+  | O -&gt; (&quot;n ist null&quot;, O)
+  | S m -&gt; (&quot;n ist nicht null und der vorgaenger ist:&quot;, m);;
+- : string * nat = (&quot;n ist nicht null und der vorgaenger ist:&quot;, S O)
+#
+</pre></div>
+</div>
+<p><strong>Sigrid:</strong> Das sieht mir aber nach einer ziemlich sinnlosen Berechnung aus.</p>
+<p><strong>Alfrothul:</strong> Aber mir hat es beim Verstehen geholfen. Also wenn wir im Zweig <code class="docutils literal notranslate"><span class="pre">S</span>
+<span class="pre">m</span></code> landen, dann wissen wir, dass das Input, in diesem Fall <code class="docutils literal notranslate"><span class="pre">n</span></code>, eine <code class="docutils literal notranslate"><span class="pre">nat</span></code> ist,
+die größer als null ist, weil ihr Konstruktor <code class="docutils literal notranslate"><span class="pre">S</span></code> war. Und wir definieren dass <code class="docutils literal notranslate"><span class="pre">n</span>
+<span class="pre">=</span> <span class="pre">S</span> <span class="pre">m</span></code>, womit wir wissen, dass <code class="docutils literal notranslate"><span class="pre">m</span></code> der Vorgänger von <code class="docutils literal notranslate"><span class="pre">n</span></code> ist.</p>
+<p><strong>Sigird:</strong> Klingt sinnvoll. Ich muss mir das nochmal genauer angucken und ein
+Bisschen damit ausprobpieren.</p>
+<p><strong>Brynja:</strong> Ich habe noch eine Idee: Tupel.</p>
+<p><strong>Alfrothul:</strong> Was ist damit?</p>
+<p><strong>Sigrid:</strong> Stimmt! Damit kann man doch bestimmt die einzelnen Elemente aus einem
+Tupel raus holen.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># let tup = (1, &#39;a&#39;, &quot;Hello World&quot;);;
+val tup : int * char * string = (1, &#39;a&#39;, &quot;Hello World&quot;)
+# match tup with
+  | (a, b, c) -&gt; a + 5;;
+- : int = 6
+#
+</pre></div>
+</div>
+<p>Stimmt, geht.</p>
+<p><strong>Brynja:</strong> Geht aber auch mit weniger Namen:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span># match tup with
+  | (a, _, _) -&gt; a + 5;;
+- : int = 6
+#
+</pre></div>
+</div>
+</div>
+<div class="section" id="ubung-40">
+<h2>Übung 40<a class="headerlink" href="#ubung-40" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Um mit <code class="docutils literal notranslate"><span class="pre">match</span></code> etwas vertraut zu werden, schreibe eine Vorgänger-Funktion für
+natürliche Zahlen.</p>
+<p>Tipp: Der Vorgänger von O ist in diesem Fall O.</p>
+</div>
+<div class="section" id="ubung-41">
+<h2>Übung 41<a class="headerlink" href="#ubung-41" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Um noch vertrauter mit <code class="docutils literal notranslate"><span class="pre">match</span></code> und den <code class="docutils literal notranslate"><span class="pre">nat</span></code> s zu werden, schreibe eine
+Vor-Vorgänger-Funktion.</p>
+<p>Tipp: Dieses Mal müsste dein <code class="docutils literal notranslate"><span class="pre">match</span></code> drei Fälle haben (also drei Zeilen unter dem
+<code class="docutils literal notranslate"><span class="pre">match</span> <span class="pre">n</span> <span class="pre">with</span></code>); eine für O, eine für S m und eine für S (S m).</p>
+</div>
+<div class="section" id="konvertieren-von-nat-zu-int-forgesetzt">
+<h2>Konvertieren von <code class="docutils literal notranslate"><span class="pre">nat</span></code> zu <code class="docutils literal notranslate"><span class="pre">int</span></code> (forgesetzt)<a class="headerlink" href="#konvertieren-von-nat-zu-int-forgesetzt" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Nun wissen wir, wie wir <code class="docutils literal notranslate"><span class="pre">match</span></code> effektiv nutzen um Schichten von <code class="docutils literal notranslate"><span class="pre">nat</span></code> s
+abzupulen. (Yay! Noch mehr Zwiebeldenken!)</p>
+<p>Wir haben uns die beiden Möglichkeiten für Inputs ja vorhin schon angeschaut. Nun
+wird es Zeit, das ganze in die Tat umzusetzen.</p>
+</div>
+<div class="section" id="ubung-42">
+<h2>Übung 42<a class="headerlink" href="#ubung-42" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Schreibe die Funktion <code class="docutils literal notranslate"><span class="pre">nat_to_int</span></code> und teste sie.</p>
+<p>Dieses Mal darfst du alles ganz alleine schreiben, ohne dass ich was vorsage.</p>
+</div>
+<div class="section" id="endbemerkung">
+<h2>Endbemerkung<a class="headerlink" href="#endbemerkung" title="Link zu dieser Überschrift">¶</a></h2>
+<p>Damit ist der Kurs abgeschlossen. Natürlich war das nur ein kleiner Vorgeschmack auf
+die große Welt des Programmierens. Wenn du mehr lernen willst, dann kann ich nur
+empfehlen das <a class="reference external" href="https://delimited-continuation.github.io/YSC1212/2022-2023_Sem1/index.html">Material von Olivier Danvy</a> zu
+lesen.</p>
+<p>Im folgenden Kapitel findest du noch ein paar Bonus-Übungen, die du mit dem bisher
+gelernten bewältigen können solltest.</p>
+<p>Ich stehe auch weiterhin gerne für Nachfragen zur Verfügung. Entweder persönlich hier
+im DiZ oder per eMail.</p>
+</div>
 <div class="section" id="version-of-induktive-typen-definieren">
 <h2>Version of ‚induktive_typen_definieren‘<a class="headerlink" href="#version-of-induktive-typen-definieren" title="Link zu dieser Überschrift">¶</a></h2>
 <p>Erstellt [2023-03-08]</p>
@@ -210,7 +401,15 @@ also ungefähr so aussehen: <code class="docutils literal notranslate"><span cla
 <li><a class="reference internal" href="#naturliche-zahlen-neu-definiert">Natürliche Zahlen neu definiert</a></li>
 <li><a class="reference internal" href="#konvertieren-zwischen-int-und-nat">Konvertieren zwischen <code class="docutils literal notranslate"><span class="pre">int</span></code> und <code class="docutils literal notranslate"><span class="pre">nat</span></code></a></li>
 <li><a class="reference internal" href="#ubung-38">Übung 38</a></li>
-<li><a class="reference internal" href="#konvertieren-zwischen-int-und-nat-fortgesetzt">Konvertieren zwischen <code class="docutils literal notranslate"><span class="pre">int</span></code> und <code class="docutils literal notranslate"><span class="pre">nat</span></code> (fortgesetzt)</a></li>
+<li><a class="reference internal" href="#konvertieren-von-int-zu-nat">Konvertieren von <code class="docutils literal notranslate"><span class="pre">int</span></code> zu <code class="docutils literal notranslate"><span class="pre">nat</span></code></a></li>
+<li><a class="reference internal" href="#ubung-39">Übung 39</a></li>
+<li><a class="reference internal" href="#konvertieren-von-nat-zu-int">Konvertieren von <code class="docutils literal notranslate"><span class="pre">nat</span></code> zu <code class="docutils literal notranslate"><span class="pre">int</span></code></a></li>
+<li><a class="reference internal" href="#zwischenspiel-uber-match">Zwischenspiel über <code class="docutils literal notranslate"><span class="pre">match</span></code></a></li>
+<li><a class="reference internal" href="#ubung-40">Übung 40</a></li>
+<li><a class="reference internal" href="#ubung-41">Übung 41</a></li>
+<li><a class="reference internal" href="#konvertieren-von-nat-zu-int-forgesetzt">Konvertieren von <code class="docutils literal notranslate"><span class="pre">nat</span></code> zu <code class="docutils literal notranslate"><span class="pre">int</span></code> (forgesetzt)</a></li>
+<li><a class="reference internal" href="#ubung-42">Übung 42</a></li>
+<li><a class="reference internal" href="#endbemerkung">Endbemerkung</a></li>
 <li><a class="reference internal" href="#version-of-induktive-typen-definieren">Version of ‚induktive_typen_definieren‘</a></li>
 </ul>
 </li>
@@ -220,8 +419,8 @@ also ungefähr so aussehen: <code class="docutils literal notranslate"><span cla
   <p class="topless"><a href="week-08_index.html"
                         title="vorheriges Kapitel">Lehrmaterial für Woche 08</a></p>
   <h4>Nächstes Thema</h4>
-  <p class="topless"><a href="../resources/dramatis_personae.html"
-                        title="nächstes Kapitel">Dramatis Personae</a></p>
+  <p class="topless"><a href="week-08_bonus.html"
+                        title="nächstes Kapitel">Bonusübungen</a></p>
   <div role="note" aria-label="source link">
     <h3>Diese Seite</h3>
     <ul class="this-page-menu">
@@ -252,7 +451,7 @@ also ungefähr so aussehen: <code class="docutils literal notranslate"><span cla
           <a href="../genindex.html" title="Stichwortverzeichnis"
              >Index</a></li>
         <li class="right" >
-          <a href="../resources/dramatis_personae.html" title="Dramatis Personae"
+          <a href="week-08_bonus.html" title="Bonusübungen"
              >weiter</a> |</li>
         <li class="right" >
           <a href="week-08_index.html" title="Lehrmaterial für Woche 08"

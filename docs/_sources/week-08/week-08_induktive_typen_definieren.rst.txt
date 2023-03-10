@@ -62,9 +62,9 @@ Wenn wir also natürliche Zahlen definieren wollen, dann können wir das wie fol
 
 ::
 
-   type nat_v1 =
-   | Null
-   | Nachfolger of nat_v1;;
+   # type nat_v1 =
+     | Null
+     | Nachfolger of nat_v1;;
    type nat_v1 = Null | Nachfolger of nat_v1
 
 
@@ -81,9 +81,9 @@ ganze ab und benutzen ``O`` (großes o) als Null und ``S`` anstelle von Nachfolg
 
 ::
 
-   type nat =
-   | O
-   | S of nat;;
+   # type nat =
+     | O
+     | S of nat;;
    type nat = O | S of nat
 
 
@@ -138,6 +138,9 @@ sind. Wir können also den Test anfangen wie folgt:
 Übung 38
 ========
 
+Nimm dir den :download:`OCaml-Code
+<../exercises/week-08/exercises_for_week-08.ml>` für diese Woche zur Hand.
+
 Schreibe mindestens fünf weitere Tests in die Testfunktion. Achte gerne darauf, dass
 alle möglichen Kombinationen von positiven Zahlen, negativen Zahlen und Null
 überprüfst.
@@ -163,8 +166,8 @@ die Testergebnisse für beide Einzelfunktionen sowie die für beide Funktionen z
 sehen kannst. 
 
 
-Konvertieren zwischen ``int`` und ``nat`` (fortgesetzt)
-=======================================================
+Konvertieren von ``int`` zu ``nat``
+===================================
 
 Fangen wir unsere Arbeit mit etwas an, was wir kennen: rekursive Funktionen über
 Integer. Das bedeutet, dass wir als erstes die Funktion ``int_to_nat`` schreiben.
@@ -194,6 +197,265 @@ noch konvertieren und dann erst die nächste Lage ``nat`` hinzufügen. Das ganze
 also ungefähr so aussehen: ``S (int_to_nat (n-1))``
 
 
+Übung 39
+========
+
+Nutze das, was du letzte Woche gelernt hast und oben genannten Basis- und
+Induktivfall um die Konvertierungsfunktion ``int_to_nat`` zu schreiben. 
+
+
+
+Konvertieren von ``nat`` zu ``int``
+===================================
+
+Für die Konvertierung von ``nat`` zu ``int`` haben wir von Anfang an nur zwei
+mögliche Bereiche für das Input:
+
+* = O
+* < O
+
+Das lässt sich auch anders schreiben:
+
+* = O
+* = S n, wo n ein Wert ist. 
+
+Das ergibt sich ganz logisch aus unserer Typendefinition. Guck dir gerne die
+Typendefinition noch einmal an und sieh die zwei Fälle dort. 
+
+
+Wir könnten jetzt also die Funktion ganz einfach schreiben wie wir gerade die andere
+geschrieben haben:
+
+::
+
+   let rec nat_to_int_v1 n =
+     if n = O
+     then 0
+     else 1 + (nat_to_int_v1 (n - 1));;
+
+Doof nur, dass das ``(-)`` nur für Integer definiert ist und nicht für ``nat`` s. Wir
+könnten nun natürlich eine Vorgänger-Funktion für die natürlichen Zahlen definieren,
+aber es geht auch einfacher.
+
+
+Zwischenspiel über ``match``
+============================
+
+**Mimer:** In OCaml können wir einen Wert auf seine Struktur überprüfen und je nachdem, wie
+dieser Wert konsturiert ist eine andere Berechnung ausführen.
+
+**Alfrothul:** Das verstehe ich nicht.
+
+**Brynja:** Ich schon, glaube ich. Wir haben zum Beispiel bei ``nat`` zwei
+Konstruktoren: ``O`` und ``S n``, wo ``n`` eine andere ``nat`` ist.
+
+**Alfrothul:** Okay... wenn wir also Booleans nehmen, haben wir auch wieder zwei
+Konstruktoren, ``true`` und ``false``, stimmt das?
+
+**Mimer:** Genau, du bist auf dem richtigen Wege.
+
+**Sigrid:** Ich muss das ausprobieren, sonst verstehe ich das nicht. Also Mimer, wie
+schreibe ich das?
+
+**Mimer:**
+
+::
+
+   match w with
+   | ... -> ...
+   | ... -> ...
+   | etc.
+
+wo w ein Wert ist. Links von den ``->`` steht die Struktur, mit der w verglichen wird
+und rechts davon die Berechnung, die dann ausgeührt werden soll.
+
+**Sigrid:** Okay. Wenn ich jetzt also zum Beispiel die ``not``-Funktion für Booleans
+schreiben wollte, wäre das so:
+
+::
+
+   # let not_v1 b =
+     match b with
+     | true -> false
+     | false -> true ;;
+   val not_v1 : bool -> bool = <fun>
+   #
+
+**Brynja:** Ich glaube schon, aber lass es uns lieber testen: 
+
+::
+   
+   # not_v1 true;;
+   - : bool = false
+   # not_v1 false;;
+   - : bool = true
+   #
+
+**Alfrothul:** Dann kann ich mir ja auch bei Integern das ganze ``if`` schenken. Ich
+schreibe einfach:
+
+::
+
+   # let rec int_to_nat_v2 i =
+      match i with
+      | <= 0 -> O
+      | > 0 -> S (int_to_nat_v2 (i-1));;
+   Error: Syntax error
+   #
+
+Hm... oder auch nicht?
+
+**Mimer:** Nein, ``<=`` und ``>`` sind Operatoren, keine Struktur.
+
+**Brynja:** Ich glaube, wir könnten da aber die Struktur von Booleans benutzen.
+
+**Alfrothul:** Wieso denn Booleans? Die haben hiermit doch gar nichts zu tun.
+
+**Brynja:** Nicht direkt. Aber in einem ``if`` hast du ja immer einen Boolean als
+Test. Warum nicht auch hier?
+
+::
+
+   # let rec int_to_nat_v2 i =
+     match (i <= 0) with
+     | true -> O
+     | false -> S (int_to_nat_v2 (i-1));;
+   val int_to_nat_v2 : int -> nat = <fun>
+   #
+
+**Alfrothul:** Hm! Cool!
+
+**Sigrid:** Ich glaube ich sehe, wie das mit ``nat`` Sinnvoll ist:
+
+::
+
+   # let n = S (S O);;
+   val n : nat = S (S O)
+   # match n with
+     | O -> "n ist null"
+     | S
+
+Uhm... ich brauche hier mal Hilfe. Der Konstruktor ``S`` nimmt ja ein Argument, wie
+schreibe ich denn das?
+
+**Mimer:** Gut bemerkt! Wenn du einen Konstruktor hast, der Argumente nimmt, kannst
+du den Argumenten Namen geben indem du Namen an ihre Stelle schreibst. Du kannst sie
+auch anonym sein lassen, indem du einfach einen Unterstrich schreibst.
+
+**Alfrothul:** Ich will! Darf ich?
+
+**Sigrid:** Klar.
+
+**Alfrothul:** 
+
+::
+        
+     | S m -> "n ist nicht null";;
+   - : string = "n ist nicht null"
+   #
+
+**Brynja:** Sieht gut aus, aber warum hast du denn dem Argument einen Namen gegeben,
+wenn du es dann gar nicht benutzt. Das könnte man doch bestimmt anders machen...
+
+::
+
+   # match n with
+     | O -> ("n ist null", O)
+     | S m -> ("n ist nicht null und der vorgaenger ist:", m);;
+   - : string * nat = ("n ist nicht null und der vorgaenger ist:", S O)
+   #
+
+**Sigrid:** Das sieht mir aber nach einer ziemlich sinnlosen Berechnung aus.
+
+**Alfrothul:** Aber mir hat es beim Verstehen geholfen. Also wenn wir im Zweig ``S
+m`` landen, dann wissen wir, dass das Input, in diesem Fall ``n``, eine ``nat`` ist,
+die größer als null ist, weil ihr Konstruktor ``S`` war. Und wir definieren dass ``n
+= S m``, womit wir wissen, dass ``m`` der Vorgänger von ``n`` ist.
+
+**Sigird:** Klingt sinnvoll. Ich muss mir das nochmal genauer angucken und ein
+Bisschen damit ausprobpieren.
+
+**Brynja:** Ich habe noch eine Idee: Tupel.
+
+**Alfrothul:** Was ist damit?
+
+**Sigrid:** Stimmt! Damit kann man doch bestimmt die einzelnen Elemente aus einem
+Tupel raus holen.
+
+::
+
+   # let tup = (1, 'a', "Hello World");;
+   val tup : int * char * string = (1, 'a', "Hello World")
+   # match tup with
+     | (a, b, c) -> a + 5;;
+   - : int = 6
+   #
+
+Stimmt, geht.
+
+**Brynja:** Geht aber auch mit weniger Namen:
+
+::
+
+   # match tup with
+     | (a, _, _) -> a + 5;;
+   - : int = 6
+   #
+ 
+
+Übung 40
+========
+
+Um mit ``match`` etwas vertraut zu werden, schreibe eine Vorgänger-Funktion für
+natürliche Zahlen.
+
+Tipp: Der Vorgänger von O ist in diesem Fall O.
+
+
+Übung 41
+========
+
+Um noch vertrauter mit ``match`` und den ``nat`` s zu werden, schreibe eine
+Vor-Vorgänger-Funktion.
+
+Tipp: Dieses Mal müsste dein ``match`` drei Fälle haben (also drei Zeilen unter dem
+``match n with``); eine für O, eine für S m und eine für S (S m).
+
+   
+
+Konvertieren von ``nat`` zu ``int`` (forgesetzt)
+================================================
+
+Nun wissen wir, wie wir ``match`` effektiv nutzen um Schichten von ``nat`` s
+abzupulen. (Yay! Noch mehr Zwiebeldenken!)
+
+Wir haben uns die beiden Möglichkeiten für Inputs ja vorhin schon angeschaut. Nun
+wird es Zeit, das ganze in die Tat umzusetzen.
+
+
+Übung 42
+========
+
+Schreibe die Funktion ``nat_to_int`` und teste sie.
+
+Dieses Mal darfst du alles ganz alleine schreiben, ohne dass ich was vorsage.
+
+
+
+Endbemerkung
+============
+
+Damit ist der Kurs abgeschlossen. Natürlich war das nur ein kleiner Vorgeschmack auf
+die große Welt des Programmierens. Wenn du mehr lernen willst, dann kann ich nur
+empfehlen das `Material von Olivier Danvy
+<https://delimited-continuation.github.io/YSC1212/2022-2023_Sem1/index.html>`_ zu
+lesen.
+
+Im folgenden Kapitel findest du noch ein paar Bonus-Übungen, die du mit dem bisher
+gelernten bewältigen können solltest.
+
+Ich stehe auch weiterhin gerne für Nachfragen zur Verfügung. Entweder persönlich hier
+im DiZ oder per eMail. 
 
 
 

@@ -6,4 +6,4 @@ Lehrmaterial für Woche 08
    :maxdepth: 2
 
    week-08_induktive_typen_definieren
-
+   week-08_bonus
