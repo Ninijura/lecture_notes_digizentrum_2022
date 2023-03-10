@@ -17,11 +17,11 @@ Testfunktionen in der Lösungsdatei anzuschauen.
 
 
 Ganzzahlen
-==========
+----------
 
 
 Bonusübung 1
-============
+------------
 Wir haben den Typen für natürliche Zahlen definiert. Definiere nun auf die gleiche
 Art einen Typen für alle Ganzzahlen (positive und negative).
 
@@ -31,13 +31,13 @@ Noch ein Tipp: Du brauchst wahrscheinlich drei Konstruktoren.
 
 
 Bonusübung 2
-============
+------------
 Schreibe Vorgänger- und Nachfolger-Funktionen für deinen Ganzzahl-Typen. Versuche die
 Zahlen möglichst klein zu halten.
 
 
 Bonusübung 3
-============
+------------
 
 Schreibe Funktionen, die zwischen deinem Ganzzahltypen und dem OCaml-nativen ``int``
 hin und her konvertieren. 
@@ -45,5 +45,5 @@ hin und her konvertieren.
 
 
 Bonusübung 4
-============
+------------
 
