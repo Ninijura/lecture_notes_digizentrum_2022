@@ -102,8 +102,36 @@ let ganz_to_int_korrekt = test_ganz_to_int ganz_to_int;;
 
 (* Bonusübung 4 *)
 
+(* Funktion aus tools kopiert. *)
+
+let rec normalise_g g =
+  let rec visit rest acc repeat =
+    match rest with
+    | O -> if repeat then normalise_g acc else acc
+    | S (P n) -> visit n acc true
+    | P (S n) -> visit n acc true
+    | S n -> visit n (S acc) repeat
+    | P n -> visit n (P acc) repeat
+  in visit g O false;;
 
 
+(* Schreibe Plus, Minus und Mal für Ganzzahlen. *)
+
+let test_plus_g kandidat =
+  let b1 = (kandidat O O = O)
+  and b2 = (kandidat (S O) O = (S O))
+  and b3 = (kandidat (P O) O = P O)
+  and b4 = (kandidat (P O) (S O) = O)
+  and b5 = (kandidat (S (S (S (S O)))) (P O) = (S (S (S O))))
+  in b1 && b2 && b3 && b4 && b5;;
+
+let rec plus_g g1 g2 =
+  match g1 with
+  | O -> normalise_g g2
+  | S g -> plus_g g (S g2)
+  | P g -> plus_g g (P g2);;
+
+let plus_g_korrekt = test_plus_g plus_g;;
 
 
 
